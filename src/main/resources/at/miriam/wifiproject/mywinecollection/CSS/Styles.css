@@ -1,0 +1,90 @@
+
+/*Typselektor -> alle Elemente des gleichen Typs*/
+Label {
+	
+	-fx-font: 12 "Verdana";
+	
+}
+
+AnchorPane {
+	
+	-fx-background-color: #eff3f7;	
+	
+}
+
+TableView {
+	
+	-fx-background-color: #eff3f7;
+}
+
+GridPane {
+	
+	fx-background-color: #eff3f7;
+}
+
+ChoiceBox {
+	
+	-fx-border-color: lightgrey;
+	-fx-background-color: white;
+	-fx-border-radius: 3;
+}
+
+
+/*Styleklasse*/
+
+.button {
+	
+	-fx-text-fill: black;
+
+	}
+	
+.button:hover {
+	
+	-fx-background-color: #bedbcc;
+	/*-fx-effect: dropshadow( three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);*/
+	/*-fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;*/
+   
+}
+
+.button:pressed {
+	
+	 -fx-font: 10 "Verdana";
+	 -fx-background-color: #bedbcc;
+}
+
+.tab {
+	
+	-fx-font: "Verdana";
+	-fx-tab-min-width: 30;
+	-fx-tab-max-width: 100;	
+	-fx-background-color: #eff3f7;
+}
+
+.tab:selected {
+	
+	-fx-background-color: #bedbda;
+}
+
+.tab:hover {
+	
+	-fx-background-color:  #bedbcc;
+	
+}
+
+.tab:pressed {
+	
+	-fx-font: 10 "Verdana";
+} 
+
+/*id*/
+#topLabel {
+	
+	-fx-font-size: 16; 
+	-fx-font: "Verdana";
+}
+
+
+
+
