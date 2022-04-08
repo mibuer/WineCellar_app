@@ -1,6 +1,5 @@
 package at.miriam.wifiproject.mywinecollection;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Producer {

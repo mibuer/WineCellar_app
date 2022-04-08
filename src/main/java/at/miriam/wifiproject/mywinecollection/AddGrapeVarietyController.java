@@ -31,6 +31,7 @@ public class AddGrapeVarietyController {
     	variety.setName(name);
     	
     	WineModel.varietyList.add(variety);
+
     }
 
     @FXML

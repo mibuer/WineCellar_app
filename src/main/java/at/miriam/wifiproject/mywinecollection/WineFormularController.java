@@ -16,12 +16,16 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class WineFormularController {
-
+	
+	//TabPane Wein
     @FXML
     private ResourceBundle resources;
 
@@ -96,10 +100,50 @@ public class WineFormularController {
     
     @FXML 
     private Button addButton;
-
     
-    
+    //TabPane Tabelle 
+    @FXML TableView<Wine> tableView;
 
+	@FXML TableColumn<Wine, String> favouritesColumn;
+
+	@FXML TableColumn<Wine, WineCategory> categoryColumn;
+
+	@FXML TableColumn<Wine, String> wineStyleColumn;
+
+	@FXML TableColumn<Wine, Variety> varietyColumn;
+
+	@FXML TableColumn<Wine, String> nameColumn;
+
+	@FXML TableColumn<Wine, String> producerColumn;
+
+	@FXML TableColumn<Wine, String> vintageColumn;
+
+	@FXML TableColumn<Wine, String> alcoholColumn;
+
+	@FXML TableColumn<Wine, String> countryColumn;
+
+	@FXML TableColumn<Wine, String> regionColumn;
+
+	@FXML TableColumn<Wine, String> vineyardColumn;
+
+	@FXML TableColumn<Wine, Storage> storageColumn;
+
+	@FXML TableColumn<Wine, String> shelfNrColumn;
+
+	@FXML TableColumn<Wine, String> numOFBottlesColumn;
+
+	@FXML TableColumn<Wine, String> bottleSizeColumn;
+
+	@FXML TableColumn<Wine, String> shopColumn;
+
+	@FXML TableColumn<Wine, LocalDate> dateColumn;
+
+	@FXML TableColumn<Wine, String> priceColumn;
+	
+	
+	
+
+	//TabPane Wein
     @FXML
     void onOpenNewImageFileButtonClick(ActionEvent event) {  //Bilddatei hinzufügen
     	
@@ -195,7 +239,7 @@ public class WineFormularController {
     		
     	}
     	
-    		
+    	
     	
 
     }
@@ -236,8 +280,14 @@ public class WineFormularController {
 
     @FXML
     void onNewStorageLocationButtonClick(ActionEvent event) {
-
+    	
     	//neues Fenster öffnet sich zur Eingabe
+    	try {
+			new AddStorageWindow().show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     }
     
@@ -306,6 +356,8 @@ public class WineFormularController {
         							.or(storageLocationChoiceBox.valueProperty().isNull())
         							.or(numberBottlesTextField.textProperty().isEmpty())
         							.or(bottleSizeChoiceBox.valueProperty().isNull()));
+      
+        
         
     }
 
