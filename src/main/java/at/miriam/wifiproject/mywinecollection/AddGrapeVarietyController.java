@@ -32,6 +32,7 @@ public class AddGrapeVarietyController {
     	
     	WineModel.varietyList.add(variety);
 
+    	
     }
 
     @FXML
@@ -45,7 +46,7 @@ public class AddGrapeVarietyController {
     void initialize() {
         assert newVarietyLabel != null : "fx:id=\"newVarietyLabel\" was not injected: check your FXML file 'AddGrapeVarietyView.fxml'.";
         assert newVarietyTextField != null : "fx:id=\"newVarietyTextField\" was not injected: check your FXML file 'AddGrapeVarietyView.fxml'.";
-
+        
     }
 
 }

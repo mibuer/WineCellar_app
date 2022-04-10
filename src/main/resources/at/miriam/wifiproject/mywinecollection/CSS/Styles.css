@@ -56,7 +56,7 @@ ChoiceBox {
 
 .tab {
 	
-	-fx-font: "Verdana";
+	-fx-font: 12 "Verdana";
 	-fx-tab-min-width: 30;
 	-fx-tab-max-width: 100;	
 	-fx-background-color: #eff3f7;
@@ -81,8 +81,7 @@ ChoiceBox {
 /*id*/
 #topLabel {
 	
-	-fx-font-size: 16; 
-	-fx-font: "Verdana";
+	-fx-font: 16 "Verdana";
 }
 
 

@@ -75,8 +75,7 @@ public class Producer {
 
 	@Override
 	public String toString() {
-		return "Producer [name=" + name + ", country=" + country + ", wineRegion=" + wineRegion + ", vineyard="
-				+ vineyard + "]";
+		return name;
 	}
 	
 	

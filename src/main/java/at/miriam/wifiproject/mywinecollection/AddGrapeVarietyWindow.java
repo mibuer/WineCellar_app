@@ -12,7 +12,7 @@ public class AddGrapeVarietyWindow {
 	void show() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/at/miriam/wifiproject/mywinecollection/FXML/AddGrapeVarietyView.fxml"));
+		loader.setLocation(getClass().getResource(Constants.PATH_TO_ADD_GRAPE_VARIETY_VIEW));
 		
 		Parent root = loader.load();
 		Scene scene = new Scene(root);

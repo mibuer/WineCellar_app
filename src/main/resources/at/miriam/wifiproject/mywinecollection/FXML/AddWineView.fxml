@@ -240,7 +240,7 @@
                               </TextArea>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                        <HBox prefHeight="134.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
                            <children>
                               <Label text="Foto">
                                  <HBox.margin>
@@ -282,7 +282,7 @@
                                           <Insets bottom="10.0" top="10.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Button mnemonicParsing="false" onAction="#onOpenNewImageFileButtonClick" text="Öffnen">
+                                    <Button fx:id="openImagePathButton" mnemonicParsing="false" onAction="#onOpenNewImageFileButtonClick" text="Öffnen">
                                        <HBox.margin>
                                           <Insets bottom="10.0" right="10.0" top="10.0" />
                                        </HBox.margin>
@@ -440,23 +440,24 @@
                            <children>
                               <TableView fx:id="tableView" layoutX="97.0" layoutY="7.0" maxHeight="446.0" maxWidth="798.0" prefHeight="446.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="favouritesColumn" prefWidth="30.0" text="Favoriten" />
-                                  <TableColumn fx:id="categoryColumn" prefWidth="75.0" text="Kategorie" />
-                                    <TableColumn fx:id="wineStyleColumn" text="Weinstil" />
-                                    <TableColumn fx:id="varietyColumn" minWidth="0.0" prefWidth="38.0" text="Rebsorte" />
-                                    <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="74.0" text="Bezeichnung" />
-                                    <TableColumn fx:id="producerColumn" minWidth="0.0" prefWidth="74.0" text="Hersteller" />
-                                    <TableColumn fx:id="vintageColumn" minWidth="0.0" prefWidth="0.0" text="Jahrgang" />
-                                    <TableColumn fx:id="alcoholColumn" prefWidth="50.0" text="Vol. %" />
-                                    <TableColumn fx:id="countryColumn" prefWidth="50.0" text="Land" />
-                                    <TableColumn fx:id="regionColumn" prefWidth="75.0" text="Weinregion" />
-                                    <TableColumn fx:id="vineyardColumn" prefWidth="75.0" text="Lage" />
-                                    <TableColumn fx:id="storageColumn" prefWidth="15.999969482421875" text="Lagerort" />
-                                    <TableColumn fx:id="shelfNrColumn" minWidth="0.0" prefWidth="73.00003051757812" text="Regalnr." />
-                                    <TableColumn fx:id="numOFBottlesColumn" prefWidth="30.0" text="Menge" />
-                                    <TableColumn fx:id="bottleSizeColumn" prefWidth="75.0" text="Größe" />
-                                    <TableColumn fx:id="shopColumn" prefWidth="75.0" text="Händler" />
-                                    <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Datum" />
+                                  <TableColumn fx:id="favouritesColumn" maxWidth="30.0" minWidth="20.0" prefWidth="30.0" text="Favoriten" />
+                                  <TableColumn fx:id="categoryColumn" maxWidth="69.60000228881836" prefWidth="41.600006103515625" text="Kategorie" />
+                                    <TableColumn fx:id="nameColumn" maxWidth="59.19997787475586" prefWidth="59.19997787475586" text="Bezeichnung" />
+                                    <TableColumn fx:id="producerColumn" minWidth="0.0" prefWidth="58.399993896484375" text="Hersteller" />
+                                    <TableColumn fx:id="vintageColumn" minWidth="0.0" prefWidth="57.5999755859375" text="Jahrgang" />
+                                    <TableColumn fx:id="countryColumn" minWidth="0.0" prefWidth="45.60005187988281" text="Land" />
+                                    <TableColumn fx:id="regionColumn" prefWidth="91.2000732421875" text="Weinregion" />
+                                    <TableColumn fx:id="vineyardColumn" prefWidth="47.99993896484375" text="Lage" />
+                                    <TableColumn fx:id="varietyColumn" prefWidth="75.0" text="Rebsorte" />
+                                    <TableColumn fx:id="alcoholColumn" prefWidth="28.0" text="\%" />
+                                    <TableColumn fx:id="wineStyleColumn" prefWidth="72.79998779296875" text="Weinstil" />
+                                    <TableColumn fx:id="readyToDrinkColumn" minWidth="0.0" prefWidth="20.800048828125" text="Trinkreife" />
+                                    <TableColumn fx:id="storageColumn" minWidth="0.0" prefWidth="64.79998779296875" text="Lagerort" />
+                                    <TableColumn fx:id="shelfNrColumn" prefWidth="75.0" text="RegalNr." />
+                                    <TableColumn fx:id="numOfBottlesColumn" prefWidth="75.0" text="Menge" />
+                                    <TableColumn fx:id="bottleSizeColumn" prefWidth="53.60003662109375" text="Größe" />
+                                    <TableColumn fx:id="shopColumn" prefWidth="43.2000732421875" text="Händler" />
+                                    <TableColumn fx:id="dateColumn" prefWidth="41.5999755859375" text="Datum" />
                                     <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Preis" />
                                 </columns>
                                  <columnResizePolicy>

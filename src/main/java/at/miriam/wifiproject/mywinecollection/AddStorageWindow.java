@@ -12,7 +12,7 @@ public class AddStorageWindow {
 void show() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/at/miriam/wifiproject/mywinecollection/FXML/AddStorageView.fxml"));
+		loader.setLocation(getClass().getResource(Constants.PATH_TO_ADD_STORAGE_VIEW));
 		
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
