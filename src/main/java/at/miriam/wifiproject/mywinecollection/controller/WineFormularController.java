@@ -1,4 +1,4 @@
-package at.miriam.wifiproject.mywinecollection;
+package at.miriam.wifiproject.mywinecollection.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,15 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import at.miriam.wifiproject.mywinecollection.Wine.WineCategory;
+import at.miriam.wifiproject.mywinecollection.AddGrapeVarietyWindow;
+import at.miriam.wifiproject.mywinecollection.AddStorageWindow;
+import at.miriam.wifiproject.mywinecollection.model.Producer;
+import at.miriam.wifiproject.mywinecollection.model.Purchase;
+import at.miriam.wifiproject.mywinecollection.model.Storage;
+import at.miriam.wifiproject.mywinecollection.model.Variety;
+import at.miriam.wifiproject.mywinecollection.model.Wine;
+import at.miriam.wifiproject.mywinecollection.model.WineModel;
+import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,14 +27,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 
 public class WineFormularController {
 	
@@ -74,7 +80,7 @@ public class WineFormularController {
     private TextField shelfNumberTextField;
 
     @FXML
-    private ChoiceBox<Storage> storageLocationChoiceBox;
+    private ChoiceBox<String> storageLocationChoiceBox;
 
     @FXML
     private TextField vineyardTextField;
@@ -149,7 +155,7 @@ public class WineFormularController {
 	private TableColumn<Wine, String> vineyardColumn;
 
 	@FXML 
-	private TableColumn<Wine, Storage> storageColumn;
+	private TableColumn<Wine, String> storageColumn;
 
 	@FXML 
 	private TableColumn<Wine, String> shelfNrColumn;
@@ -171,6 +177,9 @@ public class WineFormularController {
 	
 	@FXML
     private TableColumn<Wine, String> readyToDrinkColumn;
+
+	@FXML 
+	private ChoiceBox<String> wineStyleChoiceBox;
 
 	
 	
@@ -204,7 +213,7 @@ public class WineFormularController {
     	vineyardTextField.setText("");
     	grapeVarietyChoiceBox.setValue(null);
     	wineCategoryChoiceBox.setValue(null);
-    	wineStyleTextField.setText("");
+    	wineStyleChoiceBox.setValue(null);
     	readyToDrinkTextField.setText("");
     	chooseImageFilePathTextField.setText("");
     	imageView.setImage(null);
@@ -234,7 +243,7 @@ public class WineFormularController {
     	String style = wineStyleTextField.getText();
     	String readyToDrink = readyToDrinkTextField.getText();
     	String filePath = chooseImageFilePathTextField.getText();
-    	Storage storage = storageLocationChoiceBox.getValue();
+    	String storage = storageLocationChoiceBox.getValue();
     	String shelfNr = shelfNumberTextField.getText();
     	String numOfBottles = numberBottlesTextField.getText();
     	String bottleSize = bottleSizeChoiceBox.getValue();
@@ -250,6 +259,10 @@ public class WineFormularController {
     	producerNew = new Producer(producer, country, wineRegion, vineyard);
     	}
     	
+    	Storage storageNew = new Storage(storage, shelfNr, numOfBottles, bottleSize);
+    	
+    	Purchase purchaseNew = new Purchase(shop, date, price);
+    	
     	//Default Foto soll eingestellt sein, falls kein eigenes angegeben wird ???
     	//wurde 1 Foto hinzugefügt -> disable Button
     	
@@ -261,9 +274,9 @@ public class WineFormularController {
     		Wine wine = null;
     		
     		try {
-				wine = new Wine(name, producerNew, country, wineRegion, vineyard, vintage, alcohol, grapeVariety,
-								wineCategory, style, readyToDrink, filePath, imageBytesFromPath(filePath),
-								storage, shelfNr, numOfBottles, bottleSize, shop, date, price, ratings, notes);
+				wine = new Wine(name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
+								style, readyToDrink, filePath, imageBytesFromPath(filePath), 
+								storageNew, purchaseNew, ratings, notes);
 				
 				System.out.println(wine);
 				
@@ -291,7 +304,7 @@ public class WineFormularController {
 
 	//Methode Valdierung Input, Mindestens diese Felder müssen eigegeben werden:
     private boolean isValidFormInput(String name, String producer, String country, Variety variety, 
-    								WineCategory category, Storage storage, String numOfBottles, String bottleSize) {
+    								WineCategory category, String storage, String numOfBottles, String bottleSize) {
     	
 		return !name.isEmpty()
 				&& !producer.isEmpty()
@@ -333,9 +346,7 @@ public class WineFormularController {
     
 	@FXML
     void onUpdateTableButtonClick(ActionEvent event) {
-		
-		tableView.setEditable(true);
-		
+	        
 		
     }
 	
@@ -405,6 +416,9 @@ public class WineFormularController {
         //Category Choice Box
         wineCategoryChoiceBox.setItems(WineModel.categoryList);
         
+        //wineStyleChoiceBox
+        wineStyleChoiceBox.setItems(WineModel.wineStylesList);
+        
         //StorageLocation Choice Box
         storageLocationChoiceBox.setItems(WineModel.storageList);
         
@@ -422,6 +436,8 @@ public class WineFormularController {
         							.or(bottleSizeChoiceBox.valueProperty().isNull()));
       
         //Wein zur Tabelle hinzufügen
+       
+        
         String imagePath = "/at/miriam/wifiproject/mywinecollection/Images/default_image.png";
     	byte[] imageBytes = null;
 		try {
@@ -430,14 +446,15 @@ public class WineFormularController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	Wine wine = new Wine("Wiener Gemischter Satz DAC", 
-    						new Producer("Stift Klosterneuburg", "AT", "Wien", "Nussberg"), 
-    						"AT", "2021", "12,5", "Wien", "Nussberg", 
-    						new Variety("Gemischter Satz"), WineCategory.WEISS, 
-    						"leicht, fruchtig", "2023", 
-    						imagePath, imageBytes, 
-    						new Storage("Keller 1", 2), "2", "6", "0,75", "Vinothek", LocalDate.of(2022, 3, 15), "8.90", "falstaff 93", "Geburtstagsparty");
+		
+		chooseImageFilePathTextField.setText(imagePath);
+		imageView.setImage(null);
+	
+    	Wine wine = new Wine("Wiener Gemischter Satz DAC", new Producer("Stift Klosterneuburg", "AT", "Wien", "Nussberg"), 
+    						"2021", "12,5", new Variety("Gemischter Satz"), WineCategory.WEISS, 
+    						"leicht, fruchtig", "2023", imagePath, imageBytes, 
+    						new Storage("Keller 1", "2", "6", "0,75"), new Purchase("Vinothek", LocalDate.of(2022, 3, 15), "9,80"),
+    						"falstaff 93", "Geburtstagsparty");
         WineModel.winesList.add(wine);
         
         //Tabelle
@@ -489,11 +506,11 @@ public class WineFormularController {
         //Jahrgang
         vintageColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getVintage()));
         //Land
-        countryColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getCountry()));
+        countryColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getProducer().getCountry()));
         //Weinregion
-        regionColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getWineRegion()));
+        regionColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getProducer().getWineRegion()));
         //Lage
-        vineyardColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getVineyard()));
+        vineyardColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getProducer().getVineyard()));
         //Rebsorte
         varietyColumn.setCellValueFactory(data -> new SimpleObjectProperty<Variety>(data.getValue().getVariety()));
         //Alkoholgehalt
@@ -503,24 +520,23 @@ public class WineFormularController {
         //Trinkreife
         readyToDrinkColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getReadyToDrink()));
         //Lagerort
-        storageColumn.setCellValueFactory(data -> new SimpleObjectProperty<Storage>(data.getValue().getStorageLocation()));
+        storageColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getName()));
         //RegalNummer
-        shelfNrColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getShelfNumber()));
+        shelfNrColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getShelfNumber()));
         //Menge Flaschen
-        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getBottleNumber()));
+        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getBottleNumber()));
         //Flaschen Größe
-        bottleSizeColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getBottleSize()));
+        bottleSizeColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getBottleSize()));
         //Händler
-        shopColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getBottleSize()));
+        shopColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getPurchase().getWineShop()));
         //Datum
-        dateColumn.setCellValueFactory(data -> new SimpleObjectProperty<LocalDate>(data.getValue().getDateOfPurchase()));
+        dateColumn.setCellValueFactory(data -> new SimpleObjectProperty<LocalDate>(data.getValue().getPurchase().getDateOfPurchase()));
         //Preis
-        priceColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getPrice()));
+        priceColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getPurchase().getPrice()));
         
         
         
-        
-        
+      
     } //--------------------------------------------------------------------------------------
 
     

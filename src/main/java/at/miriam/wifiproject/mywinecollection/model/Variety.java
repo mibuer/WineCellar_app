@@ -1,4 +1,4 @@
-package at.miriam.wifiproject.mywinecollection;
+package at.miriam.wifiproject.mywinecollection.model;
 
 import java.util.Objects;
 

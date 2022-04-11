@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class AddGrapeVarietyWindow {
 	
-	void show() throws IOException {
+	public void show() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(Constants.PATH_TO_ADD_GRAPE_VARIETY_VIEW));

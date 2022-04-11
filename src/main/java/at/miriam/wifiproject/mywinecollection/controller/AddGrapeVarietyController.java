@@ -1,7 +1,10 @@
-package at.miriam.wifiproject.mywinecollection;
+package at.miriam.wifiproject.mywinecollection.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import at.miriam.wifiproject.mywinecollection.model.Variety;
+import at.miriam.wifiproject.mywinecollection.model.WineModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

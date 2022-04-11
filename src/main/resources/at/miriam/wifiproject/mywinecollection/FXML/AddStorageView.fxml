@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="at.miriam.wifiproject.mywinecollection.AddStorageController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="at.miriam.wifiproject.mywinecollection.controller.AddStorageController">
    <children>
       <Pane prefHeight="150.0" prefWidth="250.0">
          <children>

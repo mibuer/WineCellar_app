@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../CSS/Styles.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.miriam.wifiproject.mywinecollection.WineFormularController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../CSS/Styles.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.miriam.wifiproject.mywinecollection.controller.WineFormularController">
   <tabs>
     <Tab text="Start">
          <content>
@@ -376,11 +376,11 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="wineStyleTextField" prefHeight="25.0" prefWidth="160.0">
+                              <ChoiceBox fx:id="wineStyleChoiceBox" prefHeight="25.0" prefWidth="162.0">
                                  <HBox.margin>
-                                    <Insets bottom="10.0" left="27.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
                                  </HBox.margin>
-                              </TextField>
+                              </ChoiceBox>
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
@@ -440,25 +440,25 @@
                            <children>
                               <TableView fx:id="tableView" layoutX="97.0" layoutY="7.0" maxHeight="446.0" maxWidth="798.0" prefHeight="446.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="favouritesColumn" maxWidth="30.0" minWidth="20.0" prefWidth="30.0" text="Favoriten" />
-                                  <TableColumn fx:id="categoryColumn" maxWidth="69.60000228881836" prefWidth="41.600006103515625" text="Kategorie" />
-                                    <TableColumn fx:id="nameColumn" maxWidth="59.19997787475586" prefWidth="59.19997787475586" text="Bezeichnung" />
-                                    <TableColumn fx:id="producerColumn" minWidth="0.0" prefWidth="58.399993896484375" text="Hersteller" />
-                                    <TableColumn fx:id="vintageColumn" minWidth="0.0" prefWidth="57.5999755859375" text="Jahrgang" />
-                                    <TableColumn fx:id="countryColumn" minWidth="0.0" prefWidth="45.60005187988281" text="Land" />
-                                    <TableColumn fx:id="regionColumn" prefWidth="91.2000732421875" text="Weinregion" />
-                                    <TableColumn fx:id="vineyardColumn" prefWidth="47.99993896484375" text="Lage" />
-                                    <TableColumn fx:id="varietyColumn" prefWidth="75.0" text="Rebsorte" />
-                                    <TableColumn fx:id="alcoholColumn" prefWidth="28.0" text="\%" />
-                                    <TableColumn fx:id="wineStyleColumn" prefWidth="72.79998779296875" text="Weinstil" />
-                                    <TableColumn fx:id="readyToDrinkColumn" minWidth="0.0" prefWidth="20.800048828125" text="Trinkreife" />
-                                    <TableColumn fx:id="storageColumn" minWidth="0.0" prefWidth="64.79998779296875" text="Lagerort" />
-                                    <TableColumn fx:id="shelfNrColumn" prefWidth="75.0" text="RegalNr." />
-                                    <TableColumn fx:id="numOfBottlesColumn" prefWidth="75.0" text="Menge" />
-                                    <TableColumn fx:id="bottleSizeColumn" prefWidth="53.60003662109375" text="Größe" />
-                                    <TableColumn fx:id="shopColumn" prefWidth="43.2000732421875" text="Händler" />
-                                    <TableColumn fx:id="dateColumn" prefWidth="41.5999755859375" text="Datum" />
-                                    <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Preis" />
+                                  <TableColumn fx:id="favouritesColumn" prefWidth="-1.0" text="Favoriten" />
+                                  <TableColumn fx:id="categoryColumn" minWidth="-1.0" text="Kategorie" />
+                                    <TableColumn fx:id="nameColumn" text="Bezeichnung" />
+                                    <TableColumn fx:id="producerColumn" text="Hersteller" />
+                                    <TableColumn fx:id="vintageColumn" minWidth="-1.0" text="Jahrgang" />
+                                    <TableColumn fx:id="countryColumn" minWidth="-1.0" text="Land" />
+                                    <TableColumn fx:id="regionColumn" minWidth="-1.0" text="Weinregion" />
+                                    <TableColumn fx:id="vineyardColumn" minWidth="-1.0" text="Lage" />
+                                    <TableColumn fx:id="varietyColumn" minWidth="-1.0" text="Rebsorte" />
+                                    <TableColumn fx:id="alcoholColumn" minWidth="-1.0" text="\%" />
+                                    <TableColumn fx:id="wineStyleColumn" minWidth="-1.0" text="Weinstil" />
+                                    <TableColumn fx:id="readyToDrinkColumn" minWidth="-1.0" text="Trinkreife" />
+                                    <TableColumn fx:id="storageColumn" minWidth="-1.0" text="Lagerort" />
+                                    <TableColumn fx:id="shelfNrColumn" minWidth="-1.0" text="RegalNr." />
+                                    <TableColumn fx:id="numOfBottlesColumn" minWidth="-1.0" text="Menge" />
+                                    <TableColumn fx:id="bottleSizeColumn" minWidth="-1.0" text="Größe" />
+                                    <TableColumn fx:id="shopColumn" minWidth="-1.0" text="Händler" />
+                                    <TableColumn fx:id="dateColumn" minWidth="-1.0" text="Datum" />
+                                    <TableColumn fx:id="priceColumn" minWidth="-1.0" text="Preis" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
