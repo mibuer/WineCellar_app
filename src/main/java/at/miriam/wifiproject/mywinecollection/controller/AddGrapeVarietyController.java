@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AddGrapeVarietyController {
+public class AddGrapeVarietyController extends BaseController {
 
     @FXML
     private ResourceBundle resources;
@@ -33,7 +33,7 @@ public class AddGrapeVarietyController {
     	
     	variety.setName(name);
     	
-    	WineModel.varietyList.add(variety);
+    	model.varietyList.add(variety);
 
     	
     }

@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AddStorageController {
+public class AddStorageController extends BaseController {
 
     @FXML
     private ResourceBundle resources;
@@ -40,7 +40,7 @@ public class AddStorageController {
     	
     	storage.setName(storageName);
     	
-    	WineModel.storageList.add(storageName);
+    	model.storageList.add(storageName);
     	
     	
 

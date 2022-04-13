@@ -1,7 +1,8 @@
-package at.miriam.wifiproject.mywinecollection;
+package at.miriam.wifiproject.mywinecollection.controller;
 
 import java.io.IOException;
 
+import at.miriam.wifiproject.mywinecollection.Constants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +20,7 @@ public void show() throws IOException {
 		
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.show();
+		stage.showAndWait();
 	}
 	
 }
