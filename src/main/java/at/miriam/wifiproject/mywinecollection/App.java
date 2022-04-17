@@ -30,7 +30,6 @@ public class App extends Application {
     	
     	super.init();
     	initWineModel();
-    	System.out.println("Before App started");
     	
     }
     
@@ -42,15 +41,15 @@ public class App extends Application {
 		imageBytes = getClass().getResourceAsStream(imagePath).readAllBytes();
 	
     	Wine wine1 = new Wine("Wiener Gemischter Satz DAC", new Producer("Stift Klosterneuburg", "AT", "Wien", "Nussberg"), 
-    						"2021", "12,5", new Variety("Gemischter Satz"), WineCategory.WEISS, 
+    						"2021", 12.5, new Variety("Gemischter Satz"), WineCategory.WEISS, 
     						"leicht, fruchtig", "2023", imagePath, imageBytes, 
-    						new Storage("Keller 1", "2", "6", "0,75"), new Purchase("Vinothek", LocalDate.of(2022, 3, 15), "9,80"),
+    						new Storage("Keller 1", 2, 6, "0,75"), new Purchase("Vinothek", LocalDate.of(2022, 3, 15), 9.80),
     						"falstaff 93", "Geburtstagsparty");
     	
     	Wine wine2 = new Wine("Rosé Piaristisch", new Producer("Pia Strehn", "AT", "Mittelburgenland", "Deutschkreutz"), 
-				"2021", "12,5", new Variety("Cuvée"), WineCategory.ROSE, 
+				"2021", 12.5, new Variety("Cuvée"), WineCategory.ROSE, 
 				"leicht, fruchtig", "2023", imagePath, imageBytes, 
-				new Storage("Keller 2", "5", "1", "0,75"), new Purchase("Wein&Co", LocalDate.of(2022, 4, 3), "10,00"),
+				new Storage("Keller 2", 5, 1, "0,75"), new Purchase("Wein&Co", LocalDate.of(2022, 4, 3), 10.00),
 				"falstaff 93", "Geburtstagsparty");
     	
     	

@@ -12,7 +12,7 @@ public class Wine {
 	private String name;
 	private Producer producer;
 	private String vintage;
-	private String alcohol;
+	private Double alcohol;
 	private Variety variety;
 	private WineCategory wineCategory;
 	private String wineStyle;
@@ -28,7 +28,7 @@ public class Wine {
 		
 	}
 
-	public Wine(String name, Producer producer, String vintage, String alcohol, Variety variety,
+	public Wine(String name, Producer producer, String vintage, Double alcohol, Variety variety,
 			WineCategory wineCategory, String wineStyle, String readyToDrink, String imagePath, byte[] imageBytes,
 			Storage storage, Purchase purchase, String wineRatings, String notes) {
 		super();
@@ -72,11 +72,11 @@ public class Wine {
 		this.vintage = vintage;
 	}
 
-	public String getAlcohol() {
+	public Double getAlcohol() {
 		return alcohol;
 	}
 
-	public void setAlcohol(String alcohol) {
+	public void setAlcohol(Double alcohol) {
 		this.alcohol = alcohol;
 	}
 

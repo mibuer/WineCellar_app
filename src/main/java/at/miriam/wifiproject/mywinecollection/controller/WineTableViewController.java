@@ -11,16 +11,22 @@ import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.WineModel;
 import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 public class WineTableViewController extends BaseController {
 
@@ -49,7 +55,7 @@ public class WineTableViewController extends BaseController {
 		private TableColumn<Wine, String> vintageColumn;
 
 		@FXML 
-		private TableColumn<Wine, String> alcoholColumn;
+		private TableColumn<Wine, Double> alcoholColumn;
 
 		@FXML 
 		private TableColumn<Wine, String> countryColumn;
@@ -64,10 +70,10 @@ public class WineTableViewController extends BaseController {
 		private TableColumn<Wine, String> storageColumn;
 
 		@FXML 
-		private TableColumn<Wine, String> shelfNrColumn;
+		private TableColumn<Wine, Integer> shelfNrColumn;
 
 		@FXML 
-		private TableColumn<Wine, String> numOfBottlesColumn;
+		private TableColumn<Wine, Integer> numOfBottlesColumn;
 
 		@FXML 
 		private TableColumn<Wine, String> bottleSizeColumn;
@@ -79,7 +85,7 @@ public class WineTableViewController extends BaseController {
 		private TableColumn<Wine, LocalDate> dateColumn;
 
 		@FXML 
-		private TableColumn<Wine, String> priceColumn;
+		private TableColumn<Wine, Double> priceColumn;
 		
 		@FXML
 	    private TableColumn<Wine, String> readyToDrinkColumn;
@@ -102,25 +108,11 @@ public class WineTableViewController extends BaseController {
     }
 
     @FXML
-    void onUpdateTableButtonClick(ActionEvent event) {  //Wein ändern, AddWineView öffnet sich 
+    void onUpdateTableButtonClick(ActionEvent event) {   
     	
-    	//TableRow in der Tabelle auswählen
-    	Wine selectedTableRow = model.getSelectedWine();
-    	//click on Button "Ändern" -> AddWineView öffnet sich
-    	//showWindow() bekommt Stage 
-    	try {
-			new AddWineFormWindow().showWindow((Stage)getWindow());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	// zurück zu tab pane Wein, hier daten ändern
     	
-    	
-    	//Im AddWineViewController -->
-    	//Werte werden im Formular angezeigt -> ändern
-    	//Button click "Änderungen speichern"
-    	//wenn keine Änderungen gemacht werden -> disable Button Änderungen speichern 
-    	
+   
 
     }
     
@@ -152,29 +144,11 @@ public class WineTableViewController extends BaseController {
         assert vineyardColumn != null : "fx:id=\"vineyardColumn\" was not injected: check your FXML file 'WineTableView.fxml'.";
         assert vintageColumn != null : "fx:id=\"vintageColumn\" was not injected: check your FXML file 'WineTableView.fxml'.";
         assert wineStyleColumn != null : "fx:id=\"wineStyleColumn\" was not injected: check your FXML file 'WineTableView.fxml'.";
-
-      
-        //Wein zur Tabelle hinzufügen
-       
-        
-//        String imagePath = "/at/miriam/wifiproject/mywinecollection/Images/default_image.png";
-//    	byte[] imageBytes = null;
-//		try {
-//			imageBytes = getClass().getResourceAsStream(imagePath).readAllBytes();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	
-//    	Wine wine = new Wine("Wiener Gemischter Satz DAC", new Producer("Stift Klosterneuburg", "AT", "Wien", "Nussberg"), 
-//    						"2021", "12,5", new Variety("Gemischter Satz"), WineCategory.WEISS, 
-//    						"leicht, fruchtig", "2023", imagePath, imageBytes, 
-//    						new Storage("Keller 1", "2", "6", "0,75"), new Purchase("Vinothek", LocalDate.of(2022, 3, 15), "9,80"),
-//    						"falstaff 93", "Geburtstagsparty");
-//        WineModel.winesList.add(wine);
         
         //Tabelle
         tableView.setItems(model.winesList);
+//        tableView.setEditable(true);
+        
         //Erste Spalte: Button, um Wein als Favoriten auszuwählen, Favorit wird in einer Liste im WineModel gespeichert
         //Farbe des Buttons ändert sich, sobald in Favoriten Liste gespeichert
         favouritesColumn.setCellFactory(new Callback< TableColumn<Wine,Button>, TableCell<Wine,Button> >() {
@@ -230,17 +204,17 @@ public class WineTableViewController extends BaseController {
         //Rebsorte
         varietyColumn.setCellValueFactory(data -> new SimpleObjectProperty<Variety>(data.getValue().getVariety()));
         //Alkoholgehalt
-        alcoholColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getAlcohol()));
+        alcoholColumn.setCellValueFactory(data -> new SimpleObjectProperty<Double>(data.getValue().getAlcohol()));
         //Weinstil
         wineStyleColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getWineStyle()));
         //Trinkreife
-        readyToDrinkColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getReadyToDrink()));
+        readyToDrinkColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getReadyToDrink()));
         //Lagerort
         storageColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getName()));
         //RegalNummer
-        shelfNrColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getShelfNumber()));
+        shelfNrColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getStorage().getShelfNumber()));
         //Menge Flaschen
-        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getBottleNumber()));
+        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getStorage().getBottleNumber()));
         //Flaschen Größe
         bottleSizeColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getBottleSize()));
         //Händler
@@ -248,8 +222,7 @@ public class WineTableViewController extends BaseController {
         //Datum
         dateColumn.setCellValueFactory(data -> new SimpleObjectProperty<LocalDate>(data.getValue().getPurchase().getDateOfPurchase()));
         //Preis
-        priceColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getPurchase().getPrice()));
-        
+        priceColumn.setCellValueFactory(data -> new SimpleObjectProperty<Double>(data.getValue().getPurchase().getPrice()));
         
        
         model.selectedWineProperty().bind(tableView.getSelectionModel().selectedItemProperty());

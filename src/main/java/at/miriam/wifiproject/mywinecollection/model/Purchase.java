@@ -1,15 +1,16 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Purchase {
 
 	private String wineShop;
 	private LocalDate dateOfPurchase;
-	private String price;
+	private Double price;
 	
-	public Purchase(String wineShop, LocalDate dateOfPurchase, String price) {
+	public Purchase(String wineShop, LocalDate dateOfPurchase, Double price) {
 		super();
 		this.wineShop = wineShop;
 		this.dateOfPurchase = dateOfPurchase;
@@ -28,10 +29,10 @@ public class Purchase {
 	public void setDateOfPurchase(LocalDate dateOfPurchase) {
 		this.dateOfPurchase = dateOfPurchase;
 	}
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
@@ -55,6 +56,7 @@ public class Purchase {
 	
 	@Override
 	public String toString() {
+		
 		return "Purchase [wineShop=" + wineShop + ", dateOfPurchase=" + dateOfPurchase + ", price=" + price + "]";
 	}
 	

@@ -5,19 +5,19 @@ import java.util.Objects;
 public class Storage {
 
 	private String name;
-	private String shelfNumber;
-	private String bottleNumber;
+	private Integer shelfNumber;
+	private Integer numberOfBottles;
 	private String bottleSize;
 
 	public Storage() {
 		
 	}
 
-	public Storage(String name, String shelfNumber, String bottleNumber, String bottleSize) {
+	public Storage(String name, Integer shelfNumber, Integer numberOfBottles, String bottleSize) {
 		super();
 		this.name = name;
 		this.shelfNumber = shelfNumber;
-		this.bottleNumber = bottleNumber;
+		this.numberOfBottles = numberOfBottles;
 		this.bottleSize = bottleSize;
 	}
 
@@ -29,20 +29,20 @@ public class Storage {
 		this.name = name;
 	}
 
-	public String getShelfNumber() {
+	public Integer getShelfNumber() {
 		return shelfNumber;
 	}
 
-	public void setShelfNumber(String shelfNumber) {
+	public void setShelfNumber(Integer shelfNumber) {
 		this.shelfNumber = shelfNumber;
 	}
 
-	public String getBottleNumber() {
-		return bottleNumber;
+	public Integer getBottleNumber() {
+		return numberOfBottles;
 	}
 
-	public void setBottleNumber(String bottleNumber) {
-		this.bottleNumber = bottleNumber;
+	public void setBottleNumber(Integer bottleNumber) {
+		this.numberOfBottles = bottleNumber;
 	}
 
 	public String getBottleSize() {
@@ -55,7 +55,7 @@ public class Storage {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bottleNumber, bottleSize, name, shelfNumber);
+		return Objects.hash(numberOfBottles, bottleSize, name, shelfNumber);
 	}
 
 	@Override
@@ -67,13 +67,13 @@ public class Storage {
 		if (getClass() != obj.getClass())
 			return false;
 		Storage other = (Storage) obj;
-		return Objects.equals(bottleNumber, other.bottleNumber) && Objects.equals(bottleSize, other.bottleSize)
+		return Objects.equals(numberOfBottles, other.numberOfBottles) && Objects.equals(bottleSize, other.bottleSize)
 				&& Objects.equals(name, other.name) && Objects.equals(shelfNumber, other.shelfNumber);
 	}
 
 	@Override
 	public String toString() {
-		return "Storage [name=" + name + ", shelfNumber=" + shelfNumber + ", bottleNumber=" + bottleNumber
+		return "Storage [name=" + name + ", shelfNumber=" + shelfNumber + ", bottleNumber=" + numberOfBottles
 				+ ", bottleSize=" + bottleSize + "]";
 	}
 	
