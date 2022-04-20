@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Wine {
 	
 	public enum WineCategory {
-		WEISS, ROSE, ROT, SÜSS, SPARKLING, FORTIFIED
+		WEISS, ROSE, ROT, SÜSS, SCHAUMWEIN, LIKÖRWEIN
 	}
 
 	private String name;
