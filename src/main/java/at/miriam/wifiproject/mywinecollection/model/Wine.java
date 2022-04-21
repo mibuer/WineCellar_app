@@ -1,25 +1,47 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Wine {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Wine implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public enum WineCategory {
 		WEISS, ROSE, ROT, SÜSS, SCHAUMWEIN, LIKÖRWEIN
 	}
-
+	
+	@Id
+	@GeneratedValue (strategy = GenerationType.AUTO)
+	private long idWine;
 	private String name;
+	@ManyToOne
 	private Producer producer;
 	private String vintage;
 	private Double alcohol;
 	private Variety variety;
+	@ManyToOne
 	private WineCategory wineCategory;
 	private String wineStyle;
 	private String readyToDrink;
 	private String imagePath;
+	@Lob
 	private byte[] imageBytes;
+	@ManyToOne
 	private Storage storage;
+	@ManyToOne
 	private Purchase purchase;
 	private String wineRatings;
 	private String notes;
@@ -28,10 +50,13 @@ public class Wine {
 		
 	}
 
-	public Wine(String name, Producer producer, String vintage, Double alcohol, Variety variety,
+	
+
+	public Wine(long idWine, String name, Producer producer, String vintage, Double alcohol, Variety variety,
 			WineCategory wineCategory, String wineStyle, String readyToDrink, String imagePath, byte[] imageBytes,
 			Storage storage, Purchase purchase, String wineRatings, String notes) {
 		super();
+		this.idWine = idWine;
 		this.name = name;
 		this.producer = producer;
 		this.vintage = vintage;
@@ -47,6 +72,8 @@ public class Wine {
 		this.wineRatings = wineRatings;
 		this.notes = notes;
 	}
+
+
 
 	public String getName() {
 		return name;
@@ -160,15 +187,25 @@ public class Wine {
 		this.notes = notes;
 	}
 
+	public long getIdWine() {
+		return idWine;
+	}
+	
+	public void setIdWine(long idWine) {
+		this.idWine = idWine;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(imageBytes);
-		result = prime * result + Objects.hash(alcohol, imagePath, name, notes, producer, purchase, readyToDrink,
-				storage, variety, vintage, wineCategory, wineRatings, wineStyle);
+		result = prime * result + Objects.hash(alcohol, idWine, imagePath, name, notes, producer, purchase,
+				readyToDrink, storage, variety, vintage, wineCategory, wineRatings, wineStyle);
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -179,24 +216,22 @@ public class Wine {
 		if (getClass() != obj.getClass())
 			return false;
 		Wine other = (Wine) obj;
-		return Objects.equals(alcohol, other.alcohol) && Arrays.equals(imageBytes, other.imageBytes)
-				&& Objects.equals(imagePath, other.imagePath) && Objects.equals(name, other.name)
-				&& Objects.equals(notes, other.notes) && Objects.equals(producer, other.producer)
-				&& Objects.equals(purchase, other.purchase) && Objects.equals(readyToDrink, other.readyToDrink)
-				&& Objects.equals(storage, other.storage) && Objects.equals(variety, other.variety)
-				&& Objects.equals(vintage, other.vintage) && wineCategory == other.wineCategory
-				&& Objects.equals(wineRatings, other.wineRatings) && Objects.equals(wineStyle, other.wineStyle);
+		return Objects.equals(alcohol, other.alcohol) && idWine == other.idWine
+				&& Arrays.equals(imageBytes, other.imageBytes) && Objects.equals(imagePath, other.imagePath)
+				&& Objects.equals(name, other.name) && Objects.equals(notes, other.notes)
+				&& Objects.equals(producer, other.producer) && Objects.equals(purchase, other.purchase)
+				&& Objects.equals(readyToDrink, other.readyToDrink) && Objects.equals(storage, other.storage)
+				&& Objects.equals(variety, other.variety) && Objects.equals(vintage, other.vintage)
+				&& wineCategory == other.wineCategory && Objects.equals(wineRatings, other.wineRatings)
+				&& Objects.equals(wineStyle, other.wineStyle);
 	}
 
-	@Override
+
+
 	public String toString() {
-		return "Wine [name=" + name + ", producer=" + producer + ", vintage=" + vintage + ", alcohol=" + alcohol
-				+ ", variety=" + variety + ", wineCategory=" + wineCategory + ", wineStyle=" + wineStyle
-				+ ", readyToDrink=" + readyToDrink + ", imagePath=" + imagePath + ", imageBytes="
-				+ Arrays.toString(imageBytes) + ", storage=" + storage + ", purchase=" + purchase + ", wineRatings="
-				+ wineRatings + ", notes=" + notes + "]";
+		
+		return producer + " " +  name + " " + vintage;
 	}
-
 	
 	
 	

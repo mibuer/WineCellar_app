@@ -1,9 +1,24 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Producer {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Producer implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long idProducer;
 	private String name;
 	private String country;
 	private String wineRegion;
@@ -13,14 +28,18 @@ public class Producer {
 		
 	}
 	
-	public Producer(String name, String country, String wineRegion, String vineyard) {
+	
+
+	public Producer(long idProducer, String name, String country, String wineRegion, String vineyard) {
 		super();
+		this.idProducer = idProducer;
 		this.name = name;
 		this.country = country;
 		this.wineRegion = wineRegion;
 		this.vineyard = vineyard;
-	
 	}
+
+
 
 	public String getName() {
 		return name;
@@ -55,10 +74,25 @@ public class Producer {
 	}
 
 
+	
+	public long getIdProducer() {
+		return idProducer;
+	}
+
+
+
+	public void setIdProducer(long idProducer) {
+		this.idProducer = idProducer;
+	}
+
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(country, name, vineyard, wineRegion);
+		return Objects.hash(country, idProducer, name, vineyard, wineRegion);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -69,9 +103,12 @@ public class Producer {
 		if (getClass() != obj.getClass())
 			return false;
 		Producer other = (Producer) obj;
-		return Objects.equals(country, other.country) && Objects.equals(name, other.name)
-				&& Objects.equals(vineyard, other.vineyard) && Objects.equals(wineRegion, other.wineRegion);
+		return Objects.equals(country, other.country) && idProducer == other.idProducer
+				&& Objects.equals(name, other.name) && Objects.equals(vineyard, other.vineyard)
+				&& Objects.equals(wineRegion, other.wineRegion);
 	}
+
+
 
 	@Override
 	public String toString() {

@@ -1,32 +1,20 @@
 package at.miriam.wifiproject.mywinecollection.controller;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 import at.miriam.wifiproject.mywinecollection.model.Producer;
-import at.miriam.wifiproject.mywinecollection.model.Purchase;
-import at.miriam.wifiproject.mywinecollection.model.Storage;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
-import at.miriam.wifiproject.mywinecollection.model.WineModel;
 import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 public class WineTableViewController extends BaseController {
 
@@ -97,12 +85,10 @@ public class WineTableViewController extends BaseController {
     @FXML
     void onDeleteTableButtonClick(ActionEvent event) {
 
-    	//tableView.getItems().remove(tableView.getSelectionModel().getSelectedItem());
     	Wine wine = model.getSelectedWine();
     	if (wine != null) {
     		model.winesList.remove(wine);
-    		model.setSelectedWine(null);
-    		
+    				
     	}
     	
     }
@@ -116,10 +102,10 @@ public class WineTableViewController extends BaseController {
 
     }
     
-    private Window getWindow() {
-		
-		return selectedWineLabel.getScene().getWindow();
-	}
+//    private Window getWindow() {
+//		
+//		return selectedWineLabel.getScene().getWindow();
+//	}
 
 	@FXML
     void initialize() {
@@ -172,7 +158,11 @@ public class WineTableViewController extends BaseController {
 								//Liste darf max 5 Positionen haben
 								
 								
+							
 								model.favWinesList.add(wine);
+								favButton.setStyle("-fx-background-color: yellow");
+								System.out.println(model.favWinesList.toString());
+								
 								
 							});
 							setGraphic(favButton);
@@ -214,7 +204,7 @@ public class WineTableViewController extends BaseController {
         //RegalNummer
         shelfNrColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getStorage().getShelfNumber()));
         //Menge Flaschen
-        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getStorage().getBottleNumber()));
+        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getStorage().getNumberOfBottles()));
         //Flaschen Größe
         bottleSizeColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getBottleSize()));
         //Händler

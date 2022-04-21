@@ -1,17 +1,38 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Purchase {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Purchase implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long idPurchase;
 	private String wineShop;
 	private LocalDate dateOfPurchase;
 	private Double price;
 	
-	public Purchase(String wineShop, LocalDate dateOfPurchase, Double price) {
+	
+	public Purchase() {
 		super();
+	}
+	
+	public Purchase(long idPurchase, String wineShop, LocalDate dateOfPurchase, Double price) {
+		super();
+		this.idPurchase = idPurchase;
 		this.wineShop = wineShop;
 		this.dateOfPurchase = dateOfPurchase;
 		this.price = price;
@@ -35,12 +56,20 @@ public class Purchase {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
+
+	public long getIdPurchase() {
+		return idPurchase;
+	}
+
+	public void setIdPurchase(long idPurchase) {
+		this.idPurchase = idPurchase;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateOfPurchase, price, wineShop);
+		return Objects.hash(dateOfPurchase, idPurchase, price, wineShop);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -50,15 +79,18 @@ public class Purchase {
 		if (getClass() != obj.getClass())
 			return false;
 		Purchase other = (Purchase) obj;
-		return Objects.equals(dateOfPurchase, other.dateOfPurchase) && Objects.equals(price, other.price)
-				&& Objects.equals(wineShop, other.wineShop);
+		return Objects.equals(dateOfPurchase, other.dateOfPurchase) && idPurchase == other.idPurchase
+				&& Objects.equals(price, other.price) && Objects.equals(wineShop, other.wineShop);
 	}
-	
+
 	@Override
 	public String toString() {
-		
-		return "Purchase [wineShop=" + wineShop + ", dateOfPurchase=" + dateOfPurchase + ", price=" + price + "]";
+		return "Purchase [idPurchase=" + idPurchase + ", wineShop=" + wineShop + ", dateOfPurchase=" + dateOfPurchase
+				+ ", price=" + price + "]";
 	}
+	
+
+
 	
 	
 	

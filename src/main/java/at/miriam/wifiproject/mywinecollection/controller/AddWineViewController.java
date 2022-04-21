@@ -205,24 +205,19 @@ public class AddWineViewController extends BaseController {
         	String ratings = wineRatingTextArea.getText();
         	String notes = notesTextArea.getText();
         	
-        	Producer producerNew = null;
         	
-        	if (!producer.isEmpty()) {
-        	producerNew = new Producer(producer, country, wineRegion, vineyard);
-        	}
+        	Producer producerNew = new Producer(0, producer, country, wineRegion, vineyard);
         	
-        	Storage storageNew = new Storage(storage, shelfNr, numOfBottles, bottleSize);
+        	Storage storageNew = new Storage(0, storage, shelfNr, numOfBottles, bottleSize);
         	
-        	Purchase purchaseNew = new Purchase(shop, date, price);
+        	Purchase purchaseNew = new Purchase(0, shop, date, price);
         	
         	//Validierung der Datensätze und Wine Objekt erstellen
         	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
         							storage, numOfBottles, bottleSize)) {
         		
-        		Wine wine = null;
-        		
         		try {
-    				wine = new Wine(name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
+    				Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
     								style, readyToDrink, filePath, imageBytesFromPath(filePath), 
     								storageNew, purchaseNew, ratings, notes);
     				
@@ -365,12 +360,12 @@ public class AddWineViewController extends BaseController {
     	Producer producerNew = null;
     	
     	if (!producer.isEmpty()) {
-    	producerNew = new Producer(producer, country, wineRegion, vineyard);
+    	producerNew = new Producer(0, producer, country, wineRegion, vineyard);
     	}
     	
-    	Storage storageNew = new Storage(storage, shelfNr, numOfBottles, bottleSize);
+    	Storage storageNew = new Storage(0, storage, shelfNr, numOfBottles, bottleSize);
     	
-    	Purchase purchaseNew = new Purchase(shop, date, price);
+    	Purchase purchaseNew = new Purchase(0, shop, date, price);
     	
     	//Default Foto soll eingestellt sein, falls kein eigenes angegeben wird ???
     	//wurde 1 Foto hinzugefügt -> disable Button
@@ -383,7 +378,7 @@ public class AddWineViewController extends BaseController {
     		Wine wine = null;
     		
     		try {
-				wine = new Wine(name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
+				wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 								style, readyToDrink, filePath, imageBytesFromPath(filePath), 
 								storageNew, purchaseNew, ratings, notes);
 				
@@ -440,7 +435,7 @@ public class AddWineViewController extends BaseController {
 //    	imageView.setImage(wine.getImageBytes());
     	storageLocationChoiceBox.setValue(wine.getStorage().getName());
     	shelfNumberTextField.setText(String.valueOf(wine.getStorage().getShelfNumber()));
-    	numberBottlesTextField.setText(String.valueOf(wine.getStorage().getBottleNumber()));
+    	numberBottlesTextField.setText(String.valueOf(wine.getStorage().getNumberOfBottles()));
     	bottleSizeChoiceBox.setValue(wine.getStorage().getBottleSize());
     	wineShopTextField.setText(wine.getPurchase().getWineShop());
     	purchaseDatePicker.setValue(wine.getPurchase().getDateOfPurchase());

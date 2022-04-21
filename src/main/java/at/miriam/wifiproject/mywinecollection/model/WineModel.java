@@ -17,8 +17,8 @@ public class WineModel {
 	public final ObservableList<Wine> winesList = FXCollections.observableArrayList(initWines);
 	
 	public final ObservableList<String> countryList = FXCollections.observableArrayList("AT","DE","CH","ES","FR","IT","PT");
-	public final ObservableList<Variety> varietyList = FXCollections.observableArrayList(new Variety("Blaufränkisch"), new Variety("Chardonnay"), new Variety("Cuvée"), new Variety("Mischsatz"), 
-																	new Variety("Grüner Veltliner"), new Variety("Riesling"), new Variety("Zweigelt"));
+	public final ObservableList<Variety> varietyList = FXCollections.observableArrayList(new Variety(0, "Blaufränkisch"), new Variety(0, "Chardonnay"), new Variety(0, "Cuvée"), new Variety(0, "Mischsatz"), 
+																	new Variety(0, "Grüner Veltliner"), new Variety(0, "Riesling"), new Variety(0, "Zweigelt"));
 	public final ObservableList<WineCategory> categoryList = FXCollections.observableArrayList(WineCategory.WEISS, WineCategory.ROSE,
 																	WineCategory.ROT, WineCategory.SÜSS, WineCategory.SCHAUMWEIN, WineCategory.LIKÖRWEIN);
 	public final ObservableList<String> storageList = FXCollections.observableArrayList("Keller","Klimaschrank","Küche");
@@ -45,8 +45,6 @@ public class WineModel {
 	}
 	
 
-	//Verbinden von WineTableViewController und StartViewController
-	//StartView soll Diagramme ändern und Werte in Labels, sobald sich WineTableView ändert
 	
 	
 	

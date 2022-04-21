@@ -2,12 +2,9 @@
 
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="at.miriam.wifiproject.mywinecollection.controller.CategoryPieChartController">
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.miriam.wifiproject.mywinecollection.controller.CategoryPieChartController">
    <children>
-      <Pane prefHeight="300.0" prefWidth="300.0" />
-      <PieChart fx:id="categoryPieChart" layoutX="-152.0" layoutY="102.0" prefHeight="502.0" prefWidth="427.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <PieChart fx:id="categoryPieChart" layoutX="-66.0" layoutY="80.0" prefHeight="300.0" prefWidth="300.0" title="Kategorien" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

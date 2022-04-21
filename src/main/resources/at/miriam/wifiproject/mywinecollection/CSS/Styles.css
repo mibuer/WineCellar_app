@@ -50,7 +50,7 @@ ChoiceBox {
 
 .button:pressed {
 	
-	 -fx-font: 10 "Verdana";
+	 -fx-font: 12 "Verdana";
 	 -fx-background-color: #bedbcc;
 }
 
@@ -82,6 +82,13 @@ ChoiceBox {
 #topLabel {
 	
 	-fx-font: 16 "Verdana";
+	
+}
+
+#logoLabel {
+	
+	-fx-font: 20 "Verdana";
+	
 }
 
 
