@@ -35,6 +35,7 @@ ChoiceBox {
 .button {
 	
 	-fx-text-fill: black;
+	-fx-border-radius: 20;
 
 	}
 	

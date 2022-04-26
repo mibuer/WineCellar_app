@@ -1,20 +1,32 @@
 package at.miriam.wifiproject.mywinecollection.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
+import org.hibernate.boot.model.naming.ImplicitPrimaryKeyJoinColumnNameSource;
+
+import at.miriam.wifiproject.mywinecollection.Constants;
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
+import javafx.scene.control.TextField;
 
 public class WineTableViewController extends BaseController {
 
@@ -80,6 +92,12 @@ public class WineTableViewController extends BaseController {
 		
 		@FXML
 	    private Label selectedWineLabel;
+
+		@FXML 
+		private Label filterTableLabel;
+
+		@FXML 
+		private TextField filterTableTextField;
 		
     
     @FXML
@@ -94,12 +112,12 @@ public class WineTableViewController extends BaseController {
     }
 
     @FXML
-    void onUpdateTableButtonClick(ActionEvent event) {   
+    void onUpdateTableButtonClick(ActionEvent event) throws IOException {   
     	
     	// zurück zu tab pane Wein, hier daten ändern
+    	//FXMLLoader.load(getClass().getResource(Constants.PATH_TO_ADD_WINE_FORM_VIEW)); 
+    	//Tab text="Wein"
     	
-   
-
     }
     
 //    private Window getWindow() {
@@ -133,7 +151,7 @@ public class WineTableViewController extends BaseController {
         
         //Tabelle
         tableView.setItems(model.winesList);
-//        tableView.setEditable(true);
+
         
         //Erste Spalte: Button, um Wein als Favoriten auszuwählen, Favorit wird in einer Liste im WineModel gespeichert
         //Farbe des Buttons ändert sich, sobald in Favoriten Liste gespeichert
@@ -157,8 +175,6 @@ public class WineTableViewController extends BaseController {
 								//Wenn die Favoriten Liste das Element schon erhält, nicht hinzufügen
 								//Liste darf max 5 Positionen haben
 								
-								
-							
 								model.favWinesList.add(wine);
 								favButton.setStyle("-fx-background-color: yellow");
 								System.out.println(model.favWinesList.toString());
@@ -217,6 +233,67 @@ public class WineTableViewController extends BaseController {
        
         model.selectedWineProperty().bind(tableView.getSelectionModel().selectedItemProperty());
         
+        //TableView Filter
+        //ObservableList in FilteredList packen, diese kann mit Predicate gefiltert werden
+        FilteredList<Wine> filteredList = new FilteredList<>(model.winesList, p -> true); 
+        
+        filterTableTextField.textProperty().addListener((observable, oldValue, newValue) -> { 
+        						filteredList.setPredicate( data -> { //Eingabe ins Textfield wird als Predicate übergeben
+        							
+        							if(newValue == null || newValue.isEmpty()) {
+        								return true; //Tabelle soll angezeigt werden, wenn keine Eingabe im Textfield erfolgt
+        							}
+        							
+        							String lowerCaseFilter = newValue.toLowerCase(); //Filter erstellen, returns true wenn String mit dem Predicate übereinstimmt
+        																			//ansonsten return false, keine Übereinstimmung gefunden
+        							if (data.getName().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getProducer().getName().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getVintage().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getProducer().getCountry().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getProducer().getVineyard().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getAlcohol().toString().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getVariety().toString().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getWineStyle().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getReadyToDrink().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getStorage().getName().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getStorage().getBottleSize().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getPurchase().getWineShop().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getProducer().getWineRegion().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getStorage().getNumberOfBottles().toString().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getPurchase().getPrice().toString().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getPurchase().getDateOfPurchase().toString().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							} else if (data.getWineCategory().toString().toLowerCase().contains(lowerCaseFilter)) {
+        								return true;
+        							}
+        							
+        							return false;
+        							
+        						});
+        });
+        
+        //FilteredList in SortedList speichern, da unmodifiable
+        SortedList<Wine> sortedData = new SortedList<>(filteredList);
+        
+        //SortedList über Property an TableView binden
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+        
+        tableView.setItems(sortedData);
         
     }
 

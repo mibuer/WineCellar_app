@@ -1,6 +1,9 @@
 package at.miriam.wifiproject.mywinecollection.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 import at.miriam.wifiproject.mywinecollection.model.Wine;
@@ -38,12 +41,9 @@ public class TabPaneViewController extends BaseController {
         assert logoLabel != null : "fx:id=\"logoLabel\" was not injected: check your FXML file 'TabPaneView.fxml'.";
         assert valueCollectionLabel != null : "fx:id=\"valueCollectionLabel\" was not injected: check your FXML file 'TabPaneView.fxml'.";
 
-       // Logo soll oberhalb von Label "MyWineCollection" angezeigt werden  
-       Image wineLogoImage = new Image(getClass().getResourceAsStream("at/miriam/wifiproject/mywinecollection/Images/winelogo.png"));
-       logoImageView.setImage(wineLogoImage);
-       
+
        //Gesamtanzahl der Flaschen
-       bottleNumLabel.setText(getNumberOfBottles());
+       bottleNumLabel.setText("12345");
        //Gesamtwert der Collection 
        valueCollectionLabel.setText(getValueOfCollection());
        

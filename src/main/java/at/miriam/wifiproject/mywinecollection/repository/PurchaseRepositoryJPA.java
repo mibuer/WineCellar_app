@@ -4,14 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import at.miriam.wifiproject.mywinecollection.model.Wine;
+import at.miriam.wifiproject.mywinecollection.model.Purchase;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
-public class WineRepositoryJPA implements WineRepository {
+public class PurchaseRepositoryJPA implements PurchaseRepository {
 
 	private static EntityManager em;
 	
@@ -20,73 +20,74 @@ public class WineRepositoryJPA implements WineRepository {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("WineDB");
 		em = emf.createEntityManager();
 	}
-
+	
+	
 	@Override
-	public long create(Wine wine) throws SQLException { 
+	public long create(Purchase purchase) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		em.persist(wine);
+		em.persist(purchase);
 		
 		transaction.commit();
-	
+		
+		
 		return 0;
 	}
 
 	@Override
-	public Optional<Wine> read(long id) throws SQLException { //find wine with specific id
+	public Optional<Purchase> read(long id) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		Wine wine = em.find(Wine.class, id);
+		Purchase purchase = em.find(Purchase.class, id);
 		
 		transaction.commit();
 		
-		return Optional.ofNullable(wine);
+		return Optional.ofNullable(purchase);
 	}
 
 	@Override
-	public List<Wine> readAll() throws SQLException { //find all Wines  
+	public List<Purchase> readAll() throws SQLException {
 		
-		TypedQuery<Wine> query = em.createQuery("SELECT w FROM Wine w", Wine.class);
+		TypedQuery<Purchase> query = em.createQuery("SELECT p FROM Purchase p", Purchase.class);
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		List<Wine> wines = query.getResultList();
+		List<Purchase> purchases = query.getResultList();
 		
 		transaction.commit();
 		
-		return wines;
+		return purchases;
 	}
 
 	@Override
-	public Wine update(Wine wine) throws SQLException { 
-		
+	public Purchase update(Purchase purchase) throws SQLException {
+	
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		Wine updatedWine = em.merge(wine);
+		Purchase updatedPurchase = em.merge(purchase);
 		
 		transaction.commit();
 		
-		return updatedWine;
+		return updatedPurchase;
 	
 	}
 
 	@Override
-	public void delete(Wine wine) throws SQLException {
+	public void delete(Purchase purchase) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		em.remove(wine);
+		em.remove(purchase);
 		
 		transaction.commit();
 		
-
 	}
-	
+
 }

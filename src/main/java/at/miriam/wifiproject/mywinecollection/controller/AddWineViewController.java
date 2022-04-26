@@ -1,12 +1,15 @@
 package at.miriam.wifiproject.mywinecollection.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 
 import at.miriam.wifiproject.mywinecollection.Constants;
@@ -120,69 +123,14 @@ public class AddWineViewController extends BaseController {
     
     
     @FXML
-    void onSaveUpdateWineButtonClick(ActionEvent event) {  //Änderungen speichern
+    void onSaveUpdateWineButtonClick(ActionEvent event) throws IOException {  //Änderungen speichern
 
     	System.out.println("In Methode Save Updated Wine");
     	
     	Wine selectedTableRow = model.getSelectedWine();
     	
     	if (selectedTableRow != null ) {
-//    		
-//    		//neues Wine Objekt erstellen    		Wine wine = new Wine();
-//    		//Bezeichnung
-//    		wine.setName(wineNameTextField.getText());
-//    		//Produzent
-//    		
-//    		//Land
-//    		wine.getProducer().setCountry(countryChoiceBox.getValue());
-//    		//Jahrgang
-//    		wine.setVintage(vintageTextField.getText());
-//    		//Alkohol
-//    		wine.setAlcohol(Double.parseDouble(alcoholTextField.getText()));
-//    		//Weinregion
-//    		wine.getProducer().setWineRegion(wineRegionTextField.getText());
-//    		//Lage
-//    		wine.getProducer().setVineyard(vineyardTextField.getText());
-//    		//Rebsorte
-//    		wine.setVariety(grapeVarietyChoiceBox.getValue());
-//    		//WineCategory
-//    		wine.setWineCategory(wineCategoryChoiceBox.getValue());
-//    		//Weinstil
-//    		wine.setWineStyle(wineStyleChoiceBox.getValue());
-//    		//Trinkreife
-//    		wine.setReadyToDrink(readyToDrinkTextField.getText());
-//    		//filePath
-//    		wine.setImagePath(chooseImageFilePathTextField.getText());
-//    		
-//    		byte[] imageBytes;
-//			try {
-//				imageBytes = imageBytesFromPath(chooseImageFilePathTextField.getText());
-//				wine.setImageBytes(imageBytes);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//    		
-//    		//Lagerort
-//    		wine.getStorage().setName(storageLocationChoiceBox.getValue());
-//    		//Regalnr
-//    		wine.getStorage().setShelfNumber(Integer.parseInt(shelfNumberTextField.getText()));
-//    		//Flaschenanzahl
-//    		wine.getStorage().setBottleNumber(Integer.parseInt(numberBottlesTextField.getText()));
-//    		//Flaschengröße
-//    		wine.getStorage().setBottleSize(bottleSizeChoiceBox.getValue());
-//    		//Händler
-//    		wine.getPurchase().setWineShop(wineShopTextField.getText());
-//    		//Datum
-//    		wine.getPurchase().setDateOfPurchase(purchaseDatePicker.getValue());
-//    		//Preis
-//    		wine.getPurchase().setPrice(Double.parseDouble(pricePerBottleTextField.getText()));
-//    		//Bewertungen
-//    		wine.setWineRatings(wineRatingTextArea.getText());
-//    		//Notizen
-//    		wine.setNotes(notesTextArea.getText());
-    		
-    		
+
     		String name = wineNameTextField.getText();
         	String producer = wineProducerTextField.getText();
         	String country = countryChoiceBox.getValue();
@@ -195,6 +143,9 @@ public class AddWineViewController extends BaseController {
         	String style = wineStyleChoiceBox.getValue();
         	String readyToDrink = readyToDrinkTextField.getText();
         	String filePath = chooseImageFilePathTextField.getText();
+        	
+        	byte [] imageBytes = getClass().getResourceAsStream(filePath).readAllBytes();
+        	
         	String storage = storageLocationChoiceBox.getValue();
         	Integer shelfNr = Integer.parseInt(shelfNumberTextField.getText());
         	Integer numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
@@ -204,8 +155,7 @@ public class AddWineViewController extends BaseController {
         	Double price = Double.parseDouble(pricePerBottleTextField.getText());
         	String ratings = wineRatingTextArea.getText();
         	String notes = notesTextArea.getText();
-        	
-        	
+        
         	Producer producerNew = new Producer(0, producer, country, wineRegion, vineyard);
         	
         	Storage storageNew = new Storage(0, storage, shelfNr, numOfBottles, bottleSize);
@@ -216,44 +166,25 @@ public class AddWineViewController extends BaseController {
         	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
         							storage, numOfBottles, bottleSize)) {
         		
-        		try {
-    				Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
-    								style, readyToDrink, filePath, imageBytesFromPath(filePath), 
-    								storageNew, purchaseNew, ratings, notes);
-    				
-    				System.out.println(wine);
-    				
-    				//In der Liste Wines in WineModel speichern
-    				model.winesList.add(wine);
-    				
-    				
-    				//alte Daten durch neue ersetzen ->
-    	    		//Index des ausgewählten Weins
-    	    		int index = model.winesList.indexOf(selectedTableRow);
-    	    		model.winesList.set(index, wine); //neues Wine Objekt am Index des alten speichern
-    				
-    				model.setSelectedWine(wine);
-    				
-    				System.out.println(model.winesList);
-    	    	
         		
-        		} catch (IOException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
+        		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
+								style, readyToDrink, filePath, imageBytes, 
+								storageNew, purchaseNew, ratings, notes);
+				
+		
+				//alte Daten durch neue ersetzen ->
+				//Index des ausgewählten Weins
+				int index = model.winesList.indexOf(selectedTableRow);
+				
+				model.winesList.set(index, wine); //neues Wine Objekt am Index des alten speichern
+				
+				System.out.println(model.winesList);
         		
         	}
-        	
-        	
-    
-    		
-    		
     		
     	}
+   
     }
-    
-    
-    
     
     @FXML
     void onNewGrapeVarietyButtonClick(ActionEvent event) {
@@ -339,7 +270,18 @@ public class AddWineViewController extends BaseController {
     	String producer = wineProducerTextField.getText();
     	String country = countryChoiceBox.getValue();
     	String vintage = vintageTextField.getText();
-    	Double alcohol = Double.parseDouble(alcoholTextField.getText());
+    	
+    	Double alcohol = null;
+    	if (alcoholTextField != null) { 
+    		
+    		try {
+    		alcohol = Double.parseDouble(alcoholTextField.getText());
+    		} catch (InputMismatchException e) {
+    			System.out.println("Please enter a double: 12.5, 13.5, 13.0, ...");
+    		}
+    	
+    	} 
+    	
     	String wineRegion = wineRegionTextField.getText();
     	String vineyard = vineyardTextField.getText();
     	Variety grapeVariety = grapeVarietyChoiceBox.getValue();
@@ -431,8 +373,8 @@ public class AddWineViewController extends BaseController {
     	wineCategoryChoiceBox.setValue(wine.getWineCategory());
     	wineStyleChoiceBox.setValue(wine.getWineStyle());
     	readyToDrinkTextField.setText(wine.getReadyToDrink());
-    	chooseImageFilePathTextField.setText(wine.getImagePath());
-//    	imageView.setImage(wine.getImageBytes());
+    	chooseImageFilePathTextField.setText(wine.getImagePath());    	
+    	imageView.setImage(loadImage(wine));
     	storageLocationChoiceBox.setValue(wine.getStorage().getName());
     	shelfNumberTextField.setText(String.valueOf(wine.getStorage().getShelfNumber()));
     	numberBottlesTextField.setText(String.valueOf(wine.getStorage().getNumberOfBottles()));
@@ -445,8 +387,12 @@ public class AddWineViewController extends BaseController {
     	
     }
     
+    private Image loadImage(Wine wine) {
+		
+		return new Image(new ByteArrayInputStream(wine.getImageBytes()));
+	}
 
-    @FXML
+	@FXML
     void initialize() {
         assert addButton != null : "fx:id=\"addButton\" was not injected: check your FXML file 'AddWineFormView.fxml'.";
         assert alcoholTextField != null : "fx:id=\"alcoholTextField\" was not injected: check your FXML file 'AddWineFormView.fxml'.";
@@ -476,7 +422,7 @@ public class AddWineViewController extends BaseController {
         assert wineStyleChoiceBox != null : "fx:id=\"wineStyleChoiceBox\" was not injected: check your FXML file 'AddWineFormView.fxml'.";
 
         //ImageView soll default Image anzeigen
-        imageView.setImage(new Image (getClass().getResourceAsStream(Constants.PATH_TO_DEFAULT_IMAGE)));
+       // imageView.setImage(new Image (getClass().getResourceAsStream(Constants.PATH_TO_DEFAULT_IMAGE)));
         
         //Country Choice Box erhält Werte
         countryChoiceBox.setItems(model.countryList);
@@ -509,16 +455,16 @@ public class AddWineViewController extends BaseController {
        //Anzeigen des in der Tabelle ausgewählten Weins in der "AddWineView"
        model.selectedWineProperty().addListener(new ChangeListener<Wine>() {
 
-		@Override
-		public void changed(ObservableValue<? extends Wine> observable, Wine oldValue, Wine newValue) {
+    	 @Override
+    	 public void changed(ObservableValue<? extends Wine> observable, Wine oldValue, Wine newValue) {
 			
 			if (newValue != null) {
 				fillForm(newValue);
 			}
-			
+		
 			
 		}
-	});
+       });
         
         
         

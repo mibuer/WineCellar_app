@@ -18,9 +18,21 @@ public class Wine implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	public enum WineCategory {
-		WEISS, ROSE, ROT, SÜSS, SCHAUMWEIN, LIKÖRWEIN
+		
+		WEISS ("Weiß"), ROSE ("Rosé"), ROT ("Rot"), SÜSS ("Süß"), SCHAUMWEIN ("Schaumwein"), LIKÖRWEIN ("Likörwein");
+
+		private String name;
+		
+		WineCategory(String name) {
+			this.name = name;
+		}
+		
+		public String toString() {
+			return name;
+		}
+	
 	}
 	
 	@Id

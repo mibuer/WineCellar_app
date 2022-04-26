@@ -67,7 +67,7 @@ public class Variety implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Variety [idVariety=" + idVariety + ", name=" + name + "]";
+		return  name;
 	}
 
 	

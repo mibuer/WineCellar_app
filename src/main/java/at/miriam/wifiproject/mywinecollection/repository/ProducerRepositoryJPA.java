@@ -4,14 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import at.miriam.wifiproject.mywinecollection.model.Wine;
+import at.miriam.wifiproject.mywinecollection.model.Producer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
-public class WineRepositoryJPA implements WineRepository {
+public class ProducerRepositoryJPA implements ProducerRepository {
 
 	private static EntityManager em;
 	
@@ -20,73 +20,72 @@ public class WineRepositoryJPA implements WineRepository {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("WineDB");
 		em = emf.createEntityManager();
 	}
-
+	
+	
 	@Override
-	public long create(Wine wine) throws SQLException { 
+	public long create(Producer producer) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		em.persist(wine);
+		em.persist(producer);
 		
 		transaction.commit();
-	
+		
 		return 0;
 	}
 
 	@Override
-	public Optional<Wine> read(long id) throws SQLException { //find wine with specific id
+	public Optional<Producer> read(long id) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		Wine wine = em.find(Wine.class, id);
+		Producer producer = em.find(Producer.class, id);
 		
 		transaction.commit();
 		
-		return Optional.ofNullable(wine);
+		return Optional.ofNullable(producer);
 	}
 
 	@Override
-	public List<Wine> readAll() throws SQLException { //find all Wines  
+	public List<Producer> readAll() throws SQLException {
 		
-		TypedQuery<Wine> query = em.createQuery("SELECT w FROM Wine w", Wine.class);
-		
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		
-		List<Wine> wines = query.getResultList();
-		
-		transaction.commit();
-		
-		return wines;
-	}
-
-	@Override
-	public Wine update(Wine wine) throws SQLException { 
+		TypedQuery<Producer> query = em.createQuery("SELECT p FROM Producer p", Producer.class);
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		Wine updatedWine = em.merge(wine);
+		List<Producer> producers = query.getResultList();
 		
 		transaction.commit();
-		
-		return updatedWine;
 	
+		return producers;
 	}
 
 	@Override
-	public void delete(Wine wine) throws SQLException {
+	public Producer update(Producer producer) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		em.remove(wine);
+		Producer updatedProducer = em.merge(producer);
 		
 		transaction.commit();
 		
-
+		return updatedProducer;
 	}
-	
+
+	@Override
+	public void delete(Producer producer) throws SQLException {
+		
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		
+		em.remove(producer);
+		
+		transaction.commit();
+		
+	}
+
 }
