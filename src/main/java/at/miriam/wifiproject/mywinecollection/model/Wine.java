@@ -5,11 +5,14 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Wine implements Serializable {
@@ -19,32 +22,16 @@ public class Wine implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public enum WineCategory {
-		
-		WEISS ("Weiß"), ROSE ("Rosé"), ROT ("Rot"), SÜSS ("Süß"), SCHAUMWEIN ("Schaumwein"), LIKÖRWEIN ("Likörwein");
 
-		private String name;
-		
-		WineCategory(String name) {
-			this.name = name;
-		}
-		
-		public String toString() {
-			return name;
-		}
-	
-	}
-	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private long idWine;
 	private String name;
-	@ManyToOne
 	private Producer producer;
 	private String vintage;
 	private Double alcohol;
 	private Variety variety;
-	@ManyToOne
+	@Enumerated(EnumType.STRING)
 	private WineCategory wineCategory;
 	private String wineStyle;
 	private String readyToDrink;

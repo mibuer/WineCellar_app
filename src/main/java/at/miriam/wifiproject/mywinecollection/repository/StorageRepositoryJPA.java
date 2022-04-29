@@ -56,7 +56,7 @@ public class StorageRepositoryJPA implements StorageRepository {
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		
-		TypedQuery<Storage> query = em.createNamedQuery("SELECT s FROM Storage s", Storage.class);
+		TypedQuery<Storage> query = em.createQuery("select s from Storage s", Storage.class);
 		List<Storage> storages = query.getResultList();
 		
 		transaction.commit();

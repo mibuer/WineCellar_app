@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import at.miriam.wifiproject.mywinecollection.model.Wine;
-import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

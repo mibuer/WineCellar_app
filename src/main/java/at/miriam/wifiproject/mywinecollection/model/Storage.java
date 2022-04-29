@@ -7,8 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 
 @Entity
+@NamedQuery (name = "storageQuery", query = "select s from Storage s")
 public class Storage implements Serializable {
 
 	/**
@@ -25,7 +27,7 @@ public class Storage implements Serializable {
 	private String bottleSize;
 
 	public Storage() {
-		
+		super();
 	}
 
 	

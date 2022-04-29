@@ -3,25 +3,17 @@ package at.miriam.wifiproject.mywinecollection.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import org.hibernate.boot.model.naming.ImplicitPrimaryKeyJoinColumnNameSource;
-
-import at.miriam.wifiproject.mywinecollection.Constants;
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
-import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
+import at.miriam.wifiproject.mywinecollection.model.WineCategory;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

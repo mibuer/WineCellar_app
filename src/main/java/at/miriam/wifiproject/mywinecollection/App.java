@@ -15,8 +15,8 @@ import at.miriam.wifiproject.mywinecollection.model.Purchase;
 import at.miriam.wifiproject.mywinecollection.model.Storage;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
+import at.miriam.wifiproject.mywinecollection.model.WineCategory;
 import at.miriam.wifiproject.mywinecollection.model.WineModel;
-import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
 
 /**
  * JavaFX App

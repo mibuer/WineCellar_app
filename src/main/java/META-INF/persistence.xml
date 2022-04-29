@@ -3,7 +3,8 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-    <persistence-unit name="WineDB">
+       
+    <persistence-unit name="WineDB">  
         <class>model.Wine</class>
         <class>model.Producer</class>
         <class>model.Storage</class>
@@ -17,4 +18,5 @@
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
+    
 </persistence>

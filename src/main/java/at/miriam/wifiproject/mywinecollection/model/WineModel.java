@@ -3,7 +3,6 @@ package at.miriam.wifiproject.mywinecollection.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import at.miriam.wifiproject.mywinecollection.model.Wine.WineCategory;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
