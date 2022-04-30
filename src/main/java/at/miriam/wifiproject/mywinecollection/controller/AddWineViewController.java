@@ -85,7 +85,7 @@ public class AddWineViewController extends BaseController {
     private TextField shelfNumberTextField;
 
     @FXML
-    private ChoiceBox<String> storageLocationChoiceBox;
+    private ChoiceBox<Storage> storageLocationChoiceBox;
 
     @FXML
     private Label topLabel;
@@ -146,7 +146,7 @@ public class AddWineViewController extends BaseController {
         	
         	byte [] imageBytes = getClass().getResourceAsStream(filePath).readAllBytes();
         	
-        	String storage = storageLocationChoiceBox.getValue();
+        	Storage storage = storageLocationChoiceBox.getValue();
         	Integer shelfNr = Integer.parseInt(shelfNumberTextField.getText());
         	Integer numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
         	String bottleSize = bottleSizeChoiceBox.getValue();
@@ -158,7 +158,7 @@ public class AddWineViewController extends BaseController {
         
         	Producer producerNew = new Producer(0, producer, country, wineRegion, vineyard);
         	
-        	Storage storageNew = new Storage(0, storage, shelfNr, numOfBottles, bottleSize);
+        	
         	
         	Purchase purchaseNew = new Purchase(0, shop, date, price);
         	
@@ -169,7 +169,7 @@ public class AddWineViewController extends BaseController {
         		
         		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 								style, readyToDrink, filePath, imageBytes, 
-								storageNew, purchaseNew, ratings, notes);
+								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
 				
 		
 				//alte Daten durch neue ersetzen ->
@@ -289,7 +289,7 @@ public class AddWineViewController extends BaseController {
     	String style = wineStyleChoiceBox.getValue();
     	String readyToDrink = readyToDrinkTextField.getText();
     	String filePath = chooseImageFilePathTextField.getText();
-    	String storage = storageLocationChoiceBox.getValue();
+    	Storage storage = storageLocationChoiceBox.getValue();
     	Integer shelfNr = Integer.parseInt(shelfNumberTextField.getText());
     	Integer numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
     	String bottleSize = bottleSizeChoiceBox.getValue();
@@ -305,7 +305,6 @@ public class AddWineViewController extends BaseController {
     	producerNew = new Producer(0, producer, country, wineRegion, vineyard);
     	}
     	
-    	Storage storageNew = new Storage(0, storage, shelfNr, numOfBottles, bottleSize);
     	
     	Purchase purchaseNew = new Purchase(0, shop, date, price);
     	
@@ -322,7 +321,7 @@ public class AddWineViewController extends BaseController {
     		try {
 				wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 								style, readyToDrink, filePath, imageBytesFromPath(filePath), 
-								storageNew, purchaseNew, ratings, notes);
+								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
 				
 				System.out.println(wine);
 				
@@ -348,7 +347,7 @@ public class AddWineViewController extends BaseController {
 
 	//Methode Valdierung Input, Mindestens diese Felder müssen eigegeben werden:
     private boolean isValidFormInput(String name, String producer, String country, Variety variety, 
-    								WineCategory category, String storage, Integer numOfBottles, String bottleSize) {
+    								WineCategory category, Storage storage, Integer numOfBottles, String bottleSize) {
     	
 		return !name.isEmpty()
 				&& !producer.isEmpty()
@@ -375,10 +374,10 @@ public class AddWineViewController extends BaseController {
     	readyToDrinkTextField.setText(wine.getReadyToDrink());
     	chooseImageFilePathTextField.setText(wine.getImagePath());    	
     	imageView.setImage(loadImage(wine));
-    	storageLocationChoiceBox.setValue(wine.getStorage().getName());
-    	shelfNumberTextField.setText(String.valueOf(wine.getStorage().getShelfNumber()));
-    	numberBottlesTextField.setText(String.valueOf(wine.getStorage().getNumberOfBottles()));
-    	bottleSizeChoiceBox.setValue(wine.getStorage().getBottleSize());
+    	storageLocationChoiceBox.setValue(wine.getStorage());
+    	shelfNumberTextField.setText(String.valueOf(wine.getShelfNumber()));
+    	numberBottlesTextField.setText(String.valueOf(wine.getNumberOfBottles()));
+    	bottleSizeChoiceBox.setValue(wine.getBottleSize());
     	wineShopTextField.setText(wine.getPurchase().getWineShop());
     	purchaseDatePicker.setValue(wine.getPurchase().getDateOfPurchase());
     	pricePerBottleTextField.setText(String.valueOf(wine.getPurchase().getPrice()));

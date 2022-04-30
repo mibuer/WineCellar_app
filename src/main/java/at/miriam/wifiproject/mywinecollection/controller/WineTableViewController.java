@@ -7,6 +7,7 @@ import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.WineCategory;
+import at.miriam.wifiproject.mywinecollection.repository.WineRepository;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -210,11 +211,11 @@ public class WineTableViewController extends BaseController {
         //Lagerort
         storageColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getName()));
         //RegalNummer
-        shelfNrColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getStorage().getShelfNumber()));
+        shelfNrColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getShelfNumber()));
         //Menge Flaschen
-        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getStorage().getNumberOfBottles()));
+        numOfBottlesColumn.setCellValueFactory(data -> new SimpleObjectProperty<Integer>(data.getValue().getNumberOfBottles()));
         //Flaschen Größe
-        bottleSizeColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getStorage().getBottleSize()));
+        bottleSizeColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getBottleSize()));
         //Händler
         shopColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getPurchase().getWineShop()));
         //Datum
@@ -258,13 +259,13 @@ public class WineTableViewController extends BaseController {
         								return true;
         							} else if (data.getStorage().getName().toLowerCase().contains(lowerCaseFilter)) {
         								return true;
-        							} else if (data.getStorage().getBottleSize().toLowerCase().contains(lowerCaseFilter)) {
+        							} else if (data.getBottleSize().toLowerCase().contains(lowerCaseFilter)) {
         								return true;
         							} else if (data.getPurchase().getWineShop().toLowerCase().contains(lowerCaseFilter)) {
         								return true;
         							} else if (data.getProducer().getWineRegion().toLowerCase().contains(lowerCaseFilter)) {
         								return true;
-        							} else if (data.getStorage().getNumberOfBottles().toString().toLowerCase().contains(lowerCaseFilter)) {
+        							} else if (data.getNumberOfBottles().toString().toLowerCase().contains(lowerCaseFilter)) {
         								return true;
         							} else if (data.getPurchase().getPrice().toString().toLowerCase().contains(lowerCaseFilter)) {
         								return true;

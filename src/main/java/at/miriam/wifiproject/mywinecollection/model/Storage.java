@@ -22,9 +22,8 @@ public class Storage implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idStorage;
 	private String name;
-	private Integer shelfNumber;
-	private Integer numberOfBottles;
-	private String bottleSize;
+	
+	
 
 	public Storage() {
 		super();
@@ -32,16 +31,11 @@ public class Storage implements Serializable {
 
 	
 
-	public Storage(long idStorage, String name, Integer shelfNumber, Integer numberOfBottles, String bottleSize) {
+	public Storage(long idStorage, String name) {
 		super();
 		this.idStorage = idStorage;
-		this.name = name;
-		this.shelfNumber = shelfNumber;
-		this.numberOfBottles = numberOfBottles;
-		this.bottleSize = bottleSize;
+		this.name = name;		
 	}
-
-
 
 	public String getName() {
 		return name;
@@ -51,21 +45,6 @@ public class Storage implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getShelfNumber() {
-		return shelfNumber;
-	}
-
-	public void setShelfNumber(Integer shelfNumber) {
-		this.shelfNumber = shelfNumber;
-	}
-
-	public String getBottleSize() {
-		return bottleSize;
-	}
-
-	public void setBottleSize(String bottleSize) {
-		this.bottleSize = bottleSize;
-	}
 
 	public long getIdStorage() {
 		return idStorage;
@@ -75,22 +54,11 @@ public class Storage implements Serializable {
 		this.idStorage = idStorage;
 	}
 
-	public Integer getNumberOfBottles() {
-		return numberOfBottles;
-	}
-
-	public void setNumberOfBottles(Integer numberOfBottles) {
-		this.numberOfBottles = numberOfBottles;
-	}
-
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bottleSize, idStorage, name, numberOfBottles, shelfNumber);
+		return Objects.hash(idStorage, name);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -101,18 +69,17 @@ public class Storage implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Storage other = (Storage) obj;
-		return Objects.equals(bottleSize, other.bottleSize) && idStorage == other.idStorage
-				&& Objects.equals(name, other.name) && Objects.equals(numberOfBottles, other.numberOfBottles)
-				&& Objects.equals(shelfNumber, other.shelfNumber);
+		return idStorage == other.idStorage && Objects.equals(name, other.name);
 	}
-
-
 
 	@Override
 	public String toString() {
-		return "Storage [idStorage=" + idStorage + ", name=" + name + ", shelfNumber=" + shelfNumber
-				+ ", numberOfBottles=" + numberOfBottles + ", bottleSize=" + bottleSize + "]";
+		return name;
 	}
+
+	
+
+	
 
 	
 	

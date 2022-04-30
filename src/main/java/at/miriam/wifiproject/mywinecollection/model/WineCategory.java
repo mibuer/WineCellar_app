@@ -5,18 +5,7 @@ public enum WineCategory {
 	
 	WEISS ("Weiß"), ROSE ("Rosé"), ROT ("Rot"), SÜSS ("Süß"), SCHAUMWEIN ("Schaumwein"), LIKÖRWEIN ("Likörwein");
 
-	private String name;
-	
-//	WineCategory(String name) {
-//		this.name = name;
-//	}
-	
 
-	public String toString() {
-		return name;
-		
-	}
-	
 	private String code;
 	
 	private WineCategory (String code) {
@@ -25,6 +14,11 @@ public enum WineCategory {
 	
 	public String getCode() {
 		return code;
+	}
+	
+	public String toString() {
+		return code;
+		
 	}
 	
 	

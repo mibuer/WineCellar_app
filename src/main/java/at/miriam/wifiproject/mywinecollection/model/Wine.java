@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,6 +28,7 @@ public class Wine implements Serializable {
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private long idWine;
 	private String name;
+	@ManyToOne (cascade = CascadeType.ALL)
 	private Producer producer;
 	private String vintage;
 	private Double alcohol;
@@ -38,9 +40,11 @@ public class Wine implements Serializable {
 	private String imagePath;
 	@Lob
 	private byte[] imageBytes;
-	@ManyToOne
 	private Storage storage;
-	@ManyToOne
+	private Integer shelfNumber;
+	private Integer numberOfBottles;
+	private String bottleSize;
+	@ManyToOne (cascade = CascadeType.ALL)
 	private Purchase purchase;
 	private String wineRatings;
 	private String notes;
@@ -49,11 +53,10 @@ public class Wine implements Serializable {
 		
 	}
 
-	
-
 	public Wine(long idWine, String name, Producer producer, String vintage, Double alcohol, Variety variety,
 			WineCategory wineCategory, String wineStyle, String readyToDrink, String imagePath, byte[] imageBytes,
-			Storage storage, Purchase purchase, String wineRatings, String notes) {
+			Storage storage, Integer shelfNumber, Integer numberOfBottles, String bottleSize, Purchase purchase, String wineRatings,
+			String notes) {
 		super();
 		this.idWine = idWine;
 		this.name = name;
@@ -67,11 +70,13 @@ public class Wine implements Serializable {
 		this.imagePath = imagePath;
 		this.imageBytes = imageBytes;
 		this.storage = storage;
+		this.shelfNumber = shelfNumber;
+		this.numberOfBottles = numberOfBottles;
+		this.bottleSize = bottleSize;
 		this.purchase = purchase;
 		this.wineRatings = wineRatings;
 		this.notes = notes;
 	}
-
 
 
 	public String getName() {
@@ -194,17 +199,42 @@ public class Wine implements Serializable {
 		this.idWine = idWine;
 	}
 	
+	public Integer getNumberOfBottles() {
+		return numberOfBottles;
+	}
+
+	public void setNumberOfBottles(Integer numberOfBottles) {
+		this.numberOfBottles = numberOfBottles;
+	}
+
+	public String getBottleSize() {
+		return bottleSize;
+	}
+
+	public void setBottleSize(String bottleSize) {
+		this.bottleSize = bottleSize;
+	}
+
+
+	public Integer getShelfNumber() {
+		return shelfNumber;
+	}
+
+	public void setShelfNumber(Integer shelfNumber) {
+		this.shelfNumber = shelfNumber;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(imageBytes);
-		result = prime * result + Objects.hash(alcohol, idWine, imagePath, name, notes, producer, purchase,
-				readyToDrink, storage, variety, vintage, wineCategory, wineRatings, wineStyle);
+		result = prime * result
+				+ Objects.hash(alcohol, bottleSize, idWine, imagePath, name, notes, numberOfBottles, producer, purchase,
+						readyToDrink, shelfNumber, storage, variety, vintage, wineCategory, wineRatings, wineStyle);
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -215,17 +245,16 @@ public class Wine implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Wine other = (Wine) obj;
-		return Objects.equals(alcohol, other.alcohol) && idWine == other.idWine
-				&& Arrays.equals(imageBytes, other.imageBytes) && Objects.equals(imagePath, other.imagePath)
-				&& Objects.equals(name, other.name) && Objects.equals(notes, other.notes)
+		return Objects.equals(alcohol, other.alcohol) && Objects.equals(bottleSize, other.bottleSize)
+				&& idWine == other.idWine && Arrays.equals(imageBytes, other.imageBytes)
+				&& Objects.equals(imagePath, other.imagePath) && Objects.equals(name, other.name)
+				&& Objects.equals(notes, other.notes) && Objects.equals(numberOfBottles, other.numberOfBottles)
 				&& Objects.equals(producer, other.producer) && Objects.equals(purchase, other.purchase)
-				&& Objects.equals(readyToDrink, other.readyToDrink) && Objects.equals(storage, other.storage)
-				&& Objects.equals(variety, other.variety) && Objects.equals(vintage, other.vintage)
-				&& wineCategory == other.wineCategory && Objects.equals(wineRatings, other.wineRatings)
-				&& Objects.equals(wineStyle, other.wineStyle);
+				&& Objects.equals(readyToDrink, other.readyToDrink) && Objects.equals(shelfNumber, other.shelfNumber)
+				&& Objects.equals(storage, other.storage) && Objects.equals(variety, other.variety)
+				&& Objects.equals(vintage, other.vintage) && wineCategory == other.wineCategory
+				&& Objects.equals(wineRatings, other.wineRatings) && Objects.equals(wineStyle, other.wineStyle);
 	}
-
-
 
 	public String toString() {
 		

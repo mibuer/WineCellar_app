@@ -40,7 +40,7 @@ public class AddStorageController extends BaseController {
     	
     	storage.setName(storageName);
     	
-    	model.storageList.add(storageName);
+    	model.storageList.add(storage);
     	
     	
 
