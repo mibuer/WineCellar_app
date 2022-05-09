@@ -24,7 +24,7 @@ public class StorageRepositoryJPA implements StorageRepository {
 	
 
 	@Override
-	public long create(Storage storage) throws SQLException {
+	public void create(Storage storage) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
@@ -33,8 +33,6 @@ public class StorageRepositoryJPA implements StorageRepository {
 		
 		transaction.commit();
 		
-		
-		return 0;
 	}
 
 	@Override
@@ -86,7 +84,7 @@ public class StorageRepositoryJPA implements StorageRepository {
 		em.remove(storage);
 		
 		transaction.commit();
-		
+	
 	}
 
 }

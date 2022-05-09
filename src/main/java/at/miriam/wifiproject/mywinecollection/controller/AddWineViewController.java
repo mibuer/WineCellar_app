@@ -120,7 +120,7 @@ public class AddWineViewController extends BaseController {
     @FXML
     private Button saveUpdateWineButton;
 
-    
+
     
     @FXML
     void onSaveUpdateWineButtonClick(ActionEvent event) throws IOException {  //Änderungen speichern
@@ -130,7 +130,6 @@ public class AddWineViewController extends BaseController {
     	Wine selectedTableRow = model.getSelectedWine();
     	
     	if (selectedTableRow != null ) {
-
     		String name = wineNameTextField.getText();
         	String producer = wineProducerTextField.getText();
         	String country = countryChoiceBox.getValue();
@@ -144,7 +143,13 @@ public class AddWineViewController extends BaseController {
         	String readyToDrink = readyToDrinkTextField.getText();
         	String filePath = chooseImageFilePathTextField.getText();
         	
-        	byte [] imageBytes = getClass().getResourceAsStream(filePath).readAllBytes();
+        	//byte [] imageBytes = getClass().getResourceAsStream(filePath).readAllBytes();
+        	
+        	
+        	byte[]  imageBytes = Files.newInputStream(Path.of(filePath).toAbsolutePath()).readAllBytes();
+        	if (imageBytes == null) {
+        		
+        	}
         	
         	Storage storage = storageLocationChoiceBox.getValue();
         	Integer shelfNr = Integer.parseInt(shelfNumberTextField.getText());
@@ -171,6 +176,7 @@ public class AddWineViewController extends BaseController {
 								style, readyToDrink, filePath, imageBytes, 
 								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
 				
+        		wine.setIdWine(selectedTableRow.getIdWine());
 		
 				//alte Daten durch neue ersetzen ->
 				//Index des ausgewählten Weins
@@ -225,7 +231,8 @@ public class AddWineViewController extends BaseController {
     	
     	
     }
-
+    
+  
     @FXML
     void onResetFormButtonClick(ActionEvent event) { // Reset Form
     	
@@ -263,6 +270,9 @@ public class AddWineViewController extends BaseController {
     
 	}
 
+    
+   
+    
 	@FXML
     void onSaveWineButtonClick(ActionEvent event) { // Wein speichern
 
@@ -271,16 +281,9 @@ public class AddWineViewController extends BaseController {
     	String country = countryChoiceBox.getValue();
     	String vintage = vintageTextField.getText();
     	
-    	Double alcohol = null;
-    	if (alcoholTextField != null) { 
+    	Double alcohol = Double.parseDouble(alcoholTextField.getText());
+    
     		
-    		try {
-    		alcohol = Double.parseDouble(alcoholTextField.getText());
-    		} catch (InputMismatchException e) {
-    			System.out.println("Please enter a double: 12.5, 13.5, 13.0, ...");
-    		}
-    	
-    	} 
     	
     	String wineRegion = wineRegionTextField.getText();
     	String vineyard = vineyardTextField.getText();
@@ -335,7 +338,7 @@ public class AddWineViewController extends BaseController {
     		
     	}
     	
-    	System.out.println(model.winesList);
+    	System.out.println(model.winesList); 
     }
     
     private byte[] imageBytesFromPath(String filePath) throws IOException {
@@ -474,5 +477,9 @@ public class AddWineViewController extends BaseController {
         
         
     }
+
+
+
+	
 
 }

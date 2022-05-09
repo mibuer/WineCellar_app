@@ -9,7 +9,7 @@ import at.miriam.wifiproject.mywinecollection.model.Producer;
 public interface ProducerRepository {
 
 		//einfügen
-		long create(Producer producer) throws SQLException;
+		void create(Producer producer) throws SQLException;
 		
 		//lesen
 		Optional<Producer> read(long id) throws SQLException;

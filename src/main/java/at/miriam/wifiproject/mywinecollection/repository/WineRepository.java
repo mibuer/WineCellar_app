@@ -9,10 +9,13 @@ import at.miriam.wifiproject.mywinecollection.model.Wine;
 public interface WineRepository {
 
 	//Wein einfügen
-	long create(Wine wine) throws SQLException;
+	void create(Wine wine) throws SQLException;
 	
 	//lesen
 	Optional<Wine> read(long id) throws SQLException;
+	
+	//FindByName
+	List<Wine> findByName(String name) throws SQLException;
 	
 	//alle lesen
 	List<Wine> readAll() throws SQLException;

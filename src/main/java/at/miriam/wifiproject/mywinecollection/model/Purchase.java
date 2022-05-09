@@ -3,6 +3,8 @@ package at.miriam.wifiproject.mywinecollection.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -10,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @NamedQuery (name = "purchaseQuery", query = "SELECT p FROM Purchase p")
@@ -26,7 +29,8 @@ public class Purchase implements Serializable {
 	private String wineShop;
 	private LocalDate dateOfPurchase;
 	private Double price;
-	
+	@OneToMany (mappedBy = "purchase")
+	private List<Wine> purchaseWines = new ArrayList<>();
 	
 	public Purchase() {
 		super();
@@ -65,6 +69,16 @@ public class Purchase implements Serializable {
 
 	public void setIdPurchase(long idPurchase) {
 		this.idPurchase = idPurchase;
+	}
+	
+	
+
+	public List<Wine> getPurchaseWines() {
+		return purchaseWines;
+	}
+
+	public void setPurchaseWines(List<Wine> purchaseWines) {
+		this.purchaseWines = purchaseWines;
 	}
 
 	@Override

@@ -23,7 +23,7 @@ public class ProducerRepositoryJPA implements ProducerRepository {
 	
 	
 	@Override
-	public long create(Producer producer) throws SQLException {
+	public void create(Producer producer) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
@@ -32,7 +32,6 @@ public class ProducerRepositoryJPA implements ProducerRepository {
 		
 		transaction.commit();
 		
-		return 0;
 	}
 
 	@Override
@@ -44,6 +43,7 @@ public class ProducerRepositoryJPA implements ProducerRepository {
 		Producer producer = em.find(Producer.class, id);
 		
 		transaction.commit();
+		
 		
 		return Optional.ofNullable(producer);
 	}
@@ -59,6 +59,7 @@ public class ProducerRepositoryJPA implements ProducerRepository {
 		List<Producer> producers = query.getResultList();
 		
 		transaction.commit();
+		
 	
 		return producers;
 	}
@@ -85,6 +86,7 @@ public class ProducerRepositoryJPA implements ProducerRepository {
 		em.remove(producer);
 		
 		transaction.commit();
+		
 		
 	}
 

@@ -1,6 +1,8 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -8,9 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 @Entity
-@NamedQuery (name = "storageQuery", query = "select s from Storage s")
+@NamedQuery (name = "storageQuery", query = "SELECT s FROM Storage s")
 public class Storage implements Serializable {
 
 	/**
@@ -22,7 +25,8 @@ public class Storage implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idStorage;
 	private String name;
-	
+	@OneToMany (mappedBy = "storage")
+	private List<Wine> storageWines = new ArrayList<>();
 	
 
 	public Storage() {

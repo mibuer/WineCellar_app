@@ -86,6 +86,28 @@ public class WineModel {
 							}
 						}
 					}
+					
+//					else if (c.wasReplaced()) {
+//						for (Producer producer : c.getAddedSubList()) {
+//							
+//							try {
+//								producerRepository.update(producer);
+//							} catch (SQLException e) {
+//								e.printStackTrace();
+//							}
+//						}
+//					}
+//					
+//					else if (c.wasRemoved()) {
+//						for (Producer producer : c.getAddedSubList()) {
+//							
+//							try {
+//								producerRepository.delete(producer);
+//							} catch (SQLException e) {
+//								e.printStackTrace();
+//							}
+//						}
+//					}
 				}
 			}
 		});
@@ -108,8 +130,29 @@ public class WineModel {
 									}
 								}
 							}
+							
+//							else if (c.wasReplaced()) {
+//								for (Variety variety : c.getAddedSubList()) {
+//									
+//									try {
+//										varietyRepository.update(variety);
+//									} catch (SQLException e) {
+//										e.printStackTrace();
+//									}
+//								}
+//							}
+//							
+//							else if (c.wasRemoved()) {
+//								for (Variety variety : c.getAddedSubList()) {
+//									
+//									try {
+//										varietyRepository.delete(variety);
+//									} catch (SQLException e) {
+//										e.printStackTrace();
+//									}
+//								}
+//							}
 						}
-						
 					}
 				});
 			//Storage
@@ -130,6 +173,29 @@ public class WineModel {
 									}
 								}
 							}
+							
+//							else if (c.wasReplaced()) {
+//								for (Storage storage : c.getAddedSubList()) {
+//									
+//									try {
+//										storageRepository.update(storage);
+//									} catch (SQLException e) {
+//										e.printStackTrace();
+//									}
+//								}
+//							}
+//							
+//							else if (c.wasRemoved()) {
+//								for (Storage storage : c.getAddedSubList()) {
+//									
+//									try {
+//										storageRepository.delete(storage);
+//									} catch (SQLException e) {
+//										e.printStackTrace();
+//									}
+//								}
+//							}
+							
 						}
 					}
 				});	
@@ -152,13 +218,34 @@ public class WineModel {
 								}
 							}
 						}
+						
+//						else if (c.wasReplaced()) {
+//							for (Purchase purchase : c.getAddedSubList()) {
+//								
+//								try {
+//									purchaseRepository.update(purchase);
+//								} catch (SQLException e) {
+//									e.printStackTrace();
+//								}
+//							}
+//						}
+//						
+//						else if (c.wasRemoved()) {
+//							for (Purchase purchase : c.getAddedSubList()) {
+//								
+//								try {
+//									purchaseRepository.delete(purchase);
+//								} catch (SQLException e) {
+//									e.printStackTrace();
+//								}
+//							}
+//						}
+						
 					}
 					
 				}
+				
 			});
-					
-			
-		
 		
 		//Wine
 		//ChangeListener -> Änderungen der Liste

@@ -1,14 +1,19 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQuery (name = "varietyQuery", query = "SELECT v FROM Variety v")
 public class Variety implements Serializable {
 
 	/**
@@ -20,7 +25,9 @@ public class Variety implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idVariety;
 	private String name;
-
+	@OneToMany (mappedBy = "variety")
+	private List<Wine> varietyWines = new ArrayList<>();
+ 
 
 	public Variety(long idVariety, String name) {
 		super();
@@ -51,6 +58,16 @@ public class Variety implements Serializable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(idVariety, name);
+	}
+
+	
+	
+	public List<Wine> getVarietyWines() {
+		return varietyWines;
+	}
+
+	public void setVarietyWines(List<Wine> varietyWines) {
+		this.varietyWines = varietyWines;
 	}
 
 	@Override

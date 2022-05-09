@@ -23,7 +23,7 @@ public class PurchaseRepositoryJPA implements PurchaseRepository {
 	
 	
 	@Override
-	public long create(Purchase purchase) throws SQLException {
+	public void create(Purchase purchase) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
@@ -31,9 +31,7 @@ public class PurchaseRepositoryJPA implements PurchaseRepository {
 		em.persist(purchase);
 		
 		transaction.commit();
-		
-		
-		return 0;
+	
 	}
 
 	@Override
@@ -87,6 +85,7 @@ public class PurchaseRepositoryJPA implements PurchaseRepository {
 		em.remove(purchase);
 		
 		transaction.commit();
+		
 		
 	}
 

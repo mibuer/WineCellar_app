@@ -24,7 +24,7 @@ private static EntityManager em;
 	}
 	
 	@Override
-	public long create(Variety variety) throws SQLException {
+	public void create(Variety variety) throws SQLException {
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
@@ -33,7 +33,6 @@ private static EntityManager em;
 		
 		transaction.commit();
 		
-		return 0;
 	}
 
 	@Override
@@ -88,7 +87,7 @@ private static EntityManager em;
 		transaction.commit();
 		
 	}
-
+	
 	
 
 }

@@ -22,7 +22,7 @@ public class WineRepositoryJPA implements WineRepository {
 	}
 
 	@Override
-	public long create(Wine wine) throws SQLException { 
+	public void create(Wine wine) throws SQLException { 
 		
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
@@ -30,8 +30,7 @@ public class WineRepositoryJPA implements WineRepository {
 		em.persist(wine);
 		
 		transaction.commit();
-	
-		return 0;
+		
 	}
 
 	@Override
@@ -86,7 +85,15 @@ public class WineRepositoryJPA implements WineRepository {
 		
 		transaction.commit();
 		
+	}
 
+	@Override
+	public List<Wine> findByName(String name) throws SQLException {
+		
+		TypedQuery<Wine> query = em.createQuery("SELECT w FROM Wine WHERE w.name = :name", Wine.class);
+		query.setParameter("name", name);
+		
+		return query.getResultList();
 	}
 	
 }

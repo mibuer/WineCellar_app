@@ -44,6 +44,7 @@ public class App extends Application {
     	VarietyRepositoryJPA.setupDatabaseConnection();
     	PurchaseRepositoryJPA.setupDatabaseConnection();
     	
+    	
     }
     
     private void initWineModel() throws IOException {
@@ -82,6 +83,7 @@ public class App extends Application {
 //        WineModel.initWines.add(wine2);
 //        WineModel.initWines.add(wine3);
 //        WineModel.initWines.add(wine4);
+    	
 		
 	}
 

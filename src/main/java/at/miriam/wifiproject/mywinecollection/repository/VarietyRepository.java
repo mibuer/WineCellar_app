@@ -10,7 +10,7 @@ import at.miriam.wifiproject.mywinecollection.model.Variety;
 public interface VarietyRepository {
 	
 	//einfügen
-	long create(Variety variety) throws SQLException;
+	void create(Variety variety) throws SQLException;
 	
 	//lesen
 	Optional<Variety> read(long id) throws SQLException;

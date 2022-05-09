@@ -11,9 +11,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Wine implements Serializable {
@@ -24,14 +26,16 @@ public class Wine implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
-	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@Id @GeneratedValue (strategy = GenerationType.AUTO)
 	private long idWine;
 	private String name;
 	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "FK_PRODUCER_ID") 
 	private Producer producer;
 	private String vintage;
 	private Double alcohol;
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "FK_VARIETY_ID") 
 	private Variety variety;
 	@Enumerated(EnumType.STRING)
 	private WineCategory wineCategory;
@@ -40,11 +44,14 @@ public class Wine implements Serializable {
 	private String imagePath;
 	@Lob
 	private byte[] imageBytes;
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "FK_STORAGE_ID") 
 	private Storage storage;
 	private Integer shelfNumber;
 	private Integer numberOfBottles;
 	private String bottleSize;
 	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name = "FK_PURCHASE_ID") 
 	private Purchase purchase;
 	private String wineRatings;
 	private String notes;

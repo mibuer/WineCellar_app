@@ -10,7 +10,7 @@ public interface PurchaseRepository {
 
 	
 			//einfügen
-			long create(Purchase purchase) throws SQLException;
+			void create(Purchase purchase) throws SQLException;
 			
 			//lesen
 			Optional<Purchase> read(long id) throws SQLException;

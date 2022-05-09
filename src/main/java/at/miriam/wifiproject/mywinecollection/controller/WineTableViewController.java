@@ -1,7 +1,9 @@
 package at.miriam.wifiproject.mywinecollection.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
@@ -9,6 +11,8 @@ import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.WineCategory;
 import at.miriam.wifiproject.mywinecollection.repository.WineRepository;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -20,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class WineTableViewController extends BaseController {
 
@@ -143,7 +148,9 @@ public class WineTableViewController extends BaseController {
         assert wineStyleColumn != null : "fx:id=\"wineStyleColumn\" was not injected: check your FXML file 'WineTableView.fxml'.";
         
         //Tabelle
-        tableView.setItems(model.winesList);
+       tableView.setItems(model.winesList);
+		
+       
 
         
         //Erste Spalte: Button, um Wein als Favoriten auszuwählen, Favorit wird in einer Liste im WineModel gespeichert

@@ -1,6 +1,8 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -8,9 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 @Entity
-@NamedQuery (name = "producerQuery", query = "select p FROM Producer p")
+@NamedQuery (name = "producerQuery", query = "SELECT p FROM Producer p")
 public class Producer implements Serializable {
 
 	/**
@@ -25,6 +28,8 @@ public class Producer implements Serializable {
 	private String country;
 	private String wineRegion;
 	private String vineyard;
+	@OneToMany(mappedBy = "producer")
+	private List<Wine> winesOfProducer = new ArrayList<>();
 	
 	public Producer() {
 		
@@ -85,6 +90,19 @@ public class Producer implements Serializable {
 
 	public void setIdProducer(long idProducer) {
 		this.idProducer = idProducer;
+	}
+
+	
+
+
+	public List<Wine> getWines() {
+		return winesOfProducer;
+	}
+
+
+
+	public void setWines(List<Wine> wines) {
+		this.winesOfProducer = wines;
 	}
 
 
