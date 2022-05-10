@@ -29,12 +29,12 @@ public class Wine implements Serializable {
 	@Id @GeneratedValue (strategy = GenerationType.AUTO)
 	private long idWine;
 	private String name;
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne //(cascade = CascadeType.PERSIST)
 	@JoinColumn (name = "FK_PRODUCER_ID") 
 	private Producer producer;
 	private String vintage;
 	private Double alcohol;
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne 
 	@JoinColumn (name = "FK_VARIETY_ID") 
 	private Variety variety;
 	@Enumerated(EnumType.STRING)
@@ -44,13 +44,13 @@ public class Wine implements Serializable {
 	private String imagePath;
 	@Lob
 	private byte[] imageBytes;
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne //(cascade = CascadeType.PERSIST)
 	@JoinColumn (name = "FK_STORAGE_ID") 
 	private Storage storage;
 	private Integer shelfNumber;
 	private Integer numberOfBottles;
 	private String bottleSize;
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne 
 	@JoinColumn (name = "FK_PURCHASE_ID") 
 	private Purchase purchase;
 	private String wineRatings;
@@ -265,7 +265,7 @@ public class Wine implements Serializable {
 
 	public String toString() {
 		
-		return producer + " " +  name + " " + vintage;
+		return producer + " " +  name + " " + vintage + " " + variety;
 	}
 	
 	

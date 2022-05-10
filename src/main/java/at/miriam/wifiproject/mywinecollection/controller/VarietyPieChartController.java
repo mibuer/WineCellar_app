@@ -1,7 +1,10 @@
 package at.miriam.wifiproject.mywinecollection.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
@@ -26,13 +29,29 @@ public class VarietyPieChartController extends BaseController {
     void initialize() {
     	assert varietyPieChart != null : "fx:id=\"varietyPieChart\" was not injected: check your FXML file 'VarietyPieChartView.fxml'.";
  
+    	System.out.println("PieChart initialize");
     	
-    	ObservableList<PieChart.Data> varietyPieChartData = FXCollections.observableArrayList(
-    			new PieChart.Data("Grüner Veltliner", 20),
-    			new PieChart.Data("Riesling", 15),
-    			new PieChart.Data("Zweigelt", 8),
-    			new PieChart.Data("Cuvée", 14),
-    			new PieChart.Data("Pinot noir", 10));
+    
+    	//FilteredList<Wine> listVarieties = new FilteredList<>(model.winesList, w -> w.getVariety().getName() != null);
+    	
+    	List<Wine> listVarieties = model.winesList.stream()
+    												.filter(w -> w.getVariety().getName() != null)
+    												.collect(Collectors.toList());
+    	
+    	System.out.println(listVarieties);
+    	
+    	ObservableList<PieChart.Data> varietyPieChartData = FXCollections.observableArrayList();
+    	
+    	PieChart.Data varietyData = null;
+    
+    	for (int i=0; i < listVarieties.size(); i++) {
+    		
+    		varietyData = new PieChart.Data(listVarieties.get(i).toString(), Double.valueOf(i));
+    		varietyPieChartData.add(varietyData);
+    	}
+    
+    	
+    	
     	
   
     	varietyPieChart.setData(varietyPieChartData);

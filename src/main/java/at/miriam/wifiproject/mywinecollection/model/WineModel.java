@@ -32,6 +32,7 @@ public class WineModel {
 	private VarietyRepository varietyRepository = new VarietyRepositoryJPA();
 	private PurchaseRepository purchaseRepository = new PurchaseRepositoryJPA();
 	
+	private ValidateDatabaseValues dataValidation = new ValidateDatabaseValues();
 	
 	public final ObservableList<Wine> winesList = FXCollections.observableArrayList();
 	
@@ -80,34 +81,39 @@ public class WineModel {
 						for (Producer producer : c.getAddedSubList()) {
 							
 							try {
-								producerRepository.create(producer);
+								//Prüfen, ob Eintrag bereits vorhanden 
+								if (dataValidation.validateProducer(producer) == false) {
+										
+									producerRepository.create(producer);
+								
+								}
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
 						}
 					}
 					
-//					else if (c.wasReplaced()) {
-//						for (Producer producer : c.getAddedSubList()) {
-//							
-//							try {
-//								producerRepository.update(producer);
-//							} catch (SQLException e) {
-//								e.printStackTrace();
-//							}
-//						}
-//					}
-//					
-//					else if (c.wasRemoved()) {
-//						for (Producer producer : c.getAddedSubList()) {
-//							
-//							try {
-//								producerRepository.delete(producer);
-//							} catch (SQLException e) {
-//								e.printStackTrace();
-//							}
-//						}
-//					}
+					else if (c.wasReplaced()) {
+						for (Producer producer : c.getAddedSubList()) {
+							
+							try {
+								producerRepository.update(producer);
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+					
+					else if (c.wasRemoved()) {
+						for (Producer producer : c.getAddedSubList()) {
+							
+							try {
+								producerRepository.delete(producer);
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+						}
+					}
 				}
 			}
 		});
@@ -124,34 +130,39 @@ public class WineModel {
 								for (Variety variety : c.getAddedSubList()) {
 									
 									try {
+										//Prüfen, ob Eintrag bereits vorhanden 
+										if (dataValidation.validateVariety(variety) == false) {
 										varietyRepository.create(variety);
+										} 
 									} catch (SQLException e) {
 										e.printStackTrace();
 									}
 								}
 							}
 							
-//							else if (c.wasReplaced()) {
-//								for (Variety variety : c.getAddedSubList()) {
-//									
-//									try {
-//										varietyRepository.update(variety);
-//									} catch (SQLException e) {
-//										e.printStackTrace();
-//									}
-//								}
-//							}
-//							
-//							else if (c.wasRemoved()) {
-//								for (Variety variety : c.getAddedSubList()) {
-//									
-//									try {
-//										varietyRepository.delete(variety);
-//									} catch (SQLException e) {
-//										e.printStackTrace();
-//									}
-//								}
-//							}
+							else if (c.wasReplaced()) {
+								for (Variety variety : c.getAddedSubList()) {
+									
+									try {
+										//Prüfen, ob Eintrag bereits vorhanden 
+										
+										varietyRepository.update(variety);
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+							
+							else if (c.wasRemoved()) {
+								for (Variety variety : c.getAddedSubList()) {
+									
+									try {
+										varietyRepository.delete(variety);
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+								}
+							}
 						}
 					}
 				});
@@ -167,34 +178,40 @@ public class WineModel {
 								for (Storage storage : c.getAddedSubList()) {
 									
 									try {
+										
+										//Prüfen, ob Eintrag bereits vorhanden 
+										if (dataValidation.validateStorage(storage) == false) {
+										
 										storageRepository.create(storage);
+										
+										}
 									} catch (SQLException e) {
 										e.printStackTrace();
 									}
 								}
 							}
 							
-//							else if (c.wasReplaced()) {
-//								for (Storage storage : c.getAddedSubList()) {
-//									
-//									try {
-//										storageRepository.update(storage);
-//									} catch (SQLException e) {
-//										e.printStackTrace();
-//									}
-//								}
-//							}
-//							
-//							else if (c.wasRemoved()) {
-//								for (Storage storage : c.getAddedSubList()) {
-//									
-//									try {
-//										storageRepository.delete(storage);
-//									} catch (SQLException e) {
-//										e.printStackTrace();
-//									}
-//								}
-//							}
+							else if (c.wasReplaced()) {
+								for (Storage storage : c.getAddedSubList()) {
+									
+									try {
+										storageRepository.update(storage);
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+							
+							else if (c.wasRemoved()) {
+								for (Storage storage : c.getAddedSubList()) {
+									
+									try {
+										storageRepository.delete(storage);
+									} catch (SQLException e) {
+										e.printStackTrace();
+									}
+								}
+							}
 							
 						}
 					}
@@ -212,34 +229,39 @@ public class WineModel {
 							for (Purchase purchase : c.getAddedSubList()) {
 								
 								try {
+									
+									if (dataValidation.validatePurchase(purchase) == false) {
+										
 									purchaseRepository.create(purchase);
+									
+									}
 								} catch (SQLException e) {
 									e.printStackTrace();
 								}
 							}
 						}
 						
-//						else if (c.wasReplaced()) {
-//							for (Purchase purchase : c.getAddedSubList()) {
-//								
-//								try {
-//									purchaseRepository.update(purchase);
-//								} catch (SQLException e) {
-//									e.printStackTrace();
-//								}
-//							}
-//						}
-//						
-//						else if (c.wasRemoved()) {
-//							for (Purchase purchase : c.getAddedSubList()) {
-//								
-//								try {
-//									purchaseRepository.delete(purchase);
-//								} catch (SQLException e) {
-//									e.printStackTrace();
-//								}
-//							}
-//						}
+						else if (c.wasReplaced()) {
+							for (Purchase purchase : c.getAddedSubList()) {
+								
+								try {
+									purchaseRepository.update(purchase);
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+						
+						else if (c.wasRemoved()) {
+							for (Purchase purchase : c.getAddedSubList()) {
+								
+								try {
+									purchaseRepository.delete(purchase);
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+							}
+						}
 						
 					}
 					
@@ -263,6 +285,8 @@ public class WineModel {
 						for (Wine wine : c.getAddedSubList()) {
 							
 							try {
+								
+								
 								wineRepository.update(wine);
 							} catch (SQLException e) {
 								e.printStackTrace();
@@ -274,6 +298,7 @@ public class WineModel {
 						for (Wine wine : c.getAddedSubList()) {
 							
 							try {
+								
 								wineRepository.create(wine);
 							} catch (SQLException e) {
 								e.printStackTrace();
