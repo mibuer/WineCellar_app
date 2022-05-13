@@ -159,6 +159,7 @@ public class AddWineViewController extends BaseController {
         	String filePath = chooseImageFilePathTextField.getText();
         	
         	//byte [] imageBytes = getClass().getResourceAsStream(filePath).readAllBytes();
+        	
         	byte[]  imageBytes = Files.newInputStream(Path.of(filePath).toAbsolutePath()).readAllBytes();
         	
         	
@@ -380,10 +381,12 @@ public class AddWineViewController extends BaseController {
     	
     	if (!producer.isEmpty()) {
     	producerNew = new Producer(0, producer, country, wineRegion, vineyard);
+    	model.producerList.add(producerNew);
     	}
     	
     	
     	Purchase purchaseNew = new Purchase(0, shop, date, price);
+    	model.purchaseList.add(purchaseNew);
     	
     	//Default Foto soll eingestellt sein, falls kein eigenes angegeben wird ???
     	//wurde 1 Foto hinzugefügt -> disable Button

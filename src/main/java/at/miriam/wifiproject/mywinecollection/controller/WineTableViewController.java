@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class WineTableViewController extends BaseController {
@@ -191,6 +192,8 @@ public class WineTableViewController extends BaseController {
 			}
 			
 		}); // Ende FavoritesColumn
+        
+       
         
         //TableColumns die Wine Attribute zuweisen mit Cell Value Factory
         //Kategorie

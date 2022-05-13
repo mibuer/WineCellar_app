@@ -34,7 +34,7 @@ public class Wine implements Serializable {
 	private Producer producer;
 	private String vintage;
 	private Double alcohol;
-	@ManyToOne 
+	@ManyToOne //(cascade = CascadeType.PERSIST)
 	@JoinColumn (name = "FK_VARIETY_ID") 
 	private Variety variety;
 	@Enumerated(EnumType.STRING)
@@ -50,7 +50,7 @@ public class Wine implements Serializable {
 	private Integer shelfNumber;
 	private Integer numberOfBottles;
 	private String bottleSize;
-	@ManyToOne 
+	@ManyToOne //(cascade = CascadeType.PERSIST)
 	@JoinColumn (name = "FK_PURCHASE_ID") 
 	private Purchase purchase;
 	private String wineRatings;

@@ -25,7 +25,7 @@ public class FavListViewController extends BaseController {
         assert favoritesListView != null : "fx:id=\"favoritesListView\" was not injected: check your FXML file 'FavoritesListView.fxml'.";
         
         
-        favoritesListView.getItems().addAll(model.favWinesList);
+        favoritesListView.getItems().addAll(model.winesList);
         
         
         //favWines werden bei Start des Programms aus der Datenbank gelesen

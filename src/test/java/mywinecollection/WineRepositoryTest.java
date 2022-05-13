@@ -16,6 +16,7 @@ import at.miriam.wifiproject.mywinecollection.db.Main;
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Purchase;
 import at.miriam.wifiproject.mywinecollection.model.Storage;
+import at.miriam.wifiproject.mywinecollection.model.ValidateDatabaseValues;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.WineCategory;
@@ -30,6 +31,8 @@ public class WineRepositoryTest {
 	
 	EntityManagerFactory emf;
 	
+	ValidateDatabaseValues databaseValidation;
+	
 	@BeforeEach
 	public void createDatabaseConnection() {
 		
@@ -39,19 +42,35 @@ public class WineRepositoryTest {
 
 	@Test
 	public void saveWine() throws IOException, SQLException {
+		
+		
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 	
 		Producer producer1 = new Producer(0, "Stift Klosterneuburg", "AT", "Wien", "Nussberg");
+		
+//		if (databaseValidation.validateProducer(producer1) == false) {
+//		
+//		em.persist(producer1);
+//		
+//		}
+		
 		Variety variety1 = new Variety(0, "Gemischter Satz");
+		
+		
 		Purchase purchase1 = new Purchase(0, "Vinothek", LocalDate.of(2022, 3, 15), 9.80);
+		
+		
 		Storage storage1 = new Storage(0, "Keller 1");
 		
+		
 		Wine wine1 = createWine1(producer1, variety1, purchase1, storage1);
+		
 		em.persist(wine1);
 	
 		em.getTransaction().commit();
+		
 		em.close();
 		
 	}

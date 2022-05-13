@@ -49,6 +49,7 @@ public class WineModel {
 	public final ObservableList<String> countryList = FXCollections.observableArrayList("AT","DE","CH","ES","FR","IT","PT");
 	
 	public final ObservableList<Wine> favWinesList = FXCollections.observableArrayList();
+	//ChangeListener erstellen für die Auswahl der Favoriten
 	
 
 	public WineModel() {
@@ -83,10 +84,11 @@ public class WineModel {
 							try {
 								//Prüfen, ob Eintrag bereits vorhanden 
 								if (dataValidation.validateProducer(producer) == false) {
-										
+									
 									producerRepository.create(producer);
 								
 								}
+								
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
@@ -97,7 +99,13 @@ public class WineModel {
 						for (Producer producer : c.getAddedSubList()) {
 							
 							try {
-								producerRepository.update(producer);
+								
+								if (dataValidation.validateProducer(producer) == false) {
+									
+									producerRepository.create(producer);
+								
+								}
+								
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
@@ -132,7 +140,7 @@ public class WineModel {
 									try {
 										//Prüfen, ob Eintrag bereits vorhanden 
 										if (dataValidation.validateVariety(variety) == false) {
-										varietyRepository.create(variety);
+											varietyRepository.create(variety);
 										} 
 									} catch (SQLException e) {
 										e.printStackTrace();
@@ -145,8 +153,9 @@ public class WineModel {
 									
 									try {
 										//Prüfen, ob Eintrag bereits vorhanden 
-										
-										varietyRepository.update(variety);
+										if (dataValidation.validateVariety(variety) == false) {
+											varietyRepository.update(variety);
+										}
 									} catch (SQLException e) {
 										e.printStackTrace();
 									}
@@ -195,7 +204,12 @@ public class WineModel {
 								for (Storage storage : c.getAddedSubList()) {
 									
 									try {
-										storageRepository.update(storage);
+										
+										if (dataValidation.validateStorage(storage) == false) {
+										
+											storageRepository.update(storage);
+										}
+										
 									} catch (SQLException e) {
 										e.printStackTrace();
 									}
@@ -232,7 +246,7 @@ public class WineModel {
 									
 									if (dataValidation.validatePurchase(purchase) == false) {
 										
-									purchaseRepository.create(purchase);
+										purchaseRepository.create(purchase);
 									
 									}
 								} catch (SQLException e) {
@@ -245,7 +259,12 @@ public class WineModel {
 							for (Purchase purchase : c.getAddedSubList()) {
 								
 								try {
-									purchaseRepository.update(purchase);
+									
+									if (dataValidation.validatePurchase(purchase) == false) {
+									
+										purchaseRepository.update(purchase);
+									}
+									
 								} catch (SQLException e) {
 									e.printStackTrace();
 								}
@@ -286,8 +305,28 @@ public class WineModel {
 							
 							try {
 								
+								Producer producer = wine.getProducer();
+								
+								if (dataValidation.validateProducer(producer) == false ) {	
+									
+									
+									producerRepository.create(producer);
+								}
+								Variety variety = wine.getVariety();
+								if (dataValidation.validateVariety(variety) == false) {
+									varietyRepository.update(variety);
+								}
+								Storage storage = wine.getStorage();
+								if (dataValidation.validateStorage(storage) == false) {
+									storageRepository.update(storage);
+								}
+								Purchase purchase = wine.getPurchase();
+								if (dataValidation.validatePurchase(purchase) == false) {
+									purchaseRepository.update(purchase);
+								}
 								
 								wineRepository.update(wine);
+								
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
@@ -299,7 +338,26 @@ public class WineModel {
 							
 							try {
 								
+								Producer producer = wine.getProducer();
+								if (dataValidation.validateProducer(producer) == false) {
+									producerRepository.create(producer);
+								} 
+								
+								Variety variety = wine.getVariety();
+								if (dataValidation.validateVariety(variety) == false) {
+									varietyRepository.create(variety);
+								} 
+								Storage storage = wine.getStorage();
+								if (dataValidation.validateStorage(storage) == false) {
+									storageRepository.create(storage);
+								}
+								Purchase purchase = wine.getPurchase();
+								if (dataValidation.validatePurchase(purchase) == false) {
+									purchaseRepository.create(purchase);
+								}
+								
 								wineRepository.create(wine);
+								
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}

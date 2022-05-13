@@ -32,6 +32,11 @@ ChoiceBox {
 
 /*Styleklasse*/
 
+.favouritesColumn {
+	
+	-fx-background-color: #eff3f7;
+}
+
 .button {
 	
 	-fx-text-fill: black;
@@ -79,6 +84,8 @@ ChoiceBox {
 	-fx-font: 10 "Verdana";
 } 
 
+
+
 /*id*/
 #topLabel {
 	
@@ -92,6 +99,11 @@ ChoiceBox {
 	
 }
 
-
+#valueCollectionLabel, #bottleNumLabel {
+	
+	-fx-font: 20 "Verdana";
+	-fx-font-weight: bold;
+	
+}
 
 

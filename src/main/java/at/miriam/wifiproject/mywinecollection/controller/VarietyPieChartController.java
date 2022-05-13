@@ -29,16 +29,18 @@ public class VarietyPieChartController extends BaseController {
     void initialize() {
     	assert varietyPieChart != null : "fx:id=\"varietyPieChart\" was not injected: check your FXML file 'VarietyPieChartView.fxml'.";
  
-    	System.out.println("PieChart initialize");
+    	System.out.println("Variety PieChart initialize");
     	
     
-    	//FilteredList<Wine> listVarieties = new FilteredList<>(model.winesList, w -> w.getVariety().getName() != null);
-    	
+    
     	List<Wine> listVarieties = model.winesList.stream()
     												.filter(w -> w.getVariety().getName() != null)
+    												//.distinct()
     												.collect(Collectors.toList());
     	
     	System.out.println(listVarieties);
+    	
+    	
     	
     	ObservableList<PieChart.Data> varietyPieChartData = FXCollections.observableArrayList();
     	

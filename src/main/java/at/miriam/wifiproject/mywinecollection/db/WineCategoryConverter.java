@@ -20,13 +20,12 @@ public class WineCategoryConverter implements AttributeConverter<WineCategory, S
 
 	@Override
 	public WineCategory convertToEntityAttribute(String code) {
-		// TODO Auto-generated method stub
 		
 		if(code == null) {
 			return null;
 		}
 		return Stream.of(WineCategory.values())
-				.filter(c ->c.getCode().equals(code))
+				.filter(c -> c.getCode().equals(code))
 				.findFirst()
 				.orElseThrow(IllegalArgumentException::new);
 	}
