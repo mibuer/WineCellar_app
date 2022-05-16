@@ -26,6 +26,7 @@ import javafx.util.Callback;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.SplitPane;
 
 public class WineTableViewController extends BaseController {
 
@@ -97,8 +98,11 @@ public class WineTableViewController extends BaseController {
 
 		@FXML 
 		private TextField filterTableTextField;
-		
-    
+
+		@FXML 
+		private Button updateWineButton;
+
+	
     @FXML
     void onDeleteTableButtonClick(ActionEvent event) {
 
@@ -116,6 +120,7 @@ public class WineTableViewController extends BaseController {
     	// zurück zu tab pane Wein, hier daten ändern
     	//FXMLLoader.load(getClass().getResource(Constants.PATH_TO_ADD_WINE_FORM_VIEW)); 
     	//Tab text="Wein"
+    
     	
     }
     
@@ -123,6 +128,8 @@ public class WineTableViewController extends BaseController {
 //		
 //		return selectedWineLabel.getScene().getWindow();
 //	}
+    
+    
 
 	@FXML
     void initialize() {
@@ -297,6 +304,10 @@ public class WineTableViewController extends BaseController {
         sortedData.comparatorProperty().bind(tableView.comparatorProperty());
         
         tableView.setItems(sortedData);
+        
+        
+        
+        
         
     }
 

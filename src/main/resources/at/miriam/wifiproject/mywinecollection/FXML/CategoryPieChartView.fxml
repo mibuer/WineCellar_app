@@ -5,6 +5,6 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.miriam.wifiproject.mywinecollection.controller.CategoryPieChartController">
    <children>
-      <PieChart fx:id="categoryPieChart" prefHeight="300.0" prefWidth="300.0" title="Kategorien" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <PieChart fx:id="categoryPieChart" labelsVisible="false" prefHeight="300.0" prefWidth="300.0" title="Kategorien" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

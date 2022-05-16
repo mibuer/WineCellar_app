@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
+import javafx.scene.control.Tab;
+import javafx.scene.layout.AnchorPane;
 
 public class TabPaneViewController extends BaseController {
 
@@ -31,6 +33,16 @@ public class TabPaneViewController extends BaseController {
 
 	@FXML
 	private ImageView logoImageView;
+
+	@FXML 
+	private Tab tabStart;
+
+	@FXML 
+	private Tab tabAddWine;
+
+	@FXML 
+	private Tab tabTableView;
+
 
 	@FXML
 	void initialize() {
@@ -65,7 +77,7 @@ public class TabPaneViewController extends BaseController {
 		}
 
 		String collValueFormat = new DecimalFormat("0.00").format(totalValueColl);
-		valueCollectionLabel.setText(collValueFormat + " " + "Euro");
+		valueCollectionLabel.setText(collValueFormat + " " + "Eur");
 
 	}
 

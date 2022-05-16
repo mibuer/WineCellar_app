@@ -3,6 +3,7 @@ package at.miriam.wifiproject.mywinecollection.model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import at.miriam.wifiproject.mywinecollection.repository.ProducerRepository;
 import at.miriam.wifiproject.mywinecollection.repository.ProducerRepositoryJPA;
@@ -19,6 +20,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Tab;
 
 public class WineModel {
 
@@ -86,7 +88,6 @@ public class WineModel {
 								if (dataValidation.validateProducer(producer) == false) {
 									
 									producerRepository.create(producer);
-								
 								}
 								
 							} catch (SQLException e) {
@@ -103,7 +104,6 @@ public class WineModel {
 								if (dataValidation.validateProducer(producer) == false) {
 									
 									producerRepository.create(producer);
-								
 								}
 								
 							} catch (SQLException e) {
@@ -306,12 +306,12 @@ public class WineModel {
 							try {
 								
 								Producer producer = wine.getProducer();
-								
-								if (dataValidation.validateProducer(producer) == false ) {	
+								if (dataValidation.validateProducer(producer) == false) {
 									
-									
-									producerRepository.create(producer);
+									producerRepository.update(producer);
 								}
+							
+								
 								Variety variety = wine.getVariety();
 								if (dataValidation.validateVariety(variety) == false) {
 									varietyRepository.update(variety);
@@ -340,19 +340,23 @@ public class WineModel {
 								
 								Producer producer = wine.getProducer();
 								if (dataValidation.validateProducer(producer) == false) {
+									
 									producerRepository.create(producer);
-								} 
+								}
 								
 								Variety variety = wine.getVariety();
 								if (dataValidation.validateVariety(variety) == false) {
+									
 									varietyRepository.create(variety);
 								} 
 								Storage storage = wine.getStorage();
 								if (dataValidation.validateStorage(storage) == false) {
+									
 									storageRepository.create(storage);
 								}
 								Purchase purchase = wine.getPurchase();
 								if (dataValidation.validatePurchase(purchase) == false) {
+									
 									purchaseRepository.create(purchase);
 								}
 								
@@ -397,6 +401,8 @@ public class WineModel {
 	public final void setSelectedWine(final Wine selectedWine) {
 		this.selectedWineProperty().set(selectedWine);
 	}
+	
+	
 	
 
 	

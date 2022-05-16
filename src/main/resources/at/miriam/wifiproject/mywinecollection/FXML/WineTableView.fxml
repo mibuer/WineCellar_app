@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.miriam.wifiproject.mywinecollection.controller.WineTableViewController">
    <children>
-      <SplitPane dividerPositions="0.12" orientation="VERTICAL" stylesheets="@../CSS/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="splitPane" dividerPositions="0.12" orientation="VERTICAL" stylesheets="@../CSS/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -28,7 +28,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Button mnemonicParsing="false" onAction="#onUpdateTableButtonClick" text="Ändern">
+                              <Button fx:id="updateWineButton" mnemonicParsing="false" onAction="#onUpdateTableButtonClick" text="Ändern">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>

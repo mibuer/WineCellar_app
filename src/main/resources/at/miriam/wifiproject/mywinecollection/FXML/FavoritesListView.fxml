@@ -18,7 +18,7 @@
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin></Label>
-            <ListView fx:id="favoritesListView" prefHeight="150.0" prefWidth="350.0" stylesheets="@../CSS/Styles.css" />
+            <ListView fx:id="favoritesListView" prefHeight="150.0" prefWidth="350.0" style="-fx-border-color: black;" stylesheets="@../CSS/Styles.css" />
          </children>
       </VBox>
    </children>
