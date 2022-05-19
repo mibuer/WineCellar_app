@@ -7,6 +7,7 @@ module at.miriam.wifiproject.mywinecollection {
 	requires jakarta.persistence;
 	requires org.hibernate.orm.core;
 	
+	
 	opens at.miriam.wifiproject.mywinecollection.model;
 
     opens at.miriam.wifiproject.mywinecollection to javafx.fxml;

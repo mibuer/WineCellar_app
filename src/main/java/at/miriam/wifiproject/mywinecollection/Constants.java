@@ -9,5 +9,4 @@ public class Constants {
 	public static final String PATH_TO_DEFAULT_IMAGE = "/at/miriam/wifiproject/mywinecollection/Images/default_image.png";
 	
 	
-	
 }

@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.WineCategory;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +36,26 @@ public class CategoryPieChartController extends BaseController {
 		assert categoryPieChart != null
 				: "fx:id=\"categoryPieChart\" was not injected: check your FXML file 'CategoryPieChartView.fxml'.";
 
+		updateDiagram();
+		
+		
+		model.winesList.addListener(new InvalidationListener() {
+			
+			@Override
+			public void invalidated(Observable observable) {
+				System.err.println("Update diagram");
+				updateDiagram();
+				
+			}
+
+			
+		});
+		
+		
+		
+	}	
+
+	private void updateDiagram() {
 		
 		List<WineCategory> listCategories = model.winesList.stream()
 													.map(w -> w.getWineCategory())
@@ -47,18 +69,20 @@ public class CategoryPieChartController extends BaseController {
 
 		PieChart.Data categoryData = null;
 
-		for (WineCategory category : categoriesSet) {
+			for (WineCategory category : categoriesSet) {
 
-			categoryData = new PieChart.Data(category.getCode(),
-					Double.valueOf(Collections.frequency(listCategories, category)));
-			categoryPieChartData.add(categoryData);
-		}
+					categoryData = new PieChart.Data(category.getCode(),
+						Double.valueOf(Collections.frequency(listCategories, category)));
+						categoryPieChartData.add(categoryData);
+			}
 
-		categoryPieChart.setData(categoryPieChartData);
-		categoryPieChart.setTitle("Weinbestand nach Kategorien");
-		categoryPieChart.setClockwise(true);
-		categoryPieChart.setLegendVisible(true);
+			categoryPieChart.setData(categoryPieChartData);
+			categoryPieChart.setTitle("Weinbestand nach Kategorien");
+			categoryPieChart.setClockwise(true);
+			categoryPieChart.setLegendVisible(true);
 
-	}
+}
+		
+	
 
 }

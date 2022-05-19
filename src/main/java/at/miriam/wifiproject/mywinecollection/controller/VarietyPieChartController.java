@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,37 +34,53 @@ public class VarietyPieChartController extends BaseController {
     void initialize() {
     	assert varietyPieChart != null : "fx:id=\"varietyPieChart\" was not injected: check your FXML file 'VarietyPieChartView.fxml'.";
  
-    
-    	List<Variety> listVarieties = model.winesList.stream()
-    												.map(w -> w.getVariety())
-    												.collect(Collectors.toList());
+    	updateDiagram();
     	
-    	System.out.println(listVarieties);
+    	model.winesList.addListener(new InvalidationListener() {
+			
+			@Override
+			public void invalidated(Observable observable) {
+				updateDiagram();
+				
+			}
+		});
     	
-    	
-    	Set<Variety> varietiesSet = new HashSet<>(listVarieties);
-    	
-    	ObservableList<PieChart.Data> varietyPieChartData = FXCollections.observableArrayList();
-    	
-    	PieChart.Data varietyData = null;
-    	
-    	
-    	for (Variety variety : varietiesSet) {
-    		
-    		varietyData = new PieChart.Data(variety.getName(), 
-    				Double.valueOf(Collections.frequency(listVarieties, variety)));
-    		varietyPieChartData.add(varietyData);
-    		
-    	}
- 
-    
-    	varietyPieChart.setData(varietyPieChartData);
-    	varietyPieChart.setTitle("Weinbestand nach Rebsorten");
-    	varietyPieChart.setClockwise(true);
-    	varietyPieChart.setLegendVisible(true);
     	
     	
 
     }
+
+	private void updateDiagram() {
+		
+		List<Variety> listVarieties = model.winesList.stream()
+				.map(w -> w.getVariety())
+				.collect(Collectors.toList());
+
+		System.out.println(listVarieties);
+
+
+		Set<Variety> varietiesSet = new HashSet<>(listVarieties);
+
+		ObservableList<PieChart.Data> varietyPieChartData = FXCollections.observableArrayList();
+
+		PieChart.Data varietyData = null;
+
+
+			for (Variety variety : varietiesSet) {
+
+					varietyData = new PieChart.Data(variety.getName(), 
+								Double.valueOf(Collections.frequency(listVarieties, variety)));
+					varietyPieChartData.add(varietyData);
+
+			}
+
+
+			varietyPieChart.setData(varietyPieChartData);
+			varietyPieChart.setTitle("Weinbestand nach Rebsorten");
+			varietyPieChart.setClockwise(true);
+			varietyPieChart.setLegendVisible(true);	
+		
+		
+	}
 
 }

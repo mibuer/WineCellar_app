@@ -194,7 +194,7 @@ public class AddWineViewController extends BaseController {
         	
         	//Validierung der Datensätze und Wine Objekt erstellen
         	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
-        							storage, numOfBottles, bottleSize)) {
+        							storage, numOfBottles, bottleSize, filePath)) {
         		
         		
         		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
@@ -394,7 +394,7 @@ public class AddWineViewController extends BaseController {
     	
     	//Validierung der Datensätze und Wine Objekt erstellen
     	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
-    							storage, numOfBottles, bottleSize)) {
+    							storage, numOfBottles, bottleSize, filePath)) {
     		
     		Wine wine = null;
     		
@@ -427,7 +427,7 @@ public class AddWineViewController extends BaseController {
 
 	//Methode Valdierung Input, Mindestens diese Felder müssen eigegeben werden:
     private boolean isValidFormInput(String name, String producer, String country, Variety variety, 
-    								WineCategory category, Storage storage, Integer numOfBottles, String bottleSize) {
+    								WineCategory category, Storage storage, Integer numOfBottles, String bottleSize, String filePath) {
     	
     	return !name.isEmpty()
 				&& !producer.isEmpty()

@@ -265,7 +265,7 @@ public class Wine implements Serializable {
 
 	public String toString() {
 		
-		return producer + " " +  name + " " + vintage;
+		return producer  + ", " +  name + ", " + vintage;
 	}
 	
 	

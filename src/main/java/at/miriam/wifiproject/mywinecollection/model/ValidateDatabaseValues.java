@@ -1,79 +1,108 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
-import org.hibernate.mapping.List;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import org.hibernate.query.NativeQuery;
+
+import at.miriam.wifiproject.mywinecollection.repository.Repository;
+import at.miriam.wifiproject.mywinecollection.repository.WineRepository;
+import at.miriam.wifiproject.mywinecollection.repository.WineRepositoryJPA;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class ValidateDatabaseValues {
 	
-private static EntityManager em;
 	
-	public static void setupDatabaseConnection() {
+	private static EntityManager em = Repository.em;
+	
+	public Producer validateProducer(Producer producer) {
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("WineDB");
-		em = emf.createEntityManager();
+		
+		final String JPQL_PRODUCER = "SELECT p FROM Producer p WHERE p.name = :nameProd"
+				+ " and p.country = :country and p.wineRegion = :wineReg "
+				+ " and p.vineyard = :vineyardName";
+		
+		
+		TypedQuery<Producer> query = em.createQuery(JPQL_PRODUCER, Producer.class);
+		
+		
+		query.setParameter("nameProd", producer.getName())
+				.setParameter("country", producer.getCountry())
+				.setParameter("wineReg", producer.getWineRegion())
+				.setParameter("vineyardName", producer.getVineyard());
+				
+		if (!query.getResultList().isEmpty()) { 
+			System.out.println(query.getResultList());
+			System.out.println("Value found: " + producer.getIdProducer());
+			
+			return query.getSingleResult();
+		}
+		
+		return null;
 	}
 	
+	
+	public Variety validateVariety (Variety variety) {
+		
+		
+		final String JPQL_VARIETY = "SELECT v FROM Variety v WHERE v.name = :name";
+		
+		
+		TypedQuery<Variety> query = em.createQuery(JPQL_VARIETY, Variety.class);
+		
+		query.setParameter("name", variety.getName());
+		
+		if(!query.getResultList().isEmpty()) {
+			System.out.println("Value found: " + variety.getName());
+			return query.getSingleResult();
+		}
+		
+		return null;
+		
 
-	
-	public boolean validateProducer(Producer producer) {
-		
-		setupDatabaseConnection();
-		
-		TypedQuery<Producer> query = em.createQuery("SELECT p FROM Producer p WHERE p.name = name AND p.country = country AND p.wineRegion = wineRegion AND  p.vineyard = vineyard", Producer.class);
-		
-		if (query.getResultList() != null) {
-			System.out.println("Value found");
-			return true;
-		} 
-		
-		return false;
-	}
-	
-	
-	public boolean validateVariety (Variety variety) {
-		
-		setupDatabaseConnection();
-		
-		TypedQuery<Variety> query = em.createQuery("SELECT v FROM Variety v WHERE v.name = name", Variety.class);
-		
-		if (query.getResultList() != null) {
-			System.out.println("Value found");
-			return true;
-		} 
-	
-		return false;	
 	}
 
-	public boolean validateStorage (Storage storage) {
+	public Storage validateStorage (Storage storage) {
 		
-		setupDatabaseConnection();
 		
-		TypedQuery<Storage> query = em.createQuery("SELECT s FROM Storage s WHERE s.name = name", Storage.class);
+		final String JPQL_STORAGE = "SELECT s FROM Storage s WHERE s.name = :name";
 		
-		if (query.getResultList() != null) {
-			System.out.println("Value found");
-			return true;
-		} 
+		
+		TypedQuery<Storage> query = em.createQuery(JPQL_STORAGE, Storage.class);
 	
-		return false;	
+		query.setParameter("name", storage.getName());
+		
+		if (!query.getResultList().isEmpty()) {
+			System.out.println("Value found: " + storage.getName());
+			return query.getSingleResult();
+		}
+		
+		return null;	
 	}
 	
-	public boolean validatePurchase (Purchase purchase) {
-		
-		setupDatabaseConnection();
-		
-		TypedQuery<Purchase> query = em.createQuery("SELECT p FROM Purchase p WHERE p.wineShop = wineShop", Purchase.class);
-		
-		if (query.getResultList() != null) {
-			System.out.println("Value found");
-			return true;
-		} 
 	
-		return false;	
+	public Purchase validatePurchase (Purchase purchase) {
+		
+		
+		final String JPQL_PURCHASE = "SELECT p FROM Purchase p WHERE p.wineShop = :wineShop and p.dateOfPurchase = :date";
+		
+		
+		TypedQuery<Purchase> query = em.createQuery(JPQL_PURCHASE, Purchase.class);
+		
+		query.setParameter("wineShop", purchase.getWineShop())
+				.setParameter("date", purchase.getDateOfPurchase());
+		
+		if(!query.getResultList().isEmpty()) {
+			System.out.println("Value found: " + purchase.getIdPurchase());
+			return query.getSingleResult();
+		}
+		
+		return null;	
 	}
 
 }

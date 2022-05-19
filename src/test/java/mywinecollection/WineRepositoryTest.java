@@ -33,7 +33,7 @@ public class WineRepositoryTest {
 	
 	ValidateDatabaseValues databaseValidation;
 	
-	@BeforeEach
+	@BeforeAll
 	public void createDatabaseConnection() {
 		
 		emf = Persistence.createEntityManagerFactory("WineDB");
