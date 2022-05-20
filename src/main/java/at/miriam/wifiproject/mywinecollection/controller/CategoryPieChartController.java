@@ -57,6 +57,8 @@ public class CategoryPieChartController extends BaseController {
 
 	private void updateDiagram() {
 		
+		System.out.println("******************* UPDATE Category Diagram *************************************");
+		
 		List<WineCategory> listCategories = model.winesList.stream()
 													.map(w -> w.getWineCategory())
 													.collect(Collectors.toList());

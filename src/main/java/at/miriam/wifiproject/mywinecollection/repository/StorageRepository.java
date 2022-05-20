@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import at.miriam.wifiproject.mywinecollection.model.Storage;
 
-public interface StorageRepository {
+public interface StorageRepository extends Repository<Storage> {
 
 	//einfügen
 			void create(Storage storage) throws SQLException;
@@ -22,5 +22,7 @@ public interface StorageRepository {
 			
 			//löschen
 			void delete(Storage storage) throws SQLException;
+			
+			void deleteAll() throws SQLException;
 	
 }

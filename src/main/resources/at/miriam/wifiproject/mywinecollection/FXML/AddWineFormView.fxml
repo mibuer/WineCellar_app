@@ -192,14 +192,14 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="18.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
-                  <Label text="Lage">
+                  <Label text="Ort/Lage">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="vineyardTextField" prefHeight="25.0" prefWidth="200.0">
                      <HBox.margin>
-                        <Insets bottom="10.0" left="46.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="22.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -253,21 +253,21 @@
                         </Label>
                         <TextField fx:id="readyToDrinkTextField" prefHeight="25.0" prefWidth="160.0">
                            <HBox.margin>
-                              <Insets bottom="10.0" left="32.0" right="10.0" top="10.0" />
+                              <Insets bottom="10.0" left="35.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Datei wählen">
+                        <Label text="Datei wählen*">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
                         <TextField fx:id="chooseImageFilePathTextField" prefHeight="25.0" prefWidth="150.0">
                            <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                              <Insets bottom="10.0" left="5.0" top="10.0" />
                            </HBox.margin>
                         </TextField>
                         <Button fx:id="openImagePathButton" mnemonicParsing="false" onAction="#onOpenNewImageFileButtonClick" text="Öffnen">

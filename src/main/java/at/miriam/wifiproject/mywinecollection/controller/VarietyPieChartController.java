@@ -52,6 +52,8 @@ public class VarietyPieChartController extends BaseController {
 
 	private void updateDiagram() {
 		
+		System.out.println("******************* UPDATE Variety Diagram *************************************");
+		
 		List<Variety> listVarieties = model.winesList.stream()
 				.map(w -> w.getVariety())
 				.collect(Collectors.toList());

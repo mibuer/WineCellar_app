@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import at.miriam.wifiproject.mywinecollection.model.Wine;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -54,6 +56,35 @@ public class TabPaneViewController extends BaseController {
 		assert valueCollectionLabel != null
 				: "fx:id=\"valueCollectionLabel\" was not injected: check your FXML file 'TabPaneView.fxml'.";
 
+		updateBottlesNumber();
+		
+		updateTotalValue();
+		
+		model.winesList.addListener(new InvalidationListener() {
+			
+			@Override
+			public void invalidated(Observable observable) {
+				System.err.println("Update number of bottles");
+				updateBottlesNumber();
+			}
+		});
+		
+		model.winesList.addListener(new InvalidationListener() {
+			
+			@Override
+			public void invalidated(Observable observable) {
+				System.err.println("Update collection value");
+				updateTotalValue();
+				
+			}
+		});
+		
+		
+		
+	}
+
+
+	private void updateBottlesNumber() {
 		
 		Integer totalBottles = 0;
 		// Gsamtanzahl der Flaschen
@@ -66,6 +97,11 @@ public class TabPaneViewController extends BaseController {
 		String numOfBottlesString = Integer.toString(totalBottles);
 		bottleNumLabel.setText(numOfBottlesString);
 
+
+	}
+	
+	private void updateTotalValue() {
+		
 		Double totalValueColl = 0.00;
 		//Gesamtwert der Collection
 		for (Wine wine : model.winesList) {
@@ -78,7 +114,8 @@ public class TabPaneViewController extends BaseController {
 
 		String collValueFormat = new DecimalFormat("0.00").format(totalValueColl);
 		valueCollectionLabel.setText(collValueFormat + " " + "Eur");
-
+		
 	}
+
 
 }

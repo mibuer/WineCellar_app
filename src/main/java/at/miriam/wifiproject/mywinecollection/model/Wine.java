@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Wine implements Serializable {
@@ -29,12 +26,12 @@ public class Wine implements Serializable {
 	@Id @GeneratedValue (strategy = GenerationType.AUTO)
 	private long idWine;
 	private String name;
-	@ManyToOne //(cascade = CascadeType.PERSIST)
+	@ManyToOne 
 	@JoinColumn (name = "FK_PRODUCER_ID") 
 	private Producer producer;
 	private String vintage;
 	private Double alcohol;
-	@ManyToOne //(cascade = CascadeType.PERSIST)
+	@ManyToOne 
 	@JoinColumn (name = "FK_VARIETY_ID") 
 	private Variety variety;
 	@Enumerated(EnumType.STRING)
@@ -44,13 +41,13 @@ public class Wine implements Serializable {
 	private String imagePath;
 	@Lob
 	private byte[] imageBytes;
-	@ManyToOne //(cascade = CascadeType.PERSIST)
+	@ManyToOne 
 	@JoinColumn (name = "FK_STORAGE_ID") 
 	private Storage storage;
 	private Integer shelfNumber;
 	private Integer numberOfBottles;
 	private String bottleSize;
-	@ManyToOne //(cascade = CascadeType.PERSIST)
+	@ManyToOne 
 	@JoinColumn (name = "FK_PURCHASE_ID") 
 	private Purchase purchase;
 	private String wineRatings;

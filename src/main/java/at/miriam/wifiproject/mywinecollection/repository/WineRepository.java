@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 
-public interface WineRepository {
+public interface WineRepository extends Repository<Wine> {
 
 	//Wein einfügen
 	void create(Wine wine) throws SQLException;
@@ -25,6 +25,8 @@ public interface WineRepository {
 	
 	//löschen
 	void delete(Wine wine) throws SQLException;
+	
+	void deleteAll() throws SQLException;
 	
 	
 }

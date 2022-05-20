@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 
-public interface VarietyRepository {
+public interface VarietyRepository extends Repository<Variety> {
 	
 	//einfügen
 	void create(Variety variety) throws SQLException;
@@ -24,4 +24,6 @@ public interface VarietyRepository {
 	//löschen
 	void delete(Variety variety) throws SQLException;
 	
+
+	void deleteAll() throws SQLException;
 }

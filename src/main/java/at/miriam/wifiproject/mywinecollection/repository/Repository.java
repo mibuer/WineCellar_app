@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import at.miriam.wifiproject.mywinecollection.model.Producer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -31,6 +32,10 @@ public interface Repository<T> {
 	
 	//löschen
 	void delete(T entity) throws SQLException;
+	
+	void deleteAll() throws SQLException;
+	
+	void deleteWithID (long id) throws SQLException;
 	
 
 }

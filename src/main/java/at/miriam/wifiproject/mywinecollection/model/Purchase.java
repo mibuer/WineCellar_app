@@ -2,7 +2,6 @@ package at.miriam.wifiproject.mywinecollection.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -101,6 +100,7 @@ public class Purchase implements Serializable {
 
 	@Override
 	public String toString() {
+		
 		return "Purchase [idPurchase=" + idPurchase + ", wineShop=" + wineShop + ", dateOfPurchase=" + dateOfPurchase
 				+ ", price=" + price + "]";
 	}

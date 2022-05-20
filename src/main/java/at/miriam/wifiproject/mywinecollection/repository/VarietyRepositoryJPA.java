@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-
+import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -14,15 +14,7 @@ import jakarta.persistence.TypedQuery;
 
 public class VarietyRepositoryJPA implements VarietyRepository {
 
-private static EntityManager em;
-	
-	public static void setupDatabaseConnection() {
-	
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("WineDB");
-		em = emf.createEntityManager();
-		
-	}
-	
+
 	@Override
 	public void create(Variety variety) throws SQLException {
 		
@@ -83,6 +75,39 @@ private static EntityManager em;
 		transaction.begin();
 		
 		em.remove(variety);
+		
+		transaction.commit();
+		
+	}
+
+	@Override
+	public void deleteAll() throws SQLException {
+		
+		TypedQuery<Variety> query = em.createQuery("select v from Variety v", Variety.class);
+		
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		
+		List<Variety> varietiesToDelete = query.getResultList();
+		
+		for (Variety variety : varietiesToDelete) {
+			
+			em.remove(variety);
+			
+		}
+		
+		transaction.commit();
+	}
+
+	@Override
+	public void deleteWithID(long id) throws SQLException {
+		
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		
+		Variety varietyToDelete = em.find(Variety.class, id);
+		
+		em.remove(varietyToDelete);
 		
 		transaction.commit();
 		

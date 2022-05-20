@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import at.miriam.wifiproject.mywinecollection.model.Purchase;
 
-public interface PurchaseRepository {
+public interface PurchaseRepository extends Repository<Purchase> {
 
 	
 			//einfügen
@@ -23,4 +23,6 @@ public interface PurchaseRepository {
 			
 			//löschen
 			void delete(Purchase purchase) throws SQLException;
+			
+			void deleteAll() throws SQLException;
 }

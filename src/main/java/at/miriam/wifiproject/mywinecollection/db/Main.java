@@ -5,6 +5,11 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Purchase;
 import at.miriam.wifiproject.mywinecollection.model.Storage;
@@ -25,6 +30,7 @@ import at.miriam.wifiproject.mywinecollection.repository.WineRepositoryJPA;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 public class Main {
 
@@ -50,6 +56,8 @@ public class Main {
 		testDatabase();
 		
 	
+		
+		
 	}
 	
 	
@@ -57,52 +65,86 @@ public class Main {
 		
 		
 		//Test Daten
-		Producer producer1 = new Producer(0, "Stift Klosterneuburg", "AT", "Wien", "Nussberg");
-		Variety variety1 = new Variety(0, "Gemischter Satz");
-		Purchase purchase1 = new Purchase(0, "Vinothek", LocalDate.of(2022, 3, 15), 9.80);
-		Storage storage1 = new Storage(0, "Keller 1");
+		Producer producer1 = new Producer(0, "Stift Klosterneuburg", "AT", "Thermenregion", "Tattendorf");
+		Variety variety1 = new Variety(0, "Cuvée");
+		Purchase purchase1 = new Purchase(0, "Vinothek", LocalDate.of(2022, 3, 16), 10.90);
+		Storage storage1 = new Storage(0, "Kühlschrank");
+		
 		
 		Producer producer2 = new Producer(0, "Pia Strehn", "AT", "Mittelburgenland", "Deutschkreutz");
-		Variety variety2 = new Variety(0, "Cuvée");
-		Purchase purchase2 = new Purchase(0, "Wein&Co", LocalDate.of(2022, 4, 22), 12.50);
-		Storage storage2 = new Storage(0, "Kühlschrank");
+		Variety variety2 = new Variety(0, "Blaufränkisch");
+		Purchase purchase2 = new Purchase(0, "Lobenberg", LocalDate.of(2022, 4, 22), 12.50);
+		Storage storage2 = new Storage(0, "Keller");
+		
+		
+		
 		
 		Wine wine1 = createWine1(producer1, variety1, purchase1, storage1);
 		
 		Wine wine2 =  createWine2(producer2, variety2, purchase2, storage2);
 		
+		System.out.println("******************** TEST Daten ******************************************************");
+		System.out.println(wine1 + " " + wine2);
+		
 		//Beispiel Datensätze einfügen 
 		//CREATE
 		
-		System.out.println("Starting DB Test ******************************************************************");
+		System.out.println("*****************************Starting DB Test validate ******************************");
 		
 		validate(producer1, variety1, purchase1, storage1, wine1);
 		validate(producer2, variety2, purchase2, storage2, wine2);
 		
+		System.out.println("**************************Create Wines **********************************************");
+		
 		wineRepository.create(wine1);
 		wineRepository.create(wine2);
 		
+		System.out.println("**************************Read Repositories: ****************************************");
 	
 		System.out.println("Producers: " +  producerRepository.readAll());
 		System.out.println("Storage: " + storageRepository.readAll());
 		System.out.println("Purchase: " + purchaseRepository.readAll());
 		System.out.println("Wines: " + wineRepository.readAll());
 		
+		System.out.println("******************************** READ Wine1 and Wine2 *******************************");
 		
 		System.out.println(wineRepository.read(wine1.getIdWine()));
 		
+		System.out.println(wineRepository.read(wine2.getIdWine()));
 		
 		//UPDATE
+		System.out.println("********************* UPDATE ************************************************************");
+		
 		wine1.setName("Grüner Veltliner Klassik");
 		wineRepository.update(wine1);
+		System.out.println(wine1);
 		
 		// UPDATE: put in another storage
 		wine2.setStorage(storage1);
 	
+		wineRepository.update(wine2);
+		
+		System.out.println("Not in " + storage1 + " but now in: " + wine2.getStorage());
+	
 		//DELETE
-		wineRepository.delete(wine2);
+		System.out.println("******************************* DELETE *************************************************");
+		wineRepository.delete(wine1);
+		
+		
+		System.out.println(wineRepository.readAll());
+		
+		
+		
+		
+//		wineRepository.deleteAll();
+//		varietyRepository.deleteAll();
+//		storageRepository.deleteAll();
+//		purchaseRepository.deleteAll();
+//		producerRepository.deleteAll();
 		
 	}
+	
+	
 	
 	private static void validate(Producer producer1, Variety variety1, Purchase purchase1, 
 									Storage storage1, Wine wine1) throws SQLException {
@@ -147,8 +189,8 @@ public class Main {
 		String pathString = path.toAbsolutePath().normalize().toString();
 		System.out.println(pathString);
 		
-		return new Wine (0, "Rosé Piaristisch", producer, "2021", 12.5, variety, WineCategory.ROSE, 
-					"leicht, fruchtig", "2023", pathString, is.readAllBytes(), storage, 2, 3, "0,75", purchase, "falstaff 90", "bester Rosé"); 
+		return new Wine (0, "Rose", producer, "2021", 12.5, variety, WineCategory.ROSE, 
+					"leicht, fruchtig", "2022-23", pathString, is.readAllBytes(), storage, 1, 1, "0,75", purchase, "93 falstaff", "Sommerwein"); 
 		
 	}
 
@@ -161,8 +203,8 @@ public class Main {
 		String pathString = path.toAbsolutePath().normalize().toString();
 		System.out.println(pathString);
 		
-		return new Wine (0, "Wiener Gemischter Satz DAC", producer, "2021", 12.5, variety, WineCategory.WEISS, 
-					"leicht, fruchtig", "2023", pathString, is.readAllBytes(), storage, 1, 6, "0,75", purchase, "falstaff 93", "Geburtstagsparty"); 
+		return new Wine (0, "Chorus", producer, "2019", 13.5, variety, WineCategory.ROT, 
+					"voll", "2023-28", pathString, is.readAllBytes(), storage, 1, 3, "0,75", purchase, "93 Parker", "Bordeaux-Cuvée"); 
 		
 	}
 

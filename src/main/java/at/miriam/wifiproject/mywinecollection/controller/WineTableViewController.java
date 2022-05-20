@@ -11,6 +11,8 @@ import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.WineCategory;
 import at.miriam.wifiproject.mywinecollection.repository.WineRepository;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.SplitPane;
@@ -34,7 +37,7 @@ public class WineTableViewController extends BaseController {
 	  	private TableView<Wine> tableView;
 
 		@FXML 
-		private TableColumn<Wine, Button> favouritesColumn;
+		private TableColumn<Wine, ToggleButton> favouritesColumn;
 
 		@FXML 
 		private TableColumn<Wine, WineCategory> categoryColumn;
@@ -109,7 +112,7 @@ public class WineTableViewController extends BaseController {
     	Wine wine = model.getSelectedWine();
     	if (wine != null) {
     		model.winesList.remove(wine);
-    				
+    			
     	}
     	
     }
@@ -163,42 +166,98 @@ public class WineTableViewController extends BaseController {
         
         //Erste Spalte: Button, um Wein als Favoriten auszuwählen, Favorit wird in einer Liste im WineModel gespeichert
         //Farbe des Buttons ändert sich, sobald in Favoriten Liste gespeichert
-        favouritesColumn.setCellFactory(new Callback< TableColumn<Wine,Button>, TableCell<Wine,Button> >() {
-			
-			@Override
-			public TableCell<Wine, Button> call(TableColumn<Wine, Button> param) {
-				
-				TableCell<Wine, Button> cell = new TableCell<>() {
-					Button favButton = new Button("F");
+       favouritesColumn.setCellFactory(new Callback<TableColumn<Wine,ToggleButton>, TableCell<Wine,ToggleButton>>() {
+
+		@Override
+		public TableCell<Wine, ToggleButton> call(TableColumn<Wine, ToggleButton> param) {
+			// TODO Auto-generated method stub
+			TableCell<Wine, ToggleButton> cell = new TableCell<>() {
+					ToggleButton toggleButton = new ToggleButton();
 					
-					protected void updateItem(Button item, boolean empty) {
+					protected void updateItem(ToggleButton item, boolean empty) {
 						super.updateItem(item, empty);
 						
 						if(empty) {
 							setGraphic(null);
 							setText(null);
 						} else {
-							favButton.setOnAction(event -> {
-								Wine wine = getTableView().getItems().get(getIndex());
-								//Wenn die Favoriten Liste das Element schon erhält, nicht hinzufügen
-								//Liste darf max 5 Positionen haben
-								
-								model.favWinesList.add(wine);
-								favButton.setStyle("-fx-background-color: yellow");
-								System.out.println(model.favWinesList.toString());
-								
-								
+							
+							toggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
+
+								@Override
+								public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+										Boolean newValue) {
+									
+									if(toggleButton.isSelected() == true) {
+										
+										toggleButton.setStyle("-fx-background-color: yellow");
+										toggleButton.setText("F");
+										toggleButton.setOnAction( e -> {
+											
+											Wine wine = getTableView().getItems().get(getIndex());  
+											
+											model.favWinesList.add(wine);		
+										
+										});
+							
+									} else {
+									toggleButton.setText("");	
+									toggleButton.setStyle("-fx-background-color: lightgrey");
+									//Wine von favWinesList entfernen
+									}
+										
+								}
+							
 							});
-							setGraphic(favButton);
+							
+							setGraphic(toggleButton);
 							setText(null);
+					
 						}
-					};
-				};
-				
-				return cell;
-			}
+						
+					}
+			};
 			
-		}); // Ende FavoritesColumn
+			return cell;
+		}
+	});
+       
+//        favouritesColumn.setCellFactory(new Callback< TableColumn<Wine,Button>, TableCell<Wine,Button> >() {
+//			
+//			@Override
+//			public TableCell<Wine, Button> call(TableColumn<Wine, Button> param) {
+//				
+//				TableCell<Wine, Button> cell = new TableCell<>() {
+//					Button favButton = new Button("F");
+//					
+//					protected void updateItem(Button item, boolean empty) {
+//						super.updateItem(item, empty);
+//						
+//						if(empty) {
+//							setGraphic(null);
+//							setText(null);
+//						} else {
+//							favButton.setOnAction(event -> {
+//								Wine wine = getTableView().getItems().get(getIndex());
+//								//Wenn die Favoriten Liste das Element schon erhält, nicht hinzufügen
+//								//Liste darf max 5 Positionen haben
+//								
+//								model.favWinesList.add(wine);
+//								favButton.setStyle("-fx-background-color: yellow");
+//								System.out.println(model.favWinesList.toString());
+//								
+//								
+//							});
+//							setGraphic(favButton);
+//							setText(null);
+//						}
+//					};
+//				};
+//				
+//				return cell;
+//			}
+//			
+//		}); // Ende FavoritesColumn
         
        
         

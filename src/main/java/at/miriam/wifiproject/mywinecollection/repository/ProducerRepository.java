@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 
-public interface ProducerRepository {
+public interface ProducerRepository extends Repository<Producer> {
 
 		//einfügen
 		void create(Producer producer) throws SQLException;
@@ -22,5 +22,9 @@ public interface ProducerRepository {
 		
 		//löschen
 		void delete(Producer producer) throws SQLException;
+		
+		void deleteAll() throws SQLException;
+		
+		void deleteWithID (long id) throws SQLException;
 	
 }

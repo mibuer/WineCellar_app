@@ -1,18 +1,7 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import org.hibernate.query.NativeQuery;
-
 import at.miriam.wifiproject.mywinecollection.repository.Repository;
-import at.miriam.wifiproject.mywinecollection.repository.WineRepository;
-import at.miriam.wifiproject.mywinecollection.repository.WineRepositoryJPA;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class ValidateDatabaseValues {
@@ -22,6 +11,7 @@ public class ValidateDatabaseValues {
 	
 	public Producer validateProducer(Producer producer) {
 		
+		System.out.println("+++++++++++++++++++++++++++ Method validateProducer ++++++++++++++++++++++++++++++++++++");
 		
 		final String JPQL_PRODUCER = "SELECT p FROM Producer p WHERE p.name = :nameProd"
 				+ " and p.country = :country and p.wineRegion = :wineReg "
@@ -37,8 +27,8 @@ public class ValidateDatabaseValues {
 				.setParameter("vineyardName", producer.getVineyard());
 				
 		if (!query.getResultList().isEmpty()) { 
-			System.out.println(query.getResultList());
-			System.out.println("Value found: " + producer.getIdProducer());
+			System.out.println("Query Result List: " + query.getResultList());
+			System.out.println("Value found: " + producer.toString());
 			
 			return query.getSingleResult();
 		}
@@ -49,6 +39,7 @@ public class ValidateDatabaseValues {
 	
 	public Variety validateVariety (Variety variety) {
 		
+		System.out.println("+++++++++++++++++++++++++++ Method validateVariety ++++++++++++++++++++++++++++++++++++");
 		
 		final String JPQL_VARIETY = "SELECT v FROM Variety v WHERE v.name = :name";
 		
@@ -58,6 +49,7 @@ public class ValidateDatabaseValues {
 		query.setParameter("name", variety.getName());
 		
 		if(!query.getResultList().isEmpty()) {
+			System.out.println("Query Result List: " + query.getResultList());
 			System.out.println("Value found: " + variety.getName());
 			return query.getSingleResult();
 		}
@@ -69,6 +61,7 @@ public class ValidateDatabaseValues {
 
 	public Storage validateStorage (Storage storage) {
 		
+		System.out.println("+++++++++++++++++++++++++++ Method validateStorage ++++++++++++++++++++++++++++++++++++");
 		
 		final String JPQL_STORAGE = "SELECT s FROM Storage s WHERE s.name = :name";
 		
@@ -78,6 +71,7 @@ public class ValidateDatabaseValues {
 		query.setParameter("name", storage.getName());
 		
 		if (!query.getResultList().isEmpty()) {
+			System.out.println("Query Result List: " + query.getResultList());
 			System.out.println("Value found: " + storage.getName());
 			return query.getSingleResult();
 		}
@@ -88,16 +82,19 @@ public class ValidateDatabaseValues {
 	
 	public Purchase validatePurchase (Purchase purchase) {
 		
+		System.out.println("+++++++++++++++++++++++++++ Method validatePurchase ++++++++++++++++++++++++++++++++++++");
 		
-		final String JPQL_PURCHASE = "SELECT p FROM Purchase p WHERE p.wineShop = :wineShop and p.dateOfPurchase = :date";
+		final String JPQL_PURCHASE = "SELECT p FROM Purchase p WHERE p.wineShop = :wineShop and p.dateOfPurchase = :date and p.price = :price";
 		
 		
 		TypedQuery<Purchase> query = em.createQuery(JPQL_PURCHASE, Purchase.class);
 		
 		query.setParameter("wineShop", purchase.getWineShop())
-				.setParameter("date", purchase.getDateOfPurchase());
+				.setParameter("date", purchase.getDateOfPurchase())
+				.setParameter("price", purchase.getPrice());
 		
 		if(!query.getResultList().isEmpty()) {
+			System.out.println("Query Result List: " + query.getResultList());
 			System.out.println("Value found: " + purchase.getIdPurchase());
 			return query.getSingleResult();
 		}
@@ -105,4 +102,7 @@ public class ValidateDatabaseValues {
 		return null;	
 	}
 
+	
+	
+	
 }

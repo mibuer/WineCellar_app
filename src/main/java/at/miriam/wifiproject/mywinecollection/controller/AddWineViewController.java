@@ -13,6 +13,7 @@ import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 
 import at.miriam.wifiproject.mywinecollection.Constants;
+import at.miriam.wifiproject.mywinecollection.db.Main;
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Purchase;
 import at.miriam.wifiproject.mywinecollection.model.Storage;
@@ -123,16 +124,19 @@ public class AddWineViewController extends BaseController {
     @FXML
     private Button saveUpdateWineButton;
 
-
+    
+    
+    
     
     @FXML
     void onSaveUpdateWineButtonClick(ActionEvent event) throws IOException {  //Änderungen speichern
 
-    	System.out.println("In Methode Save Updated Wine");
+    	System.out.println("************************** In Methode Save Updated Wine ********************************************");
     	
     	Wine selectedTableRow = model.getSelectedWine();
     	
     	if (selectedTableRow != null ) {
+    		
     		String name = wineNameTextField.getText();
         	String producer = wineProducerTextField.getText();
         	String country = countryChoiceBox.getValue();
@@ -142,12 +146,7 @@ public class AddWineViewController extends BaseController {
         	if (isDoubleAlcTextField()) {
         		alcohol = Double.parseDouble(alcoholTextField.getText());
         	} else {
-        		Alert alert = new Alert(AlertType.WARNING);
-        		alert.setTitle("Warning Dialog");
-        		alert.setHeaderText(null);
-        		alert.setContentText("Please enter a correct value: 11.5, 12.5, 13.5 ... and press 'Ändern' Button");
-        		
-        		alert.showAndWait();
+        		alertDialog();
         	}
     
         	String wineRegion = wineRegionTextField.getText();
@@ -156,16 +155,42 @@ public class AddWineViewController extends BaseController {
         	WineCategory wineCategory = wineCategoryChoiceBox.getValue();
         	String style = wineStyleChoiceBox.getValue();
         	String readyToDrink = readyToDrinkTextField.getText();
+        
+        	byte[] imageBytes = null;
         	String filePath = chooseImageFilePathTextField.getText();
+        	if (!filePath.isEmpty()) {
+        		imageBytes = Files.newInputStream(Path.of(filePath).toAbsolutePath()).readAllBytes();
+        		
+        	} else {
+        		Path path = Path.of("src/main/resources/at/miriam/wifiproject/mywinecollection/Images/default_image.png");
+        		String pathString = path.toAbsolutePath().normalize().toString(); 
+        		
+        		chooseImageFilePathTextField.setText(pathString);
         	
-        	//byte [] imageBytes = getClass().getResourceAsStream(filePath).readAllBytes();
-        	
-        	byte[]  imageBytes = Files.newInputStream(Path.of(filePath).toAbsolutePath()).readAllBytes();
-        	
-        	
+        		InputStream is = Main.class.getResourceAsStream("/at/miriam/wifiproject/mywinecollection/Images/default_image.png");
+        		imageBytes = is.readAllBytes(); 
+    		}
         	Storage storage = storageLocationChoiceBox.getValue();
-        	Integer shelfNr = Integer.parseInt(shelfNumberTextField.getText());
-        	Integer numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
+        	
+        	String shelfNrString = shelfNumberTextField.getText();
+        	Integer shelfNr = null;
+        	if (shelfNrString != null) {
+        		shelfNr = Integer.parseInt(shelfNrString);
+        	} else {
+        		shelfNumberTextField.setText("1");
+        		shelfNr = Integer.parseInt(shelfNumberTextField.getText());
+        	}
+        	
+        	//wenn textField null ist, setze Wert
+        	String numOfBottlesString = numberBottlesTextField.getText();
+        	Integer numOfBottles = null;
+        	if (numOfBottlesString != null) {
+        		numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
+        	} else {
+        		numberBottlesTextField.setText("1");
+        		numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
+        	}
+        	
         	String bottleSize = bottleSizeChoiceBox.getValue();
         	String shop = wineShopTextField.getText();
         	LocalDate date = purchaseDatePicker.getValue();
@@ -174,28 +199,19 @@ public class AddWineViewController extends BaseController {
         	if (isDoublePriceTextField()) {
         		price = Double.parseDouble(pricePerBottleTextField.getText());
         	} else {
-        		Alert alert = new Alert(AlertType.WARNING);
-        		alert.setTitle("Warning Dialog");
-        		alert.setHeaderText(null);
-        		alert.setContentText("Please enter a correct value: 11.5, 12.5, 13.5 ... and press 'Ändern' Button");
-        		
-        		alert.showAndWait();
-        		
+        		alertDialog();
         	}
         	
         	String ratings = wineRatingTextArea.getText();
         	String notes = notesTextArea.getText();
-        
-        	Producer producerNew = new Producer(0, producer, country, wineRegion, vineyard);
-        	
-        	
-        	
-        	Purchase purchaseNew = new Purchase(0, shop, date, price);
         	
         	//Validierung der Datensätze und Wine Objekt erstellen
         	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
-        							storage, numOfBottles, bottleSize, filePath)) {
+        							storage, numOfBottles, bottleSize)) {
         		
+        		Producer producerNew = new Producer(0, producer, country, wineRegion, vineyard);
+            	
+            	Purchase purchaseNew = new Purchase(0, shop, date, price);
         		
         		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 								style, readyToDrink, filePath, imageBytes, 
@@ -210,6 +226,9 @@ public class AddWineViewController extends BaseController {
 				model.winesList.set(index, wine); //neues Wine Objekt am Index des alten speichern
 				
 				System.out.println(model.winesList);
+				
+				//Nach Ändern Formular leeren
+				clearForm();
         		
         	}
     		
@@ -217,7 +236,22 @@ public class AddWineViewController extends BaseController {
    
     }
     
-    @FXML
+    
+    
+    
+    private void alertDialog() {
+		
+    	Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning Dialog");
+		alert.setHeaderText(null);
+		alert.setContentText("Please enter a correct value: 11.5, 12.5, 13.5 ... and press 'Ändern' Button");
+		
+		alert.showAndWait();
+    
+	}
+    
+
+	@FXML
     void onNewGrapeVarietyButtonClick(ActionEvent event) {
     	//neues Fenster öffnet sich zur Eingabe
     	try {
@@ -262,9 +296,6 @@ public class AddWineViewController extends BaseController {
     void onResetFormButtonClick(ActionEvent event) { // Reset Form
     	
     	clearForm();
-    	
-    	
-    	
    
     }
 
@@ -327,95 +358,111 @@ public class AddWineViewController extends BaseController {
    
     
 	@FXML
-    void onSaveWineButtonClick(ActionEvent event) { // Wein speichern
+    void onSaveWineButtonClick(ActionEvent event) throws IOException { // Wein speichern
 
     	String name = wineNameTextField.getText();
     	String producer = wineProducerTextField.getText();
     	String country = countryChoiceBox.getValue();
     	String vintage = vintageTextField.getText();
     	
+    	//Alert for false input 
     	Double alcohol = null;
     	if (isDoubleAlcTextField()) {
     		alcohol = Double.parseDouble(alcoholTextField.getText());
     	} else {
-    		Alert alert = new Alert(AlertType.WARNING);
-    		alert.setTitle("Warning Dialog");
-    		alert.setHeaderText(null);
-    		alert.setContentText("Please enter a correct value: 11.5, 12.5, 13.5 ... and press 'Ändern' Button");
-    		
-    		alert.showAndWait();
+    		alertDialog();
     	}
     	
-    
     	String wineRegion = wineRegionTextField.getText();
     	String vineyard = vineyardTextField.getText();
     	Variety grapeVariety = grapeVarietyChoiceBox.getValue();
     	WineCategory wineCategory = wineCategoryChoiceBox.getValue();
     	String style = wineStyleChoiceBox.getValue();
     	String readyToDrink = readyToDrinkTextField.getText();
+    	
+    	//Wenn kein image eingegeben wird setze default image
+    	byte[] imageBytes = null;
     	String filePath = chooseImageFilePathTextField.getText();
+    	if (!filePath.isEmpty()) {
+    		imageBytes = imageBytesFromPath(filePath);
+    	} else {
+    		Path path = Path.of("src/main/resources/at/miriam/wifiproject/mywinecollection/Images/default_image.png");
+    		String pathString = path.toAbsolutePath().normalize().toString(); 
+    		
+    		chooseImageFilePathTextField.setText(pathString);
+    	
+    		InputStream is = Main.class.getResourceAsStream("/at/miriam/wifiproject/mywinecollection/Images/default_image.png");
+    		imageBytes = is.readAllBytes(); 
+		}
+    	
     	Storage storage = storageLocationChoiceBox.getValue();
-    	Integer shelfNr = Integer.parseInt(shelfNumberTextField.getText());
-    	Integer numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
+    	
+    	//wenn textField null ist, setze Wert
+    	String	shelfNrString =	shelfNumberTextField.getText();
+    	Integer shelfNr = null;
+    	if (!shelfNrString.isEmpty()) {
+    		shelfNr = Integer.parseInt(shelfNrString);
+    	} else {
+    		shelfNumberTextField.setText("1");
+    		shelfNr = Integer.parseInt(shelfNumberTextField.getText());
+    	}
+    	//wenn textField null ist, setze Wert
+    	String numOfBottlesString = numberBottlesTextField.getText();
+    	Integer numOfBottles = null;
+    	if (!numOfBottlesString.isEmpty()) {
+    		numOfBottles = Integer.parseInt(numOfBottlesString);
+    	} else {
+    		numberBottlesTextField.setText("1");
+    		numOfBottles = Integer.parseInt(numberBottlesTextField.getText());
+    	}
+    	
     	String bottleSize = bottleSizeChoiceBox.getValue();
     	String shop = wineShopTextField.getText();
     	LocalDate date = purchaseDatePicker.getValue();
     	
+    	//alert for false input 
     	Double price = null;
     	if (isDoublePriceTextField()) {
     		price = Double.parseDouble(pricePerBottleTextField.getText());
     	} else {
-    		Alert alert = new Alert(AlertType.WARNING);
-    		alert.setTitle("Warning Dialog");
-    		alert.setHeaderText(null);
-    		alert.setContentText("Please enter a correct value: 11.5, 12.5, 13.5 ... and press 'Ändern' Button");
-    		
-    		alert.showAndWait();
+    		alertDialog();
     		
     	}
     	
     	String ratings = wineRatingTextArea.getText();
     	String notes = notesTextArea.getText();
     	
-    	Producer producerNew = null;
-    	
-    	if (!producer.isEmpty()) {
-    	producerNew = new Producer(0, producer, country, wineRegion, vineyard);
-    	model.producerList.add(producerNew);
-    	}
-    	
-    	
-    	Purchase purchaseNew = new Purchase(0, shop, date, price);
-    	model.purchaseList.add(purchaseNew);
-    	
-    	//Default Foto soll eingestellt sein, falls kein eigenes angegeben wird ???
-    	//wurde 1 Foto hinzugefügt -> disable Button
-    	
-    	
     	//Validierung der Datensätze und Wine Objekt erstellen
     	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
-    							storage, numOfBottles, bottleSize, filePath)) {
+    							storage, numOfBottles, bottleSize)) {
     		
-    		Wine wine = null;
     		
-    		try {
-				wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
-								style, readyToDrink, filePath, imageBytesFromPath(filePath), 
-								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
-				
-				System.out.println(wine);
-				
-				//In der Liste Wines in WineModel speichern
-				model.winesList.add(wine);
+    		Producer producerNew = null;
+        	if (!producer.isEmpty()) {
+        	producerNew = new Producer(0, producer, country, wineRegion, vineyard);
+        	model.producerList.add(producerNew);
+        	}
+        	
+        	
+        	Purchase purchaseNew = new Purchase(0, shop, date, price);
+        	model.purchaseList.add(purchaseNew);
     		
-    		} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
+							style, readyToDrink, filePath, imageBytes, 
+							storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
+			
+			System.out.println(wine);
+			
+			//In der Liste Wines in WineModel speichern
+			model.winesList.add(wine);
     		
     	}
     	
+    	System.out.println("*************************** AddWineViewController ***************************************");
     	System.out.println(model.winesList); 
+    	
+    	//nach dem speichern Forumlar leeren
+    	clearForm();
     }
     
     private byte[] imageBytesFromPath(String filePath) throws IOException {
@@ -427,7 +474,7 @@ public class AddWineViewController extends BaseController {
 
 	//Methode Valdierung Input, Mindestens diese Felder müssen eigegeben werden:
     private boolean isValidFormInput(String name, String producer, String country, Variety variety, 
-    								WineCategory category, Storage storage, Integer numOfBottles, String bottleSize, String filePath) {
+    								WineCategory category, Storage storage, Integer numOfBottles, String bottleSize) {
     	
     	return !name.isEmpty()
 				&& !producer.isEmpty()
@@ -437,6 +484,7 @@ public class AddWineViewController extends BaseController {
 				&& storage != null
 				&& numOfBottles != null
 				&& !bottleSize.isEmpty();
+				
 	}
 
     private void fillForm(Wine wine) {
@@ -470,6 +518,33 @@ public class AddWineViewController extends BaseController {
 		
 		return new Image(new ByteArrayInputStream(wine.getImageBytes()));
 	}
+    
+ private void fillInSampleWine() {
+    	
+    	wineNameTextField.setText("Patronis");
+    	wineProducerTextField.setText("Stift Klosterneuburg");
+    	countryChoiceBox.setValue(countryChoiceBox.getItems().get(1));
+    	vintageTextField.setText("2020");
+    	alcoholTextField.setText("13.5");
+    	wineRegionTextField.setText("Thermenregion");
+    	vineyardTextField.setText("Tattendorf");
+    	grapeVarietyChoiceBox.setValue(grapeVarietyChoiceBox.getItems().get(2));
+    	wineCategoryChoiceBox.setValue(wineCategoryChoiceBox.getItems().get(1));
+    	wineStyleChoiceBox.setValue(wineStyleChoiceBox.getItems().get(1));
+    	readyToDrinkTextField.setText("2022-25");
+    	chooseImageFilePathTextField.setText("");    	
+    	imageView.setImage(null);
+    	storageLocationChoiceBox.setValue(storageLocationChoiceBox.getItems().get(1));
+    	shelfNumberTextField.setText(String.valueOf(1));
+    	numberBottlesTextField.setText(String.valueOf(1));
+    	bottleSizeChoiceBox.setValue(bottleSizeChoiceBox.getItems().get(3));
+    	wineShopTextField.setText("Vinothek");
+    	purchaseDatePicker.setValue(LocalDate.of(2022, 3, 16));
+    	pricePerBottleTextField.setText("11.80");
+    	wineRatingTextArea.setText("100");
+    	notesTextArea.setText("Lieblingswein");
+    	
+    }
 
 	@FXML
     void initialize() {
@@ -555,6 +630,7 @@ public class AddWineViewController extends BaseController {
         							.or(storageLocationChoiceBox.valueProperty().isNull())
         							.or(numberBottlesTextField.textProperty().isEmpty())
         							.or(bottleSizeChoiceBox.valueProperty().isNull()));
+        							//.or(chooseImageFilePathTextField.textProperty().isEmpty()));
        
        //Anzeigen des in der Tabelle ausgewählten Weins in der "AddWineView"
        model.selectedWineProperty().addListener(new ChangeListener<Wine>() {
@@ -571,7 +647,7 @@ public class AddWineViewController extends BaseController {
        });
         
         
-        
+       //fillInSampleWine();
         
         
         

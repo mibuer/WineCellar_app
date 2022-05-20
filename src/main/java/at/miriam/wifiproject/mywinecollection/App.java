@@ -38,11 +38,11 @@ public class App extends Application {
     	
     	initWineModel();
     	
-    	WineRepositoryJPA.setupDatabaseConnection();
-    	ProducerRepositoryJPA.setupDatabaseConnection();
-    	StorageRepositoryJPA.setupDatabaseConnection();
-    	VarietyRepositoryJPA.setupDatabaseConnection();
-    	PurchaseRepositoryJPA.setupDatabaseConnection();
+//    	WineRepositoryJPA.setupDatabaseConnection();
+//    	ProducerRepositoryJPA.setupDatabaseConnection();
+//    	StorageRepositoryJPA.setupDatabaseConnection();
+//    	VarietyRepositoryJPA.setupDatabaseConnection();
+//    	PurchaseRepositoryJPA.setupDatabaseConnection();
     	
     	
     }

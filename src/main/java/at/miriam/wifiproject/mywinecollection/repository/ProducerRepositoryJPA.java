@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import at.miriam.wifiproject.mywinecollection.model.Producer;
+import at.miriam.wifiproject.mywinecollection.model.Wine;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -13,14 +14,6 @@ import jakarta.persistence.TypedQuery;
 
 public class ProducerRepositoryJPA implements ProducerRepository {
 
-	private static EntityManager em;
-	
-	public static void setupDatabaseConnection() {
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("WineDB");
-		em = emf.createEntityManager();
-	}
-	
 	
 	@Override
 	public void create(Producer producer) throws SQLException {
@@ -89,5 +82,43 @@ public class ProducerRepositoryJPA implements ProducerRepository {
 		
 		
 	}
+
+	@Override
+	public void deleteAll() throws SQLException {
+		
+		TypedQuery<Producer> query = em.createQuery("SELECT p FROM Producer p", Producer.class);
+		
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		
+		List<Producer> producerToDelete = query.getResultList();
+		
+		for (Producer producer : producerToDelete) {
+			
+			em.remove(producer);
+			
+		}
+		
+		transaction.commit();
+		
+		
+	}
+	
+	public void deleteWithID (long id) {
+		
+			EntityTransaction transaction = em.getTransaction();
+			transaction.begin();
+			
+			Producer producerToDelete = em.find(Producer.class, id);
+			
+			em.remove(producerToDelete);
+			
+			transaction.commit();
+			
+		}
+
+	
+		
+	
 
 }

@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import at.miriam.wifiproject.mywinecollection.model.Producer;
+import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -12,14 +14,6 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 public class WineRepositoryJPA implements WineRepository {
-
-	private static EntityManager em;
-	
-	public static void setupDatabaseConnection() {
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("WineDB");
-		em = emf.createEntityManager();
-	}
 
 	@Override
 	public void create(Wine wine) throws SQLException { 
@@ -94,6 +88,38 @@ public class WineRepositoryJPA implements WineRepository {
 		query.setParameter("name", name);
 		
 		return query.getResultList();
+	}
+
+	@Override
+	public void deleteAll() throws SQLException {
+		
+		TypedQuery<Wine> query = em.createQuery("SELECT w FROM Wine w", Wine.class);
+		
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		
+		List<Wine> winesToDelete = query.getResultList();
+		
+		for (Wine wine : winesToDelete) {
+			
+			em.remove(wine);
+			
+		}
+		
+		transaction.commit();
+	}
+
+	@Override
+	public void deleteWithID(long id) throws SQLException {
+		
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		
+		Wine wineToDelete = em.find(Wine.class, id);
+		
+		em.remove(wineToDelete);
+		
+		transaction.commit();
 	}
 	
 }
