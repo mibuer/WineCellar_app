@@ -53,8 +53,6 @@ public class TabPaneViewController extends BaseController {
 	@FXML 
 	private TabPane tabPane;
 
-	@FXML 
-	private Button changeTabPaneButton;
 
 
 	@FXML
@@ -72,8 +70,16 @@ public class TabPaneViewController extends BaseController {
 		updateTotalValue();
 		
 		
-		
-		
+//		model.getSelectedTabProperty().addListener( new ChangeListener<TabPane>() {
+//
+//			@Override
+//			public void changed(ObservableValue<? extends TabPane> observable, TabPane oldValue, TabPane newValue) {
+//				// TODO Auto-generated method stub
+//				tabPane.getSelectionModel().select(tabAddWine);
+//			}
+//			
+//			
+//			});
 		
 		model.winesList.addListener(new InvalidationListener() {
 			
@@ -129,22 +135,6 @@ public class TabPaneViewController extends BaseController {
 
 		String collValueFormat = new DecimalFormat("0.00").format(totalValueColl);
 		valueCollectionLabel.setText(collValueFormat + " " + "Eur");
-		
-	}
-
-
-	@FXML public void onButtonClickShowWineView(ActionEvent event) {
-	
-		model.getSelectedTabProperty().addListener( new ChangeListener<TabPane>() {
-
-		@Override
-		public void changed(ObservableValue<? extends TabPane> observable, TabPane oldValue, TabPane newValue) {
-			// TODO Auto-generated method stub
-			tabPane.getSelectionModel().select(tabAddWine);
-		}
-		
-		
-		});
 		
 	}
 

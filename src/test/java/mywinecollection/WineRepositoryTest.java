@@ -84,7 +84,7 @@ public class WineRepositoryTest {
 		System.out.println(pathString);
 		
 		return new Wine (0, "Wiener Gemischter Satz DAC", producer, "2021", 12.5, variety, WineCategory.WEISS, 
-					"leicht, fruchtig", "2023", pathString, is.readAllBytes(), storage, 1, 6, "0,75", purchase, "falstaff 93", "Geburtstagsparty"/*, false*/); 
+					"leicht, fruchtig", "2023", pathString, is.readAllBytes(), storage, 1, 6, "0,75", purchase, "falstaff 93", "Geburtstagsparty"); 
 		
 	}
 

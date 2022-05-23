@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -35,18 +37,37 @@ public class FavListViewController extends BaseController {
         
 //		List<Wine> winesSorted = model.winesList.sorted((w1, w2) -> w1.getVintage().compareTo(w2.getVintage()));
 //		
-//		
 //        favoritesListView.getItems().addAll(winesSorted);
 //        System.out.println(winesSorted);
         
-        favoritesListView.getItems().addAll(model.favWinesList);
-        
-        System.out.println(model.favWinesList);
-    
-        
-      
+        updateListView();
 
     }
+
+
+	private void updateListView() {
+		 
+			model.favWinesList.addListener(new ListChangeListener<Wine>() {
+
+				@Override
+				public void onChanged(Change<? extends Wine> c) {
+					
+					if (favoritesListView != null) {
+						
+						for (Wine wine : model.favWinesList) {
+							 favoritesListView.getItems().remove(wine);
+						}
+					}
+					
+					favoritesListView.getItems().addAll(model.favWinesList);
+					
+			        System.out.println(model.favWinesList);	
+				}
+	        	
+	        });
+		
+		
+	}
 
 
     

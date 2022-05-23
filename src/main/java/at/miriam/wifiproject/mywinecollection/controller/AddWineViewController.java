@@ -4,15 +4,12 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 
-import at.miriam.wifiproject.mywinecollection.Constants;
 import at.miriam.wifiproject.mywinecollection.db.Main;
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Purchase;
@@ -20,7 +17,6 @@ import at.miriam.wifiproject.mywinecollection.model.Storage;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import at.miriam.wifiproject.mywinecollection.model.WineCategory;
-import at.miriam.wifiproject.mywinecollection.model.WineModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -126,8 +122,6 @@ public class AddWineViewController extends BaseController {
 
     
     
-    
-    
     @FXML
     void onSaveUpdateWineButtonClick(ActionEvent event) throws IOException {  //Änderungen speichern
 
@@ -216,7 +210,7 @@ public class AddWineViewController extends BaseController {
         		
         		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 								style, readyToDrink, filePath, imageBytes, 
-								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes/*, favWine*/);
+								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
 				
         		wine.setIdWine(selectedTableRow.getIdWine());
 		
@@ -228,9 +222,7 @@ public class AddWineViewController extends BaseController {
 				
 				System.out.println(model.winesList);
 				
-				//Nach Ändern Formular leeren
-				clearForm();
-        		
+				
         	}
     		
     	}
@@ -451,11 +443,10 @@ public class AddWineViewController extends BaseController {
     		
     		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 							style, readyToDrink, filePath, imageBytes, 
-							storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes/*, favWine*/);
+							storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
 			
 			System.out.println(wine);
 			
-			//In der Liste Wines in WineModel speichern
 			model.winesList.add(wine);
     		
     	}
@@ -463,7 +454,6 @@ public class AddWineViewController extends BaseController {
     	System.out.println("*************************** AddWineViewController ***************************************");
     	System.out.println(model.winesList); 
     	
-    	//nach dem speichern Forumlar leeren
     	clearForm();
     }
     
@@ -530,20 +520,20 @@ public class AddWineViewController extends BaseController {
     	alcoholTextField.setText("13.5");
     	wineRegionTextField.setText("Thermenregion");
     	vineyardTextField.setText("Tattendorf");
-    	grapeVarietyChoiceBox.setValue(grapeVarietyChoiceBox.getItems().get(2));
-    	wineCategoryChoiceBox.setValue(wineCategoryChoiceBox.getItems().get(1));
-    	wineStyleChoiceBox.setValue(wineStyleChoiceBox.getItems().get(1));
+    	grapeVarietyChoiceBox.setValue(null);
+    	wineCategoryChoiceBox.setValue(null);
+    	wineStyleChoiceBox.setValue(null);
     	readyToDrinkTextField.setText("2022-25");
     	chooseImageFilePathTextField.setText("");    	
     	imageView.setImage(null);
     	storageLocationChoiceBox.setValue(storageLocationChoiceBox.getItems().get(1));
-    	shelfNumberTextField.setText(String.valueOf(1));
-    	numberBottlesTextField.setText(String.valueOf(1));
+    	shelfNumberTextField.setText("");
+    	numberBottlesTextField.setText("");
     	bottleSizeChoiceBox.setValue(bottleSizeChoiceBox.getItems().get(3));
     	wineShopTextField.setText("Vinothek");
     	purchaseDatePicker.setValue(LocalDate.of(2022, 3, 16));
     	pricePerBottleTextField.setText("11.80");
-    	wineRatingTextArea.setText("100");
+    	wineRatingTextArea.setText("93 falstaff");
     	notesTextArea.setText("Lieblingswein");
     	
     }

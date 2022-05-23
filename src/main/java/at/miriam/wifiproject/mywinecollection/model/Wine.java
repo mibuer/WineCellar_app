@@ -61,7 +61,7 @@ public class Wine implements Serializable {
 	public Wine(long idWine, String name, Producer producer, String vintage, Double alcohol, Variety variety,
 			WineCategory wineCategory, String wineStyle, String readyToDrink, String imagePath, byte[] imageBytes,
 			Storage storage, Integer shelfNumber, Integer numberOfBottles, String bottleSize, Purchase purchase, String wineRatings,
-			String notes/*, boolean favWine*/) {
+			String notes) {
 		super();
 		this.idWine = idWine;
 		this.name = name;
@@ -81,7 +81,7 @@ public class Wine implements Serializable {
 		this.purchase = purchase;
 		this.wineRatings = wineRatings;
 		this.notes = notes;
-		//this.favWine = favWine;
+		
 	}
 
 
@@ -238,7 +238,7 @@ public class Wine implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(imageBytes);
-		result = prime * result + Objects.hash(alcohol, bottleSize/*, favWine*/, idWine, imagePath, name, notes,
+		result = prime * result + Objects.hash(alcohol, bottleSize, idWine, imagePath, name, notes,
 				numberOfBottles, producer, purchase, readyToDrink, shelfNumber, storage, variety, vintage, wineCategory,
 				wineRatings, wineStyle);
 		return result;
@@ -254,7 +254,7 @@ public class Wine implements Serializable {
 			return false;
 		Wine other = (Wine) obj;
 		return Objects.equals(alcohol, other.alcohol) && Objects.equals(bottleSize, other.bottleSize)
-				/*&& favWine == other.favWine*/ && idWine == other.idWine && Arrays.equals(imageBytes, other.imageBytes)
+				&& idWine == other.idWine && Arrays.equals(imageBytes, other.imageBytes)
 				&& Objects.equals(imagePath, other.imagePath) && Objects.equals(name, other.name)
 				&& Objects.equals(notes, other.notes) && Objects.equals(numberOfBottles, other.numberOfBottles)
 				&& Objects.equals(producer, other.producer) && Objects.equals(purchase, other.purchase)
@@ -267,19 +267,10 @@ public class Wine implements Serializable {
 	
 	@Override
 	public String toString() {
-		return name + " " + producer + " " + vintage + " " /*+ "favWine= " + favWine*/;
+		return name + ", " + producer + ", " + vintage;
 	}
 
-//	//GEtter & setter favWine
-//	public boolean isFavWine() {
-//		return favWine;
-//	}
-//
-//	public void setFavWine(boolean favWine) {
-//		this.favWine = favWine;
-//	}
-	
-	
+
 	
 	
 	

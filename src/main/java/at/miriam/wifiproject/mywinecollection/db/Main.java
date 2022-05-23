@@ -54,10 +54,6 @@ public class Main {
 //		WineRepositoryJPA.setupDatabaseConnection();
 		
 		testDatabase();
-		
-		
-		
-		
 	}
 	
 	
@@ -68,16 +64,13 @@ public class Main {
 		Producer producer1 = new Producer(0, "Stift Klosterneuburg", "AT", "Thermenregion", "Tattendorf");
 		Variety variety1 = new Variety(0, "Cuvée");
 		Purchase purchase1 = new Purchase(0, "Vinothek", LocalDate.of(2022, 3, 16), 10.90);
-		Storage storage1 = new Storage(0, "Kühlschrank");
+		Storage storage1 = new Storage(0, "Keller");
 		
 		
 		Producer producer2 = new Producer(0, "Pia Strehn", "AT", "Mittelburgenland", "Deutschkreutz");
 		Variety variety2 = new Variety(0, "Blaufränkisch");
 		Purchase purchase2 = new Purchase(0, "Lobenberg", LocalDate.of(2022, 4, 22), 12.50);
 		Storage storage2 = new Storage(0, "Keller");
-		
-		
-		
 		
 		Wine wine1 = createWine1(producer1, variety1, purchase1, storage1);
 		
@@ -121,26 +114,14 @@ public class Main {
 		
 		// UPDATE: put in another storage
 		wine2.setStorage(storage1);
-	
-		wineRepository.update(wine2);
 		
-		System.out.println("Not in " + storage1 + " but now in: " + wine2.getStorage());
-	
 		//DELETE
 		System.out.println("******************************* DELETE *************************************************");
-		wineRepository.delete(wine1);
+		wineRepository.delete(wine2);
 		
 		
 		System.out.println(wineRepository.readAll());
 		
-		
-		
-		
-//		wineRepository.deleteAll();
-//		varietyRepository.deleteAll();
-//		storageRepository.deleteAll();
-//		purchaseRepository.deleteAll();
-//		producerRepository.deleteAll();
 		
 	}
 	
@@ -190,7 +171,7 @@ public class Main {
 		System.out.println(pathString);
 		
 		return new Wine (0, "Rose", producer, "2021", 12.5, variety, WineCategory.ROSE, 
-					"leicht, fruchtig", "2022-23", pathString, is.readAllBytes(), storage, 1, 1, "0,75", purchase, "93 falstaff", "Sommerwein"/*, false*/); 
+					"leicht, fruchtig", "2022-23", pathString, is.readAllBytes(), storage, 1, 1, "0,75", purchase, "93 falstaff", "Sommerwein"); 
 		
 	}
 
@@ -204,7 +185,7 @@ public class Main {
 		System.out.println(pathString);
 		
 		return new Wine (0, "Chorus", producer, "2019", 13.5, variety, WineCategory.ROT, 
-					"voll", "2023-28", pathString, is.readAllBytes(), storage, 1, 3, "0,75", purchase, "93 Parker", "Bordeaux-Cuvée"/*, false*/); 
+					"voll", "2023-28", pathString, is.readAllBytes(), storage, 1, 3, "0,75", purchase, "93 Parker", "Bordeaux-Cuvée"); 
 		
 	}
 

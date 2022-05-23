@@ -29,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -126,7 +127,7 @@ public class WineTableViewController extends BaseController {
     @FXML
     void onUpdateTableButtonClick(ActionEvent event) throws IOException {   
     	
-    	// zurück zu tab pane Wein, hier daten ändern
+    	// zurück zu tab pane Wein, um hier daten ändern
     	
     
     	
@@ -181,6 +182,8 @@ public class WineTableViewController extends BaseController {
 							setText(null);
 						} else {
 							
+							toggleButton.setTooltip(new Tooltip("Wein zu meinen Favoriten hinzufügen/entfernen"));
+							
 							toggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
 
 								@Override
@@ -188,7 +191,6 @@ public class WineTableViewController extends BaseController {
 										Boolean newValue) {
 									
 									if(toggleButton.isSelected() == true) {
-										
 										toggleButton.setStyle("-fx-background-color: yellow");
 										toggleButton.setText("F");
 										
@@ -200,13 +202,13 @@ public class WineTableViewController extends BaseController {
 												Wine selectedWine = getTableView().getItems().get(getIndex());
 												//selectedWine.setFavWine(true);
 												model.favWinesList.add(selectedWine);
-												System.out.println(model.favWinesList);
 											}
 										});
 											
 									} else {
 									toggleButton.setText("");	
 									toggleButton.setStyle("-fx-background-color: lightgrey");
+									
 									//Wine von favWinesList entfernen
 									toggleButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -216,7 +218,7 @@ public class WineTableViewController extends BaseController {
 											int index = model.favWinesList.indexOf(selectedWine);
 											//selectedWine.setFavWine(false);
 											model.favWinesList.remove(index);
-											System.out.println(model.favWinesList);
+											
 										}
 										
 										
@@ -279,8 +281,7 @@ public class WineTableViewController extends BaseController {
 //			
 //		}); // Ende FavoritesColumn
         
-       
-        
+      
         //TableColumns die Wine Attribute zuweisen mit Cell Value Factory
         //Kategorie
         categoryColumn.setCellValueFactory(data -> new SimpleObjectProperty<WineCategory>(data.getValue().getWineCategory()));
