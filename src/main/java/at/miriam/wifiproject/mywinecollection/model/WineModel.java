@@ -1,10 +1,6 @@
 package at.miriam.wifiproject.mywinecollection.model;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import at.miriam.wifiproject.mywinecollection.repository.ProducerRepository;
 import at.miriam.wifiproject.mywinecollection.repository.ProducerRepositoryJPA;
 import at.miriam.wifiproject.mywinecollection.repository.PurchaseRepository;
@@ -20,8 +16,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
-import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 public class WineModel {
 
@@ -38,7 +33,7 @@ public class WineModel {
 	private ValidateDatabaseValues dataValidation = new ValidateDatabaseValues();
 	
 	public final ObservableList<Wine> winesList = FXCollections.observableArrayList();
-	
+
 	public final ObservableList<Producer> producerList = FXCollections.observableArrayList();
 	public final ObservableList<Storage> storageList = FXCollections.observableArrayList();
 	public final ObservableList<Variety> varietyList = FXCollections.observableArrayList();
@@ -51,8 +46,7 @@ public class WineModel {
 	public final ObservableList<String> countryList = FXCollections.observableArrayList("AT","DE","CH","ES","FR","IT","PT");
 	
 	public final ObservableList<Wine> favWinesList = FXCollections.observableArrayList();
-	//ChangeListener erstellen für die Auswahl der Favoriten
-	
+
 
 	public WineModel() {
 		
@@ -66,45 +60,14 @@ public class WineModel {
 			storageList.addAll(storageRepository.readAll());
 			purchaseList.addAll(purchaseRepository.readAll());
 			winesList.addAll(wineRepository.readAll());
+		
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		favWinesList.addListener(new ListChangeListener<Wine>() {
-
-			@Override
-			public void onChanged(Change<? extends Wine> c) {
-				// TODO Auto-generated method stub
-				while (c.next()) {
-					
-					if (c.wasAdded()) {
-						for (Wine wine : c.getAddedSubList()) {
-						
-							
-						}
-					}
-					
-					else if (c.wasReplaced()) {
-						for (Wine wine : c.getAddedSubList()) {
-							
-							
-						}
-					}
-					
-					else if (c.wasRemoved()) {
-						for (Wine wine : c.getAddedSubList()) {
-							
-							
-						}
-					}
-				}
-				
-			}
-		});
 		
 		
-	
 		//Producer
 		producerList.addListener(new ListChangeListener<Producer>() {
 
@@ -422,6 +385,19 @@ public class WineModel {
 	public final void setSelectedWine(final Wine selectedWine) {
 		this.selectedWineProperty().set(selectedWine);
 	}
+	
+	//SelectedTabProperty
+	
+	private final ObjectProperty<TabPane> selectedTabProperty = new SimpleObjectProperty<>();
+	
+	public final ObjectProperty<TabPane> selctedTabProperty () {
+		return this.selectedTabProperty;
+	}
+	
+	public ObjectProperty<TabPane> getSelectedTabProperty() {
+		return selectedTabProperty;
+	}
+	
 	
 	//---------------------------------------------------------------------------------
 	

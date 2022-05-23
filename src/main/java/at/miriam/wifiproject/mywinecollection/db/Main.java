@@ -55,7 +55,7 @@ public class Main {
 		
 		testDatabase();
 		
-	
+		
 		
 		
 	}
@@ -190,7 +190,7 @@ public class Main {
 		System.out.println(pathString);
 		
 		return new Wine (0, "Rose", producer, "2021", 12.5, variety, WineCategory.ROSE, 
-					"leicht, fruchtig", "2022-23", pathString, is.readAllBytes(), storage, 1, 1, "0,75", purchase, "93 falstaff", "Sommerwein"); 
+					"leicht, fruchtig", "2022-23", pathString, is.readAllBytes(), storage, 1, 1, "0,75", purchase, "93 falstaff", "Sommerwein"/*, false*/); 
 		
 	}
 
@@ -204,7 +204,7 @@ public class Main {
 		System.out.println(pathString);
 		
 		return new Wine (0, "Chorus", producer, "2019", 13.5, variety, WineCategory.ROT, 
-					"voll", "2023-28", pathString, is.readAllBytes(), storage, 1, 3, "0,75", purchase, "93 Parker", "Bordeaux-Cuvée"); 
+					"voll", "2023-28", pathString, is.readAllBytes(), storage, 1, 3, "0,75", purchase, "93 Parker", "Bordeaux-Cuvée"/*, false*/); 
 		
 	}
 

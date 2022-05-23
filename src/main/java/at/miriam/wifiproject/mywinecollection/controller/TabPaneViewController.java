@@ -9,12 +9,17 @@ import java.util.stream.Collectors;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
 
 public class TabPaneViewController extends BaseController {
 
@@ -45,6 +50,12 @@ public class TabPaneViewController extends BaseController {
 	@FXML 
 	private Tab tabTableView;
 
+	@FXML 
+	private TabPane tabPane;
+
+	@FXML 
+	private Button changeTabPaneButton;
+
 
 	@FXML
 	void initialize() {
@@ -59,6 +70,10 @@ public class TabPaneViewController extends BaseController {
 		updateBottlesNumber();
 		
 		updateTotalValue();
+		
+		
+		
+		
 		
 		model.winesList.addListener(new InvalidationListener() {
 			
@@ -114,6 +129,22 @@ public class TabPaneViewController extends BaseController {
 
 		String collValueFormat = new DecimalFormat("0.00").format(totalValueColl);
 		valueCollectionLabel.setText(collValueFormat + " " + "Eur");
+		
+	}
+
+
+	@FXML public void onButtonClickShowWineView(ActionEvent event) {
+	
+		model.getSelectedTabProperty().addListener( new ChangeListener<TabPane>() {
+
+		@Override
+		public void changed(ObservableValue<? extends TabPane> observable, TabPane oldValue, TabPane newValue) {
+			// TODO Auto-generated method stub
+			tabPane.getSelectionModel().select(tabAddWine);
+		}
+		
+		
+		});
 		
 	}
 

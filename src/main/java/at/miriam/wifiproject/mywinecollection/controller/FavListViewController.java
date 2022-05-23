@@ -33,14 +33,15 @@ public class FavListViewController extends BaseController {
         assert favoritesListView != null : "fx:id=\"favoritesListView\" was not injected: check your FXML file 'FavoritesListView.fxml'.";
         
         
-		List<Wine> winesSorted = model.winesList.sorted((w1, w2) -> w1.getVintage().compareTo(w2.getVintage()));
-		
-       
-		
-        favoritesListView.getItems().addAll(winesSorted);
-        System.out.println(winesSorted);
+//		List<Wine> winesSorted = model.winesList.sorted((w1, w2) -> w1.getVintage().compareTo(w2.getVintage()));
+//		
+//		
+//        favoritesListView.getItems().addAll(winesSorted);
+//        System.out.println(winesSorted);
         
+        favoritesListView.getItems().addAll(model.favWinesList);
         
+        System.out.println(model.favWinesList);
     
         
       

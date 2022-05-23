@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import at.miriam.wifiproject.mywinecollection.Constants;
 import at.miriam.wifiproject.mywinecollection.model.Producer;
 import at.miriam.wifiproject.mywinecollection.model.Variety;
 import at.miriam.wifiproject.mywinecollection.model.Wine;
@@ -18,7 +19,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -30,6 +33,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 
 public class WineTableViewController extends BaseController {
 
@@ -112,7 +116,9 @@ public class WineTableViewController extends BaseController {
     	Wine wine = model.getSelectedWine();
     	if (wine != null) {
     		model.winesList.remove(wine);
-    			
+    		//clear selected table row	
+    		tableView.getSelectionModel().clearSelection();
+    		
     	}
     	
     }
@@ -121,17 +127,10 @@ public class WineTableViewController extends BaseController {
     void onUpdateTableButtonClick(ActionEvent event) throws IOException {   
     	
     	// zurück zu tab pane Wein, hier daten ändern
-    	//FXMLLoader.load(getClass().getResource(Constants.PATH_TO_ADD_WINE_FORM_VIEW)); 
-    	//Tab text="Wein"
+    	
     
     	
     }
-    
-//    private Window getWindow() {
-//		
-//		return selectedWineLabel.getScene().getWindow();
-//	}
-    
     
 
 	@FXML
@@ -192,18 +191,39 @@ public class WineTableViewController extends BaseController {
 										
 										toggleButton.setStyle("-fx-background-color: yellow");
 										toggleButton.setText("F");
-										toggleButton.setOnAction( e -> {
-											
-											Wine wine = getTableView().getItems().get(getIndex());  
-											
-											model.favWinesList.add(wine);		
 										
+										toggleButton.setOnAction(new EventHandler<ActionEvent>() {
+											
+											@Override
+											public void handle(ActionEvent event) {
+												
+												Wine selectedWine = getTableView().getItems().get(getIndex());
+												//selectedWine.setFavWine(true);
+												model.favWinesList.add(selectedWine);
+												System.out.println(model.favWinesList);
+											}
 										});
-							
+											
 									} else {
 									toggleButton.setText("");	
 									toggleButton.setStyle("-fx-background-color: lightgrey");
 									//Wine von favWinesList entfernen
+									toggleButton.setOnAction(new EventHandler<ActionEvent>() {
+
+										@Override
+										public void handle(ActionEvent event) {
+											Wine selectedWine = getTableView().getItems().get(getIndex());
+											int index = model.favWinesList.indexOf(selectedWine);
+											//selectedWine.setFavWine(false);
+											model.favWinesList.remove(index);
+											System.out.println(model.favWinesList);
+										}
+										
+										
+									});
+									
+									
+									
 									}
 										
 								}

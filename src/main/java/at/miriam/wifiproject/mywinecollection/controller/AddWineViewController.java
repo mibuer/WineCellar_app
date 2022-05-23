@@ -204,6 +204,7 @@ public class AddWineViewController extends BaseController {
         	
         	String ratings = wineRatingTextArea.getText();
         	String notes = notesTextArea.getText();
+        	//boolean favWine = false;
         	
         	//Validierung der Datensätze und Wine Objekt erstellen
         	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
@@ -215,7 +216,7 @@ public class AddWineViewController extends BaseController {
         		
         		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 								style, readyToDrink, filePath, imageBytes, 
-								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
+								storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes/*, favWine*/);
 				
         		wine.setIdWine(selectedTableRow.getIdWine());
 		
@@ -431,6 +432,7 @@ public class AddWineViewController extends BaseController {
     	
     	String ratings = wineRatingTextArea.getText();
     	String notes = notesTextArea.getText();
+    	//boolean favWine = false;
     	
     	//Validierung der Datensätze und Wine Objekt erstellen
     	if (isValidFormInput(name, producer, country, grapeVariety, wineCategory, 
@@ -449,7 +451,7 @@ public class AddWineViewController extends BaseController {
     		
     		Wine wine = new Wine(0, name, producerNew, vintage, alcohol, grapeVariety, wineCategory,
 							style, readyToDrink, filePath, imageBytes, 
-							storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes);
+							storage, shelfNr, numOfBottles, bottleSize, purchaseNew, ratings, notes/*, favWine*/);
 			
 			System.out.println(wine);
 			
@@ -647,7 +649,7 @@ public class AddWineViewController extends BaseController {
        });
         
         
-       //fillInSampleWine();
+       fillInSampleWine();
         
         
         
