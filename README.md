@@ -1,5 +1,5 @@
 # Wine cellar management app
-Final projekt I created for my diploma course in Java Software Development. 
+Final project I created for my diploma course in Java Software Development. 
 My idea was to have a minimalist wine cellar management desktop application where you can save your wines with all the essential informations, like producer, vintage, category, wine style etc.
 The user can see all wines in the celler in a table view and search/filter for producers, styles, regions, wine shops etc. The start page gives an overview of the collection: number of bottles, value,
 diagrams showing the wine categories and styles and a list view with favorite wines. 
